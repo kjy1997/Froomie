@@ -1,0 +1,89 @@
+* {
+  margin: 0;
+  padding: 0;
+  
+  font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+.header {
+  font-size: 60px;
+  text-align: center;
+  color: green;
+  background: rgb(190, 255, 240);
+}
+
+.user-back {
+  position: relative;
+  margin-bottom: 20px;
+  height: 170px;
+  background-color: rgb(100, 100, 100);
+}
+
+.user-pic {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  bottom: -20px;
+  height: 150px;
+  width: 150px;
+  border: inset 1px solid gray;
+  border-radius: 100%;
+  background-color: rgb(230, 230, 230);
+}
+
+.user-info {
+  margin: 0 auto;
+  padding-top: 20px;
+  width: 100%;
+  text-align: center;
+}
+
+.user-info h3 {
+  color: green;
+}
+
+.about {
+  color: green;
+  padding-top: 15px;
+}
+
+.about p {
+  padding-bottom: 40px;
+}
+
+.contact {
+  margin: 0 auto;
+  padding-bottom: 30px;
+  width: 100%;
+  text-align: center;
+  color: green;
+  overflow: auto;
+}
+
+.contact form {
+  margin: 0 auto;
+  width: 70%;
+}
+
+.contact input[type=text] {
+  margin: 10px 0 10px 0;
+  width: 100%;
+  height: 80px;
+  border: 1px solid rgb(200, 200, 200);
+  border-radius: 15px;
+  background: lightgray;
+}
+
+.contact input[type=submit] {
+  background: green;
+  width: 80px;
+  height: 35px;
+  border: none;
+  border-radius: 10px;
+  float: right;
+}
+
+
+
