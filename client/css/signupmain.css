@@ -1,0 +1,16 @@
+.top-bar{
+	height: 75px;
+	background-color: #c5f2ea;
+}
+
+.top-bar h3{
+	margin-top: 0px;
+	padding-top: 17px;
+	padding-left: 20px;
+	font-family: 'Dancing Script', cursive;
+	font-weight: 400px;
+	font-size: 40px;
+	color: #0b8966;
+} 
+}
+
