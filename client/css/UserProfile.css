@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Dancing+Script:700');
+
 * {
   margin: 0;
   padding: 0;
@@ -5,47 +7,50 @@
   font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
 }
 
-.header {
+.header {    
+  background: #c5f2ea;
+  color: #0b8966;
+
+  font-family: 'Dancing Script', cursive;
   font-size: 60px;
   text-align: center;
-  color: green;
-  background: rgb(190, 255, 240);
 }
 
 .user-back {
   position: relative;
-  margin-bottom: 20px;
+
   height: 170px;
+  margin-bottom: 20px;
+  
   background-color: rgb(100, 100, 100);
 }
 
 .user-pic {
   position: absolute;
-  margin-left: auto;
-  margin-right: auto;
   left: 0;
   right: 0;
   bottom: -20px;
-  height: 150px;
+
   width: 150px;
-  border: inset 1px solid gray;
+  height: 150px;
   border-radius: 100%;
+  margin-left: auto;
+  margin-right: auto;
+
   background-color: rgb(230, 230, 230);
 }
 
 .user-info {
-  margin: 0 auto;
-  padding-top: 20px;
   width: 100%;
+  padding-top: 20px;  
+  margin: 0 auto;
+
+  color: #0b8966;
+
   text-align: center;
 }
 
-.user-info h2 {
-  color: green;
-}
-
 .about {
-  color: green;
   padding-top: 15px;
 }
 
@@ -54,35 +59,46 @@
 }
 
 .contact {
-  margin: 0 auto;
-  padding-bottom: 30px;
-  width: 100%;
-  text-align: center;
-  color: green;
   overflow: auto;
+  width: 100%;
+  padding-bottom: 30px;
+  margin: 0 auto;
+
+  color: #0b8966;
+
+  text-align: center;
 }
 
 .contact form {
-  margin: 0 auto;
   width: 70%;
+  margin: 0 auto;
 }
 
-.contact input[type=text] {
-  margin: 10px 0 10px 0;
+.contact-subject {
+  overflow-y: auto;
+  resize: none;
+
   width: 100%;
   height: 80px;
   border: 1px solid rgb(200, 200, 200);
   border-radius: 15px;
+  padding: 5px;
+  margin: 10px 0 10px 0;
+  
   background: lightgray;
+
+  font-size: 16px;
+  text-align: left;
 }
 
 .contact input[type=submit] {
-  background: green;
   width: 80px;
   height: 35px;
   border: none;
   border-radius: 10px;
-  float: right;
+
+  color: black;
+  background: #0b8966;
 }
 
 

@@ -34,9 +34,9 @@ class UserProfile extends Component {
         <div className="contact">
           <h4>Contact Me</h4>
           <form>
-            <input type="text"/>
+            <textarea className="contact-subject"></textarea>
             <br/>
-            <input type="submit"/>
+            <input type="submit" value="Submit"/>
           </form>
         </div>
       </div>
