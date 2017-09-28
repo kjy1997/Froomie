@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import GoogleMapReact from 'google-map-react';
 
 import { Mongo } from 'meteor/mongo';
 
@@ -9,7 +10,7 @@ class UserProfile extends Component {
     this.state = {
       // temporary info - switch to mongodb
       data: "I'm passionate about animals and music. Loves travel and food",
-      place: {}
+      place: {},
     }
   }
 
@@ -27,7 +28,8 @@ class UserProfile extends Component {
             name:   user.name,
             email:  user.email,
             web:    user.website,
-            place:  user.address
+            place:  user.address,
+            geo:    user.address.geo
           }, function() {
           console.log(user);
         });
@@ -59,6 +61,7 @@ class UserProfile extends Component {
             <p>{this.state.data}</p>
             <h4>About my place</h4>
             <p>{this.state.id} {p.street}, {p.city} {p.zipcode}, {p.suite}</p>
+            
           </div>
         </div>
         <div className="contact">
@@ -77,7 +80,8 @@ class UserProfile extends Component {
 UserProfile.propTypes = {
   id:     PropTypes.number,
   name:   PropTypes.string,
-  place:  PropTypes.object
+  place:  PropTypes.object,
+  geo:    PropTypes.object
 }
 
 export default UserProfile;
