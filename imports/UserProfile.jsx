@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { Mongo } from 'meteor/mongo';
 
@@ -6,14 +7,43 @@ class UserProfile extends Component {
   constructor() {
     super();
     this.state = {
-      /* temporary info - switch to mongodb */
-      name: "John Doe",
+      // temporary info - switch to mongodb
       data: "I'm passionate about animals and music. Loves travel and food",
-      place: "123 Apple Lane"
+      place: {}
     }
   }
 
+  // temporary fake json data
+  getUserData() {
+    $.ajax({
+      url: 'https://jsonplaceholder.typicode.com/users',
+      dataType: 'json',
+      cache: false,
+      success: function(data) {
+        var user = data[1];
+        this.setState(
+          {
+            id:     user.id,
+            name:   user.name,
+            email:  user.email,
+            web:    user.website,
+            place:  user.address
+          }, function() {
+          console.log(user);
+        });
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.log(err);
+      }
+    });
+  }
+
+  componentDidMount() {
+    this.getUserData();
+  }
+
   render() {
+    var p = this.state.place;
     return (
       <div className="profile-container">
         <div className="header">
@@ -28,7 +58,7 @@ class UserProfile extends Component {
             <h4>About me</h4>
             <p>{this.state.data}</p>
             <h4>About my place</h4>
-            <p>{this.state.place}</p>
+            <p>{this.state.id} {p.street}, {p.city} {p.zipcode}, {p.suite}</p>
           </div>
         </div>
         <div className="contact">
@@ -42,6 +72,12 @@ class UserProfile extends Component {
       </div>
     );
   }
+}
+
+UserProfile.propTypes = {
+  id:     PropTypes.number,
+  name:   PropTypes.string,
+  place:  PropTypes.object
 }
 
 export default UserProfile;
