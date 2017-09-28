@@ -40,7 +40,7 @@
   text-align: center;
 }
 
-.user-info h3 {
+.user-info h2 {
   color: green;
 }
 
@@ -50,7 +50,7 @@
 }
 
 .about p {
-  padding-bottom: 40px;
+  font-size: 14px;
 }
 
 .contact {

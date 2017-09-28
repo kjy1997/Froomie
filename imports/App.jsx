@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { render } from 'react-dom';
 import ReactDOM from 'react-dom';
 import SignUpWithPlace from './SignUpWithPlace.jsx';
+import UserProfile from './UserProfile.jsx';
 
 export default class App extends Component {
 
@@ -13,6 +14,7 @@ export default class App extends Component {
        <div>
         <Route path="/home" component={Home}/>
         <Route path="/signupwithplace" component={SignUpWithPlace}/>
+        <Route path="/profile" component={UserProfile}/>
         </div>
        </Router>
     );
