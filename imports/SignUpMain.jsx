@@ -46,6 +46,12 @@ export default class SignUpMain extends Component {
 				</Col>
 				</Row>	
 			</div>
+      <div>
+        <Row className="top-bar">
+        <Col sm={3} className="logo">
+          <h3>Froomie!</h3>
+        </Col>
+        </Row>
 			</div>
 		);
 	}
