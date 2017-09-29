@@ -22,7 +22,7 @@ export default class Login extends Component {
 
         Meteor.loginWithPassword(user, pass, (error) => {
             if (error) {
-                console.log("error: " + error.reason);
+                console.log("Error: " + error.reason);
             } else {
                 console.log("Logged in user: " + Meteor.user().username);
             }

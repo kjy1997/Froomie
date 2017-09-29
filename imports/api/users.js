@@ -1,6 +1,6 @@
 import { Mongo } from 'meteor/mongo';
 
-export const Users = new Mongo.Collection('users');
+export const Users = Meteor.users;
 
 Users.schema = new SimpleSchema({
     username: {type: String},
