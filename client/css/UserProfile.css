@@ -42,7 +42,8 @@
 
 .user-info {
   width: 100%;
-  padding-top: 20px;  
+  padding-top: 20px;
+  padding-bottom: 20px;
   margin: 0 auto;
 
   color: #0b8966;
@@ -65,9 +66,16 @@
   height: 300px;
 }
 
+.line-split {
+  border-top: 1px solid black;
+  margin: 0 auto;
+  width: 60%;
+}
+
 .contact {
   overflow: auto;
   width: 100%;
+  padding-top: 10px;
   padding-bottom: 30px;
   margin: 0 auto;
 
@@ -104,7 +112,7 @@
   border: none;
   border-radius: 10px;
 
-  color: black;
+  color: white;
   background: #0b8966;
 }
 

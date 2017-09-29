@@ -76,6 +76,7 @@ export default class UserProfile extends Component {
             </div>
           </div>
         </div>
+        <div className="line-split"></div>
         <div className="contact">
           <h4>Contact Me</h4>
           <form>
