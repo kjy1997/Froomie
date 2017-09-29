@@ -58,6 +58,13 @@
   font-size: 14px;
 }
 
+.about .map {
+  margin: 0 auto;
+
+  width: 500px;
+  height: 300px;
+}
+
 .contact {
   overflow: auto;
   width: 100%;
