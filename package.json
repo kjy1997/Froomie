@@ -7,11 +7,7 @@
   "dependencies": {
     "babel-core": "^6.26.0",
     "babel-runtime": "^6.20.0",
-<<<<<<< HEAD
-    "google-map-react": "^0.24.0",
-=======
     "bcrypt": "^1.0.3",
->>>>>>> ba9820d0f42f2c3423be567439291f02f7a8a529
     "meteor-node-stubs": "~0.2.4",
     "react": "^15.6.2",
     "react-bootstrap": "^0.31.3",

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class UserProfileNoPlace extends Component {
+export default class UserProfileNoPlace extends Component {
   constructor() {
     super();
     this.state = {
-      // temporary info - switch to mongodb
+      // temp 
       data: "I'm passionate about animals and music. Loves travel and food",
     }
   }
@@ -21,10 +21,7 @@ class UserProfileNoPlace extends Component {
         this.setState(
           {
             id:     user.id,
-            name:   user.name,
-            email:  user.email,
-            web:    user.website,
-            place:  user.address
+            name:   user.name
           }, function() {
           console.log(user);
         });
@@ -70,10 +67,9 @@ class UserProfileNoPlace extends Component {
 
 UserProfileNoPlace.propTypes = {
   id:     PropTypes.number,
-  name:   PropTypes.string
+  name:   PropTypes.string,
+  data:   PropTypes.string
 }
-
-export default UserProfileNoPlace;
 
 
 

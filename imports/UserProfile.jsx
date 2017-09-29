@@ -4,7 +4,7 @@ import GoogleMapReact from 'google-map-react';
 
 import { Mongo } from 'meteor/mongo';
 
-class UserProfile extends Component {
+export default class UserProfile extends Component {
   static defaultProps = {
     // default U.S
     center: {lat: 37, lng: -95},
@@ -14,9 +14,9 @@ class UserProfile extends Component {
   constructor() {
     super();
     this.state = {
-      // temporary info - switch to mongodb
+      // temp
       data: "I'm passionate about animals and music. Loves travel and food",
-      place: {},
+      place: {}
     }
   }
 
@@ -32,13 +32,11 @@ class UserProfile extends Component {
           {
             id:     user.id,
             name:   user.name,
-            email:  user.email,
-            web:    user.website,
             place:  user.address,
             center:    {
               lat: Number(user.address.geo.lat),
               lng: Number(user.address.geo.lng)
-            },
+            }
           }, function() {
           console.log(user);
         });
@@ -71,7 +69,9 @@ class UserProfile extends Component {
             <h4>About my place</h4>
             <p>{this.state.id} {p.street}, {p.city} {p.zipcode}, {p.suite}</p>
             <div className="map">
-              <GoogleMapReact center={this.state.center} defaultZoom={this.props.zoom}>
+              <GoogleMapReact 
+                center={this.state.center} 
+                defaultZoom={this.props.zoom}>
               </GoogleMapReact>
             </div>
           </div>
@@ -92,11 +92,9 @@ class UserProfile extends Component {
 UserProfile.propTypes = {
   id:     PropTypes.number,
   name:   PropTypes.string,
-  place:  PropTypes.object,
-  geo:    PropTypes.object
+  data:   PropTypes.string,
+  place:  PropTypes.object
 }
-
-export default UserProfile;
 
 
 
