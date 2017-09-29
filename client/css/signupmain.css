@@ -1,16 +1,39 @@
+.container{
+
+}
+
 .top-bar{
-	height: 75px;
+	height: 60px;
 	background-color: #c5f2ea;
+	width: 100%;
+	margin: 0px;
+	border: 0px;
 }
 
 .top-bar h3{
 	margin-top: 0px;
-	padding-top: 17px;
-	padding-left: 20px;
+	padding-top: 14px;
+	padding-left: 0px;
 	font-family: 'Dancing Script', cursive;
 	font-weight: 400px;
-	font-size: 40px;
+	font-size: 35px;
 	color: #0b8966;
 } 
+.user-login{
+	height: 150px;
+}
+
+.username{
+	display: inline-block;
+	border-bottom: 1px solid black;
+}
+
+.username .input{
+	width: 180px;
+	margin:10px;
+}
+
+.username .first-row{
+	padding-top: 25px;
 }
 
