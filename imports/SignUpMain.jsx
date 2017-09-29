@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Col, Row, Grid, Button, FormControl,Image } from 'react-bootstrap';
-import '../client/css/signupmain.css'
+import '../client/css/signupmain.css';
 
 export default class SignUpMain extends Component {
 	render() {
@@ -52,6 +52,7 @@ export default class SignUpMain extends Component {
           <h3>Froomie!</h3>
         </Col>
         </Row>
+      </div>
       </div>
     );
   }
