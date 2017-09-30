@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import GoogleMapReact from 'google-map-react';
 
+import ProfileMapMarker from './ProfileMapMarker.jsx';
 import { Mongo } from 'meteor/mongo';
 
 export default class UserProfile extends Component {
@@ -16,7 +17,8 @@ export default class UserProfile extends Component {
     this.state = {
       // temp
       data: "I'm passionate about animals and music. Loves travel and food",
-      place: {}
+      place: {},
+      center: {}
     }
   }
 
@@ -72,6 +74,11 @@ export default class UserProfile extends Component {
               <GoogleMapReact 
                 center={this.state.center} 
                 defaultZoom={this.props.zoom}>
+                <ProfileMapMarker
+                  lat={this.state.center.lat}
+                  lng={this.state.center.lng}
+                  text={'My Place'}
+                />
               </GoogleMapReact>
             </div>
           </div>
