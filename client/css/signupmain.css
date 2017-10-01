@@ -1,3 +1,4 @@
+
 .container{
 
 }
@@ -27,13 +28,59 @@
 	display: inline-block;
 	border-bottom: 1px solid black;
 }
-
-.username .input{
+.input{
 	width: 180px;
-	margin:10px;
+	margin: 10px;
 }
 
 .username .first-row{
 	padding-top: 25px;
 }
 
+.subtitle {
+	font-family: 'Quicksand', sans-serif;
+	font-size: 30px;
+	color: #0b8966;
+	margin-top: 20px;
+
+}
+
+.block {
+	min-height: 100px;
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
+.submit {
+	width: 300px;
+	height: 50px;
+	display: inline-block;
+	background-color: #0b8966;
+	border: none;
+	
+}
+
+.button-row {
+	width: 100%;
+	padding-top: 20px;
+}
+
+.btn-content Button {
+	font-family: 'Quicksand', sans-serif;
+	font-size: 18px;
+	color: white;
+}
+
+/*
+	Sign Up With Place CSS
+*/
+.address {
+	min-width: 100%;
+	min-height: 30px;
+	margin-left: 10px;
+}
+
+.place-input {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}

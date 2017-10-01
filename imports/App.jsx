@@ -4,6 +4,7 @@ import { render } from 'react-dom';
 import ReactDOM from 'react-dom';
 
 import SignUpWithPlace from './SignUpWithPlace.jsx';
+import SignUpWithoutPlace from './SignUpWithoutPlace.jsx';
 import Home from './HomeLayout.jsx';
 import Login from './Login.jsx';
 import Registration from './Registration';
@@ -18,6 +19,7 @@ export default class App extends Component {
        <div>
         <Route path="/home" component={Home}/>
         <Route path="/signupwithplace" component={SignUpWithPlace}/>
+        <Route path="/signupwithoutplace" component={SignUpWithoutPlace}/>
         <Route path="/login" component={Login} />
         <Route path="/registration" component={Registration} />
         <Route path="/profile" component={UserProfile} />
