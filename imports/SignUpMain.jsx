@@ -46,12 +46,49 @@ export default class SignUpMain extends Component {
 				</Col>
 				</Row>	
 			</div>
-      <div>
-        <Row className="top-bar">
-        <Col sm={3} className="logo">
-          <h3>Froomie!</h3>
-        </Col>
-        </Row>
+
+      	<div className="container">
+        	<Row className="about">
+        	<Col sm={3} className="subtitle">
+         	 	<h2>About You</h2>
+       	 	</Col>
+       	 	</Row>
+       	 	<Row>
+       	 		 <FormControl
+				   		className="input"
+            			type="text"
+            			placeholder="First name"
+          			/>
+          			<FormControl
+          			    className="input"
+            			type="text"
+            			placeholder="Last name"
+          			/>
+          			<FormControl
+          			    className="input"
+            			type="text"
+            			placeholder="Age"
+          			/>
+          			<FormControl
+          			    className="input"
+            			type="text"
+            			placeholder="Gender"
+          			/>
+          			<FormControl
+          			    className="input"
+            			type="text"
+            			placeholder="Number of roomates"
+          			/>
+       	 	</Row>
+       	 	<Row>
+       	 	<FormControl
+          			    className="block"
+            			componentClass="textarea"
+            			placeholder="Tell us about yourself"
+          			/>
+       	 	</Row>
+		</div>
+	
 			</div>
 		);
 	}
