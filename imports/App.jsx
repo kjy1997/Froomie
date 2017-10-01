@@ -8,6 +8,8 @@ import SignUpWithoutPlace from './SignUpWithoutPlace.jsx';
 import Home from './HomeLayout.jsx';
 import Login from './Login.jsx';
 import Registration from './Registration';
+import UserProfile from './UserProfile.jsx';
+import UserProfileNoPlace from './UserProfileNoPlace.jsx';
 
 export default class App extends Component {
 
@@ -20,6 +22,8 @@ export default class App extends Component {
         <Route path="/signupwithoutplace" component={SignUpWithoutPlace}/>
         <Route path="/login" component={Login} />
         <Route path="/registration" component={Registration} />
+        <Route path="/profile" component={UserProfile} />
+        <Route path="/profilenoplace" component={UserProfileNoPlace} />
         </div>
        </Router>
     );

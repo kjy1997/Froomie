@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css?family=Dancing+Script:700');
+
+* {
+  margin: 0;
+  padding: 0;
+  
+  font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+.header {    
+  background: #c5f2ea;
+  color: #0b8966;
+
+  font-family: 'Dancing Script', cursive;
+  font-size: 60px;
+  text-align: center;
+}
+
+.user-back {
+  position: relative;
+
+  height: 170px;
+  margin-bottom: 20px;
+  
+  background-color: rgb(100, 100, 100);
+}
+
+.user-pic {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -20px;
+
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
+  margin-left: auto;
+  margin-right: auto;
+
+  background-color: rgb(230, 230, 230);
+}
+
+.user-info {
+  width: 100%;
+  padding-top: 20px;  
+  margin: 0 auto;
+
+  color: #0b8966;
+
+  text-align: center;
+}
+
+.about {
+  padding-top: 15px;
+}
+
+.about p {
+  font-size: 14px;
+}
+
+.about .map {
+  margin: 0 auto;
+
+  width: 500px;
+  height: 300px;
+}
+
+.contact {
+  overflow: auto;
+  width: 100%;
+  padding-bottom: 30px;
+  margin: 0 auto;
+
+  color: #0b8966;
+
+  text-align: center;
+}
+
+.contact form {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.contact-subject {
+  overflow-y: auto;
+  resize: none;
+
+  width: 100%;
+  height: 80px;
+  border: 1px solid rgb(200, 200, 200);
+  border-radius: 15px;
+  padding: 5px;
+  margin: 10px 0 10px 0;
+  
+  background: lightgray;
+
+  font-size: 16px;
+  text-align: left;
+}
+
+.contact input[type=submit] {
+  width: 80px;
+  height: 35px;
+  border: none;
+  border-radius: 10px;
+
+  color: black;
+  background: #0b8966;
+}
+
+
+
