@@ -4,6 +4,7 @@ import GoogleMapReact from 'google-map-react';
 
 import ProfileMapMarker from './ProfileMapMarker.jsx';
 import UserTags from './UserTags.jsx';
+import EditProfileModal from './EditProfileModal.jsx';
 import { Mongo } from 'meteor/mongo';
 
 export default class UserProfile extends Component {
@@ -19,7 +20,8 @@ export default class UserProfile extends Component {
       // temp
       data: "I'm passionate about animals and music. Loves travel and food",
       place: {},
-      center: {}
+      center: {},
+      isModalOpen: false
     }
   }
 
@@ -54,6 +56,14 @@ export default class UserProfile extends Component {
     e.preventDefault();
   }
 
+  openModal() {
+    this.setState({ isModalOpen: true });
+  }
+
+  closeModal() {
+    this.setState({ isModalOpen: false });
+  }
+
   componentDidMount() {
     this.getUserData();
   }
@@ -62,6 +72,7 @@ export default class UserProfile extends Component {
     var p = this.state.place;
     return (
       <div className="profile-container">
+        <EditProfileModal isOpen={this.state.isModalOpen} onClose={this.closeModal.bind(this)}/>
         <div className="header">
           Froomie!
         </div>
@@ -70,6 +81,7 @@ export default class UserProfile extends Component {
         </div>
         <div className="user-info">
           <h2>{this.state.name}</h2>
+          <button onClick={this.openModal.bind(this)}>Edit</button>
           <div className="about">
             <h4>About me</h4>
             <p>{this.state.data}</p>
