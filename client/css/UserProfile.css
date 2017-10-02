@@ -120,7 +120,17 @@
 
   color: white;
   background: #0b8966;
+  outline: none;
+
+  transition: 0.12s ease-out;
 }
 
+.contact input[type=submit]:hover {
+  background: #08664b;
+}
+
+.contact input[type=submit]:active {
+  transform: scale(0.92);
+}
 
 

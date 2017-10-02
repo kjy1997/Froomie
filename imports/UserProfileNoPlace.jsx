@@ -34,6 +34,10 @@ export default class UserProfileNoPlace extends Component {
     });
   }
 
+  handleSubmit(e) {
+    e.preventDefault();
+  }
+
   componentDidMount() {
     this.getUserData();
   }
@@ -58,7 +62,7 @@ export default class UserProfileNoPlace extends Component {
         <div className="line-split"></div>
         <div className="contact">
           <h4>Contact Me</h4>
-          <form>
+          <form onClick={this.handleSubmit}>
             <textarea className="contact-subject"></textarea>
             <br/>
             <input type="submit" value="Submit"/>
