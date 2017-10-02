@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import GoogleMapReact from 'google-map-react';
 
 import ProfileMapMarker from './ProfileMapMarker.jsx';
+import UserTags from './UserTags.jsx';
 import { Mongo } from 'meteor/mongo';
 
 export default class UserProfile extends Component {
@@ -68,6 +69,7 @@ export default class UserProfile extends Component {
           <div className="about">
             <h4>About me</h4>
             <p>{this.state.data}</p>
+            <UserTags />
             <h4>About my place</h4>
             <p>{this.state.id} {p.street}, {p.city} {p.zipcode}, {p.suite}</p>
             <div className="map">

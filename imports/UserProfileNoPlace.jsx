@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import UserTags from './UserTags.jsx';
+
 export default class UserProfileNoPlace extends Component {
   constructor() {
     super();
@@ -50,8 +52,10 @@ export default class UserProfileNoPlace extends Component {
           <div className="about">
             <h4>About me</h4>
             <p>{this.state.data}</p>
+            <UserTags />
           </div>
         </div>
+        <div className="line-split"></div>
         <div className="contact">
           <h4>Contact Me</h4>
           <form>
