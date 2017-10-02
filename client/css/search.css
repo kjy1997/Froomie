@@ -1,0 +1,61 @@
+.top-bar{
+	height: 60px;
+	background-color: #c5f2ea;
+	width: 100%;
+	margin: 0px;
+	border: 0px;
+}
+
+.top-bar h3{
+	margin-top: 0px;
+	padding-top: 14px;
+	padding-left: 0px;
+	font-family: 'Dancing Script', cursive;
+	font-weight: 400px;
+	font-size: 35px;
+	color: #0b8966;
+} 
+
+.content {
+	min-height: 100%;
+
+}
+
+.filter {
+	background-color: #bdbfc7;
+	height: 1000px;
+}
+
+.filter h3 {
+	font-family: 'Quicksand', sans-serif;
+	font-size: 18px;
+	color: #0b8966;
+	margin: 20px;
+}
+
+.filter .form-control {
+	width: 150px;
+	margin: 20px;
+}
+
+.filter .submit {
+	width: 150px;
+	color: white;
+	font-family: 'Quicksand', sans-serif;
+	font-size: 18px;
+	height: 40px;
+	margin: 20px;
+}
+
+.display {
+	background-color: white;
+	height: 1000px;
+	margin-top: 15px;
+
+}
+
+.thumbnail {
+	height: 250px;
+	width: 250px;
+	margin: 0px;
+}

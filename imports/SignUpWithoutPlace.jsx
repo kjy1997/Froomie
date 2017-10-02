@@ -34,7 +34,7 @@ export default class SignUpWithoutPlace extends Component {
           			    className="input"
             			type="text"
             			placeholder="Length of stay"
-          			/>
+          			/>  
        	 	</Row>
        	 
 				</div>
