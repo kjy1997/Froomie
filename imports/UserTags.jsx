@@ -7,7 +7,10 @@ export default class UserTags extends Component {
       'Adventurous',
       'Extrovert',
       'Well-Organized',
-      'Friendly'
+      'Friendly',
+      'Athletic',
+      'Dynamic',
+      'Reliable'
     ],
   }
 
@@ -19,9 +22,9 @@ export default class UserTags extends Component {
 
   render() {
     return(
-      <div>
+      <div className="tagsContainer">
         <p>I would describe myself as:</p>
-        <span>{this.listTags()}</span>
+        <span className="userTags">{this.listTags()}</span>
       </div>
     );
   }

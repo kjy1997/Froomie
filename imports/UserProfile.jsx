@@ -70,6 +70,7 @@ export default class UserProfile extends Component {
             <h4>About me</h4>
             <p>{this.state.data}</p>
             <UserTags />
+            <div className="line-split"></div>
             <h4>About my place</h4>
             <p>{this.state.id} {p.street}, {p.city} {p.zipcode}, {p.suite}</p>
             <div className="map">

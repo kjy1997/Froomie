@@ -1,0 +1,40 @@
+.tagsContainer p {
+    margin: 0;
+}
+
+.userTags {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+
+    padding-top: 4px;
+    padding-bottom: 4px;
+    margin: 0 auto;
+
+    width: 50%;
+}
+
+.userTags span {
+    position: relative;
+    display: inline-block;
+
+    border: 1px solid black;
+    border-radius: 25px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin: 2px 4px 2px 4px;
+
+    color: white;
+    background: #0b8966;
+    font-size: 16px;
+
+    cursor: pointer;
+    transition: 0.25s ease-out;
+}
+
+.userTags span:hover {
+    position: relative;
+
+    transform: scale(1.08);
+}
