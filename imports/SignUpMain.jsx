@@ -93,6 +93,4 @@ export default class SignUpMain extends Component {
 		);
 	}
 }
-    );
-  }
-}
+ 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Row, Button, FormControl,Image } from 'react-bootstrap';
+import { Col, Row, Button, FormControl, Image } from 'react-bootstrap';
 import SignUpMain from './SignUpMain'
 
 export default class SignUpWithPlace extends Component { 
