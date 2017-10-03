@@ -155,7 +155,7 @@
 /* MODAL */
 
 .backdrop {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 9998;
@@ -214,6 +214,9 @@
 }
 
 .editProfile input[type=submit] {
+  margin-top: 10px;
+  margin-bottom: 5px;
+
   transition: 0.1s ease-out;
 }
 
@@ -237,6 +240,55 @@
   font-size: 14px;
 }
 
+.editProfile button {
+  border: 1px solid gray;
+  border-radius: 10px;
+  padding: 2px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+
+  width: 40%;
+
+  font-size: 14px;
+}
+
+.modalTagsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+
+    padding-top: 4px;
+    padding-bottom: 4px;
+    margin: 0 auto;
+
+    width: 100%;
+}
+
+
+.modalTagsContainer span {
+    position: relative;
+    display: inline-block;
+
+    border: 1px solid black;
+    border-radius: 25px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin: 2px 4px 2px 4px;
+
+    color: white;
+    background: #0b8966;
+    font-size: 14px;
+
+    cursor: pointer;
+    transition: 0.25s ease-out;
+}
+
+.modalTagsContainer span:hover {
+    position: relative;
+
+    transform: scale(1.08);
+}
 
 
 

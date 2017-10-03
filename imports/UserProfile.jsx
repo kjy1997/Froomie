@@ -21,6 +21,15 @@ export default class UserProfile extends Component {
       data: "I'm passionate about animals and music. Loves travel and food",
       place: {},
       center: {},
+      tags: [
+        'Adventurous',
+        'Extrovert',
+        'Well-Organized',
+        'Friendly',
+        'Athletic',
+        'Dynamic',
+        'Reliable'
+      ],
       isModalOpen: false
     }
   }
@@ -63,6 +72,12 @@ export default class UserProfile extends Component {
     });
   }
 
+  handleTagEdit(obj) {
+    this.setState({
+      tags: obj,
+    })
+  }
+
   openModal() {
     this.setState({ isModalOpen: true });
   }
@@ -82,7 +97,9 @@ export default class UserProfile extends Component {
         <EditProfileModal 
           name={this.state.name} 
           about={this.state.data} 
+          tags={this.state.tags}
           handleEdit={this.handleEdit.bind(this)}
+          handleAddTag={this.handleTagEdit.bind(this)}
           isOpen={this.state.isModalOpen} 
           onClose={this.closeModal.bind(this)}
         />
@@ -98,7 +115,7 @@ export default class UserProfile extends Component {
           <div className="about">
             <h4>About me</h4>
             <p>{this.state.data}</p>
-            <UserTags />
+            <UserTags tags={this.state.tags}/>
             <div className="line-split"></div>
             <h4>About my place</h4>
             <p>{this.state.id} {p.street}, {p.city} {p.zipcode}, {p.suite}</p>

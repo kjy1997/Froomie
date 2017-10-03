@@ -14,11 +14,28 @@ export default class EditProfileModal extends Component {
       about: aboutField
     }
 
-    console.log(nameField);
-    console.log(aboutField);
-
     this.props.handleEdit(obj);
     this.close(e);
+  }
+
+  handleAddTag(e) {
+    e.preventDefault();
+
+    const tagField = ReactDOM.findDOMNode(this.refs.tagField).value.trim();
+    
+    if (!tagField)
+      return
+
+    this.props.tags.push(tagField);
+    this.forceUpdate();
+
+    this.props.handleAddTag(this.props.tags);
+  }
+
+  renderTags() {
+    return this.props.tags.map((tag) => (
+      <span key={tag}>{tag}</span>
+    ));
   }
 
   getEditTools() {
@@ -33,6 +50,14 @@ export default class EditProfileModal extends Component {
           <label>About</label>
           <br />
           <textarea ref="aboutField" defaultValue={this.props.about}></textarea>
+          <br />
+          <label>Tags</label>
+          <br />
+          <div className="modalTagsContainer">
+            {this.renderTags()}
+          </div>
+          <input type="text" ref="tagField"/>
+          <button onClick={this.handleAddTag.bind(this)}>Add Tag</button>
           <input type="submit"/>
         </form>
       </div>
