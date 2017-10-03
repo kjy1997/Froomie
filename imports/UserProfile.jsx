@@ -19,7 +19,7 @@ export default class UserProfile extends Component {
     this.state = {
       // temp
       data: "I'm passionate about animals and music. Loves travel and food",
-      place: {},
+      address: {},
       center: {},
       tags: [
         'Adventurous',
@@ -46,7 +46,7 @@ export default class UserProfile extends Component {
           {
             id:     user.id,
             name:   user.name,
-            place:  user.address,
+            address:  user.address,
             center:    {
               lat: Number(user.address.geo.lat),
               lng: Number(user.address.geo.lng)
@@ -69,6 +69,7 @@ export default class UserProfile extends Component {
     this.setState({
       name: obj.name,
       data: obj.about,
+      address: obj.address
     });
   }
 
@@ -91,15 +92,17 @@ export default class UserProfile extends Component {
   }
 
   render() {
-    var p = this.state.place;
+    var p = this.state.address;
     return (
       <div className="profile-container">
         <EditProfileModal 
           name={this.state.name} 
           about={this.state.data} 
           tags={this.state.tags}
+          address={this.state.address}
           handleEdit={this.handleEdit.bind(this)}
           handleAddTag={this.handleTagEdit.bind(this)}
+          handleRemoveTag={this.handleTagEdit.bind(this)}
           isOpen={this.state.isModalOpen} 
           onClose={this.closeModal.bind(this)}
         />
@@ -118,7 +121,7 @@ export default class UserProfile extends Component {
             <UserTags tags={this.state.tags}/>
             <div className="line-split"></div>
             <h4>About my place</h4>
-            <p>{this.state.id} {p.street}, {p.city} {p.zipcode}, {p.suite}</p>
+            <p>{p.street}, {p.city} {p.zipcode}, {p.suite}</p>
             <div className="map">
               <GoogleMapReact 
                 center={this.state.center} 
