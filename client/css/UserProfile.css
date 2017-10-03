@@ -51,6 +51,25 @@
   text-align: center;
 }
 
+.user-info button {
+  width: 80px;
+  height: 35px;
+  border: none;
+  border-radius: 10px;
+
+  color: white;
+  background: #0b8966;
+  outline: none;
+
+  font-size: 14px;
+
+  transition: 0.12s ease-out;
+}
+
+.user-info button:hover {
+  background: #08664b;
+}
+
 .about {
   padding-top: 15px;
 }
@@ -132,5 +151,94 @@
 .contact input[type=submit]:active {
   transform: scale(0.92);
 }
+
+/* MODAL */
+
+.backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9998;
+
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.profileModal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 9999;
+
+  display: block;
+  border: 1px solid black;
+  border-radius: 25px;
+  padding: 10px;
+
+  width: 50%;
+  min-height: 400px;
+
+  background: lightgray;
+
+  transform: translate(-50%, -50%);
+}
+
+.editProfile {
+  margin: 0 auto;
+
+  width: 50%;
+  height: 100%;
+
+  text-align: center;
+}
+
+.editProfile label {
+  margin: 0;
+
+  font-size: 16px;
+}
+
+.editProfile input {
+  border: 1px solid gray;
+  border-radius: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+
+  width: 80%;
+
+  font-size: 16px;
+
+  outline: none;
+}
+
+.editProfile input[type=submit] {
+  transition: 0.1s ease-out;
+}
+
+.editProfile input[type=submit]:hover {
+  background: darkgrey;
+}
+
+.editProfile input[type=submit]:active {
+  transform: scale(0.95);
+}
+
+.editProfile textarea {
+  border: 1px solid gray;
+  border-radius: 10px;
+  padding: 5px;
+
+  width: 100%;
+  min-height: 100px;
+  resize: none;
+
+  font-size: 14px;
+}
+
+
+
+
 
 

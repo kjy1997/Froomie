@@ -1,11 +1,40 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 
 export default class EditProfileModal extends Component {
 
+  handleEdit(e) {
+    e.preventDefault();
+
+    const nameField = ReactDOM.findDOMNode(this.refs.nameField).value.trim();
+    const aboutField = ReactDOM.findDOMNode(this.refs.aboutField).value.trim();
+
+    let obj = {
+      name: nameField,
+      about: aboutField
+    }
+
+    console.log(nameField);
+    console.log(aboutField);
+
+    this.props.handleEdit(obj);
+    this.close(e);
+  }
+
   getEditTools() {
     return(
-      <div>
-        EDITING
+      <div className="editProfile">
+        <h2>Editing Profile</h2>
+        <form onSubmit={this.handleEdit.bind(this)}>
+          <label>Name</label>
+          <br />
+          <input type="text" ref="nameField" defaultValue={this.props.name}/>
+          <br />
+          <label>About</label>
+          <br />
+          <textarea ref="aboutField" defaultValue={this.props.about}></textarea>
+          <input type="submit"/>
+        </form>
       </div>
     );
   }
@@ -14,30 +43,10 @@ export default class EditProfileModal extends Component {
     if (this.props.isOpen === false)
       return null;
 
-    // temp style
-    let modalStyle = {
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      zIndex: '9999',
-      background: '#fff'
-    }
-
-    let backdropStyle = {
-      position: 'absolute',
-      width: '100%',
-      height: '100%',
-      top: '0px',
-      left: '0px',
-      zIndex: '9998',
-      background: 'rgba(0, 0, 0, 0.3)'
-    }
-
     return(
       <div>
-        <div style={modalStyle}>{this.getEditTools()}</div>
-        <div style={backdropStyle} onClick={e => this.close(e)}></div>
+        <div className="backdrop" onClick={e => this.close(e)}></div>
+        <div className="profileModal">{this.getEditTools()}</div>
       </div>
     );
   }

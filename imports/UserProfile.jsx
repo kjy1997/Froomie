@@ -56,6 +56,13 @@ export default class UserProfile extends Component {
     e.preventDefault();
   }
 
+  handleEdit(obj) {
+    this.setState({
+      name: obj.name,
+      data: obj.about,
+    });
+  }
+
   openModal() {
     this.setState({ isModalOpen: true });
   }
@@ -72,7 +79,13 @@ export default class UserProfile extends Component {
     var p = this.state.place;
     return (
       <div className="profile-container">
-        <EditProfileModal isOpen={this.state.isModalOpen} onClose={this.closeModal.bind(this)}/>
+        <EditProfileModal 
+          name={this.state.name} 
+          about={this.state.data} 
+          handleEdit={this.handleEdit.bind(this)}
+          isOpen={this.state.isModalOpen} 
+          onClose={this.closeModal.bind(this)}
+        />
         <div className="header">
           Froomie!
         </div>
