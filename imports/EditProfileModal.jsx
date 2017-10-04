@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 export default class EditProfileModal extends Component {
 
-  handleEdit(e) {
+  handleSubmit(e) {
     e.preventDefault();
 
     const nameField   = ReactDOM.findDOMNode(this.refs.nameField).value.trim();
@@ -32,6 +32,9 @@ export default class EditProfileModal extends Component {
     }
 
     this.props.handleEdit(obj);
+    this.props.handleAddTag(this.props.tags);
+    this.props.handleRemoveTag(this.props.tags);
+
     this.close(e);
   }
 
@@ -46,8 +49,6 @@ export default class EditProfileModal extends Component {
 
     this.props.tags.push(tagField);
     this.forceUpdate();
-
-    this.props.handleAddTag(this.props.tags);
 
     ReactDOM.findDOMNode(this.refs.tagField).value = "";
     ReactDOM.findDOMNode(this.refs.tagField).focus();
@@ -64,8 +65,6 @@ export default class EditProfileModal extends Component {
 
     this.props.tags.splice(tagIndex, 1);
     this.forceUpdate();
-
-    this.props.handleRemoveTag(this.props.tags);
   }
 
   renderTags() {
@@ -80,7 +79,7 @@ export default class EditProfileModal extends Component {
     return(
       <div className="editProfile">
         <h2>Editing Profile</h2>
-        <form onSubmit={this.handleEdit.bind(this)}>
+        <form onSubmit={this.handleSubmit.bind(this)}>
           <label>Name</label>
           <br />
           <input type="text" ref="nameField" placeholder="your name here *" defaultValue={this.props.name}/>
@@ -120,8 +119,11 @@ export default class EditProfileModal extends Component {
 
     return(
       <div>
-        <div className="backdrop" onClick={e => this.close(e)}></div>
-        <div className="profileModal">{this.getEditTools()}</div>
+        <div className="backdrop" onClick={e => this.close(e)}>
+          <div className="profileModal" onClick={e => e.stopPropagation()}>
+          {this.getEditTools()}
+          </div>
+        </div>
       </div>
     );
   }

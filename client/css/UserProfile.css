@@ -7,6 +7,10 @@
   font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
 }
 
+.profile-container {
+  min-width: 700px;
+}
+
 .header {    
   background: #c5f2ea;
   color: #0b8966;
@@ -167,29 +171,23 @@
 }
 
 .profileModal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
   z-index: 9999;
 
-  display: block;
+  display: flex;
   border: 1px solid black;
   border-radius: 25px;
   padding: 10px;
+  margin: 15% auto 0 auto;
 
-  width: 50%;
-  min-height: 400px;
+  width: 60%;
 
   background: lightgray;
-
-  transform: translate(-50%, -50%);
 }
 
 .editProfile {
   margin: 0 auto;
 
   width: 50%;
-  height: 100%;
 
   text-align: center;
 }
