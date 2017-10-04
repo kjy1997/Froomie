@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import UserTags from './UserTags.jsx';
+import EditProfileModalNoPlace from './EditProfileModalNoPlace.jsx';
 
 export default class UserProfileNoPlace extends Component {
   constructor() {
@@ -9,6 +10,16 @@ export default class UserProfileNoPlace extends Component {
     this.state = {
       // temp 
       data: "I'm passionate about animals and music. Loves travel and food",
+      tags: [
+        'Adventurous',
+        'Extrovert',
+        'Well-Organized',
+        'Friendly',
+        'Athletic',
+        'Dynamic',
+        'Reliable'
+      ],
+      isModalOpen: false
     }
   }
 
@@ -38,13 +49,45 @@ export default class UserProfileNoPlace extends Component {
     e.preventDefault();
   }
 
+  handleEdit(obj) {
+    this.setState({
+      name: obj.name,
+      data: obj.about,
+      address: obj.address
+    });
+  }
+
+  handleTagEdit(obj) {
+    this.setState({
+      tags: obj,
+    })
+  }
+
+  openModal() {
+    this.setState({ isModalOpen: true });
+  }
+
+  closeModal() {
+    this.setState({ isModalOpen: false });
+  }
+
   componentDidMount() {
     this.getUserData();
   }
 
   render() {
-    return (
+return (
       <div className="profile-container">
+        <EditProfileModalNoPlace
+          name={this.state.name} 
+          about={this.state.data} 
+          tags={this.state.tags}
+          handleEdit={this.handleEdit.bind(this)}
+          handleAddTag={this.handleTagEdit.bind(this)}
+          handleRemoveTag={this.handleTagEdit.bind(this)}
+          isOpen={this.state.isModalOpen} 
+          onClose={this.closeModal.bind(this)}
+        />
         <div className="header">
           Froomie!
         </div>
@@ -53,16 +96,17 @@ export default class UserProfileNoPlace extends Component {
         </div>
         <div className="user-info">
           <h2>{this.state.name}</h2>
+          <button onClick={this.openModal.bind(this)}>Edit</button>
           <div className="about">
             <h4>About me</h4>
             <p>{this.state.data}</p>
-            <UserTags />
+            <UserTags tags={this.state.tags}/>
           </div>
         </div>
         <div className="line-split"></div>
         <div className="contact">
           <h4>Contact Me</h4>
-          <form onClick={this.handleSubmit}>
+          <form onSubmit={this.handleSubmit}>
             <textarea className="contact-subject"></textarea>
             <br/>
             <input type="submit" value="Submit"/>
