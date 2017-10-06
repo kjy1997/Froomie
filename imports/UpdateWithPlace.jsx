@@ -1,15 +1,9 @@
 import React, { Component } from 'react';
 import { Col, Row, Button, FormControl, Image } from 'react-bootstrap';
-import SignUpMain from './SignUpMain';
 import ReactDOM from 'react-dom';
 import { Users } from './api/users.js';
 
-export default class SignUpWithPlace extends Component { 
-	renderSignUpMain() {
-		return this.getTasks().map((task) => (
-      		<SignUpMain key={task._id} task={task} />
-    	));
-	}
+export default class UpdateWithPlace extends Component { 
 
 	 register(event) {
         event.preventDefault();
@@ -68,7 +62,7 @@ export default class SignUpWithPlace extends Component {
 		return (
 			<div>
 				<form onSubmit={this.register.bind(this)}>
-				<SignUpMain onRef={ref => (this.SignUpMain = ref)}/>
+			
 				<div className="container">
 					<Row className="place">
         				<Col sm={4} className="subtitle">
@@ -178,7 +172,7 @@ export default class SignUpWithPlace extends Component {
        	 </Col>
        	 <Col sm={6} className="btn-content">
        	 	 <Button className="submit" type="submit">
-          Submit
+          Update
         </Button>
        	 </Col>
        	 <Col sm={3} className="blank">

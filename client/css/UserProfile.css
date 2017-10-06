@@ -7,6 +7,10 @@
   font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
 }
 
+.profile-container {
+  min-width: 700px;
+}
+
 .header {    
   background: #c5f2ea;
   color: #0b8966;
@@ -42,12 +46,32 @@
 
 .user-info {
   width: 100%;
-  padding-top: 20px;  
+  padding-top: 20px;
+  padding-bottom: 20px;
   margin: 0 auto;
 
   color: #0b8966;
 
   text-align: center;
+}
+
+.user-info button {
+  width: 80px;
+  height: 35px;
+  border: none;
+  border-radius: 10px;
+
+  color: white;
+  background: #0b8966;
+  outline: none;
+
+  font-size: 14px;
+
+  transition: 0.12s ease-out;
+}
+
+.user-info button:hover {
+  background: #08664b;
 }
 
 .about {
@@ -58,6 +82,42 @@
   font-size: 14px;
 }
 
+.about h4 {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin: 0;
+}
+
+.about .profileHousingInfo {
+  display: flex;
+  flex-direction: row;
+
+  border: 1px solid black;
+  border-radius: 25px;
+  padding: 10px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+
+  width: 75%;
+
+  background: #eee;
+}
+
+.about .profileHousingInfo strong, p{
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin: 0;
+
+  font-size: 15px;
+  text-align: center;
+}
+
+.about .profileHousingInfo p {
+  padding: 0;
+
+  font-size: 13px;
+}
+
 .about .map {
   margin: 0 auto;
 
@@ -65,9 +125,16 @@
   height: 300px;
 }
 
+.line-split {
+  border-top: 1px solid black;
+  margin: 0 auto;
+  width: 60%;
+}
+
 .contact {
   overflow: auto;
   width: 100%;
+  padding-top: 10px;
   padding-bottom: 30px;
   margin: 0 auto;
 
@@ -96,6 +163,8 @@
 
   font-size: 16px;
   text-align: left;
+
+  outline: none;
 }
 
 .contact input[type=submit] {
@@ -104,9 +173,232 @@
   border: none;
   border-radius: 10px;
 
-  color: black;
+  color: white;
   background: #0b8966;
+  outline: none;
+
+  transition: 0.12s ease-out;
 }
+
+.contact input[type=submit]:hover {
+  background: #08664b;
+}
+
+.contact input[type=submit]:active {
+  transform: scale(0.92);
+}
+
+/* MODAL */
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9998;
+
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.profileModal {
+  z-index: 9999;
+
+  display: flex;
+  border: 1px solid black;
+  border-radius: 25px;
+  padding: 10px;
+  margin: 15% auto 0 auto;
+
+  width: 60%;
+
+  background: lightgray;
+}
+
+.editProfile {
+  margin: 0 auto;
+
+  width: 80%;
+
+  text-align: center;
+}
+
+.editProfile p {
+  margin: 0;
+}
+
+.editProfile h6 {
+  margin-top: 10px;
+
+  font-size: 14px;
+}
+
+.editProfile label {
+  margin: 0;
+
+  font-size: 16px;
+}
+
+.editProfile input {
+  border: 1px solid gray;
+  border-radius: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+
+  width: 80%;
+
+  font-size: 16px;
+
+  outline: none;
+}
+
+.editProfile input[type=submit] {
+  margin-top: 10px;
+  margin-bottom: 5px;
+
+  transition: 0.1s ease-out;
+}
+
+.editProfile input[type=submit]:hover {
+  background: darkgrey;
+}
+
+.editProfile input[type=submit]:active {
+  transform: scale(0.95);
+}
+
+.editProfile textarea {
+  border: 1px solid gray;
+  border-radius: 10px;
+  padding: 5px;
+
+  width: 100%;
+  min-height: 100px;
+  resize: none;
+
+  font-size: 14px;
+
+  outline: none;
+}
+
+.editProfile button {
+  border: 1px solid gray;
+  border-radius: 10px;
+  padding: 2px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+
+  width: 40%;
+
+  font-size: 14px;
+
+  outline: none;
+  transition: 0.1s ease-out;
+}
+
+.editProfile button:hover {
+  background: darkgrey;
+}
+
+.editProfile button:active {
+  transform: scale(0.9);
+}
+
+.editProfile .nameInput {
+  margin-left: 4px;
+  margin-right: 4px;
+
+  width: 40%;
+}
+
+.modalTagsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+
+    padding-top: 4px;
+    padding-bottom: 4px;
+    margin: 0 auto;
+
+    width: 100%;
+}
+
+.modalTagsContainer span {
+    position: relative;
+    display: inline-block;
+
+    border: 1px solid black;
+    border-radius: 25px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin: 2px 4px 2px 4px;
+
+    color: white;
+    background: #0b8966;
+    font-size: 14px;
+
+    cursor: pointer;
+    transition: 0.25s ease-out;
+}
+
+.modalTagsContainer span:hover {
+    position: relative;
+
+    transform: scale(1.08);
+}
+
+.housingInfo {
+  display: flex;
+  justify-content: space-evenly;
+  box-sizing: border-box;
+
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 5px;
+
+  width: 100%;
+
+  background: #eee;
+}
+
+.housingColumn {
+  display: flex;
+  flex-direction: column;
+
+  width: 33%;
+}
+
+.housingColumn input {
+  width: 95%;
+}
+
+.housingColumn input[type=checkbox] {
+  margin-right: 5px;
+
+  width: initial;
+}
+
+.housingColumn label {
+  font-size: 14px;
+}
+
+.housingColumn .housingColumnName {
+  text-align: center;
+}
+
+.amenitiesInfo label {
+  text-align: left;
+}
+
+.housingSingle {
+  flex-direction: row;
+  justify-content: space-evenly;
+
+  width: 100%;
+}
+
 
 
 

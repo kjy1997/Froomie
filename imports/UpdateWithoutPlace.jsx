@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Col, Row, Button, FormControl,Image, FormGroup } from 'react-bootstrap';
-import { Users } from './api/users.js';
-import SignUpMain from './SignUpMain'
 
 export default class SignUpWithoutPlace extends Component { 
 	renderSignUpMain() {
@@ -14,8 +12,6 @@ export default class SignUpWithoutPlace extends Component {
    register(event) {
         event.preventDefault();
 
-        // const username = ReactDOM.findDOMNode(this.refs.username).value.trim();
-        // const pass = ReactDOM.findDOMNode(this.refs.password).value.trim();
         var mainInfos = this.SignUpMain.infos();
         const budget = ReactDOM.findDOMNode(this.refs.budget).value.trim();
         const movein = ReactDOM.findDOMNode(this.refs.movein).value.trim();
@@ -50,8 +46,6 @@ export default class SignUpWithoutPlace extends Component {
 			<div>
       <form onSubmit={this.register.bind(this)}>
         <FormGroup>
-
-				<SignUpMain onRef={ref => (this.SignUpMain = ref)}/>
 
 				<div className="container">
 					<Row className="place">
@@ -89,7 +83,7 @@ export default class SignUpWithoutPlace extends Component {
        	 </Col>
        	 <Col sm={6} className="btn-content">
        	 	 <Button className="submit" type="submit">
-          Submit
+          Update
         </Button>
        	 </Col>
        	 <Col sm={3} className="blank">
