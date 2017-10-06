@@ -1,4 +1,3 @@
-/*
 import React, { Component } from 'react';
 import { Col, Row, Button, FormControl, Image, Thumbnail } from 'react-bootstrap';
 import '../client/css/search.css';
@@ -16,9 +15,9 @@ export default class Search extends Component {
 	  budget: 0
     };
   }
-		filterResults() {
+	filterResults() {
 		//Get results
-		collectionPlaceholder.find({
+		dbPlaceholder.collection.find({
 			age: this.state.age,
 			gender: this.state.gender,
 			address: this.state.loc,
@@ -34,14 +33,6 @@ export default class Search extends Component {
 			this.setState({});
 	}	
 	render() {
-		 var userList = collectionPlaceholder.find({
-                                           age: this.state.age,
-                                            gender: this.state.gender,
-                                            address: this.state.loc,
-                                            tagName: this.state.tag,
-                                            budget: this.state.budget
-                                          }).fetch().map(function(firstName, index) {
-
 		return (	
 			<div>
 				<Row className="top-bar">
@@ -79,9 +70,6 @@ export default class Search extends Component {
 					</Col>
        	 		<Col sm={9} className="display">
          	 		 <Row>
-					<Col xs={6} md={4}>
-         	 			<Row>
-					{userList.map(function(firstName, index){
 						<Col xs={6} md={4}>
 						<Thumbnail className="thumbnail" src="/img/avatar.jpg" alt="242x200">
 						<h3>Thumbnail label</h3>
@@ -91,12 +79,31 @@ export default class Search extends Component {
 						<Button bsStyle="default">Button</Button>
 						</p>
 						</Thumbnail>
-						</Col>
-					})}
-					</Row>	
 				</Col>
+				<Col xs={6} md={4}>
+					<Thumbnail className="thumbnail" src="/assets/thumbnaildiv.png" alt="242x200">
+					<h3>Thumbnail label</h3>
+					<p>Description</p>
+					<p>
+					<Button bsStyle="primary">Button</Button>&nbsp;
+					<Button bsStyle="default">Button</Button>
+					</p>
+					</Thumbnail>
+				</Col>
+				<Col xs={6} md={4}>
+					<Thumbnail className="thumbnail" src="/assets/thumbnaildiv.png" alt="242x200">
+					<h3>Thumbnail label</h3>
+					<p>Description</p>
+					<p>
+					<Button bsStyle="primary">Button</Button>&nbsp;
+					<Button bsStyle="default">Button</Button>
+					</p>
+					</Thumbnail>
+				</Col>
+			</Row>	
+			</Col>
 			</Row>
 		</div>
 		);
 	}
-}*/
+}
