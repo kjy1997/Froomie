@@ -16,23 +16,21 @@ export default class SignUpMain extends Component {
         const username = ReactDOM.findDOMNode(this.refs.username).value.trim();
         const password = ReactDOM.findDOMNode(this.refs.password).value.trim();
         const email = ReactDOM.findDOMNode(this.refs.email).value.trim();
-        const firstname = ReactDOM.findDOMNode(this.refs.firstname).value.trim();
-        const lastname = ReactDOM.findDOMNode(this.refs.lastname).value.trim();
+        const firstName = ReactDOM.findDOMNode(this.refs.firstName).value.trim();
+        const lastName = ReactDOM.findDOMNode(this.refs.lastName).value.trim();
         const age = ReactDOM.findDOMNode(this.refs.age).value.trim();
         const gender = ReactDOM.findDOMNode(this.refs.gender).value.trim();
-        const roommates = ReactDOM.findDOMNode(this.refs.roommates).value.trim();
-        const introduction = ReactDOM.findDOMNode(this.refs.introduction).value.trim();
+        const about = ReactDOM.findDOMNode(this.refs.about).value.trim();
 
         return {
         	"username": username,
         	"password": password,
         	"email": email,
-        	"firstname": firstname,
-        	"lastname": lastname,
+        	"firstName": firstName,
+        	"lastName": lastName,
         	"age": age,
         	"gender": gender,
-        	"roomates": roommates,
-        	"introduction": introduction
+        	"about": about 
         };
     }
 	render() {
@@ -92,13 +90,13 @@ export default class SignUpMain extends Component {
 				   		className="input"
             			type="text"
             			placeholder="First name"
-            			ref="firstname"
+            			ref="firstName"
           			/>
           			<FormControl
           			    className="input"
             			type="text"
             			placeholder="Last name"
-            			ref="lastname"
+            			ref="lastName"
           			/>
           			<FormControl
           			    className="input"
@@ -112,19 +110,13 @@ export default class SignUpMain extends Component {
             			placeholder="Gender"
             			ref="gender"
           			/>
-          			<FormControl
-          			    className="input"
-            			type="text"
-            			placeholder="Number of roomates"
-            			ref="roommates"
-          			/>
        	 	</Row>
        	 	<Row>
        	 	<FormControl
           			    className="block"
             			componentClass="textarea"
             			placeholder="Tell us about yourself"
-            			ref="introduction"
+            			ref="about"
           			/>
        	 	</Row>
 		</div>

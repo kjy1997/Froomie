@@ -18,11 +18,11 @@ export default class Search extends Component {
 	filterResults() {
 		//Get results
 		dbPlaceholder.collection.find({
-			age: {age},
-			gender: {gender},
-			address: {loc},
-			tagName: {tag},
-			budget: {budget}
+			age: this.state.age,
+			gender: this.state.gender,
+			address: this.state.loc,
+			tagName: this.state.tag,
+			budget: this.state.budget
 		}).fetch();
 	}
 	updateFilter() {

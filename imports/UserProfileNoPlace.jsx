@@ -9,8 +9,6 @@ export default class UserProfileNoPlace extends Component {
   constructor() {
     super();
     this.state = {
-      // temp 
-      about: "I'm passionate about animals and music. Loves travel and food",
       stay: {
         budget: 0,
         moveIn: "",
