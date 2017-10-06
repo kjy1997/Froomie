@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import GoogleMapReact from 'google-map-react';
 
@@ -18,7 +19,7 @@ export default class UserProfile extends Component {
     super();
     this.state = {
       // temp
-      data: "I'm passionate about animals and music. Loves travel and food",
+      about: "I'm passionate about animals and music. Loves travel and food",
       address: {},
       center: {},
       tags: [
@@ -34,7 +35,7 @@ export default class UserProfile extends Component {
     }
   }
 
-  // temporary fake json data
+  // temporary fake json data - switch to MongoDB collections
   getUserData() {
     $.ajax({
       url: 'https://jsonplaceholder.typicode.com/users',
@@ -61,14 +62,18 @@ export default class UserProfile extends Component {
     });
   }
 
-  handleSubmit(e) {
+  handleContactSubmit(e) {
     e.preventDefault();
+
+    let message = ReactDOM.findDOMNode(this.refs.contactForm).value;
+
+    console.log(message);
   }
 
   handleEdit(obj) {
     this.setState({
       name: obj.name,
-      data: obj.about,
+      about: obj.about,
       address: obj.address
     });
   }
@@ -76,7 +81,7 @@ export default class UserProfile extends Component {
   handleTagEdit(obj) {
     this.setState({
       tags: obj,
-    })
+    });
   }
 
   openModal() {
@@ -97,12 +102,11 @@ export default class UserProfile extends Component {
       <div className="profile-container">
         <EditProfileModal 
           name={this.state.name} 
-          about={this.state.data} 
+          about={this.state.about} 
           tags={this.state.tags}
           address={this.state.address}
           handleEdit={this.handleEdit.bind(this)}
-          handleAddTag={this.handleTagEdit.bind(this)}
-          handleRemoveTag={this.handleTagEdit.bind(this)}
+          handleTagEdit={this.handleTagEdit.bind(this)}
           isOpen={this.state.isModalOpen} 
           onClose={this.closeModal.bind(this)}
         />
@@ -117,9 +121,10 @@ export default class UserProfile extends Component {
           <button onClick={this.openModal.bind(this)}>Edit</button>
           <div className="about">
             <h4>About me</h4>
-            <p>{this.state.data}</p>
+            <p>{this.state.about}</p>
             <UserTags tags={this.state.tags}/>
             <div className="line-split"></div>
+
             <h4>About my place</h4>
             <p>{p.street}, {p.city} {p.zipcode}, {p.suite}</p>
             <div className="map">
@@ -138,8 +143,8 @@ export default class UserProfile extends Component {
         <div className="line-split"></div>
         <div className="contact">
           <h4>Contact Me</h4>
-          <form onSubmit={this.handleSubmit}>
-            <textarea className="contact-subject"></textarea>
+          <form onSubmit={this.handleContactSubmit.bind(this)}>
+            <textarea className="contact-subject" ref="contactForm"></textarea>
             <br/>
             <input type="submit" value="Submit"/>
           </form>
@@ -152,8 +157,8 @@ export default class UserProfile extends Component {
 UserProfile.propTypes = {
   id:     PropTypes.number,
   name:   PropTypes.string,
-  data:   PropTypes.string,
-  place:  PropTypes.object
+  about:   PropTypes.string,
+  address:  PropTypes.object
 }
 
 

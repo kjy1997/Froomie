@@ -133,6 +133,8 @@
 
   font-size: 16px;
   text-align: left;
+
+  outline: none;
 }
 
 .contact input[type=submit] {
@@ -192,6 +194,10 @@
   text-align: center;
 }
 
+.editProfile p {
+  margin: 0;
+}
+
 .editProfile h6 {
   margin-top: 10px;
 
@@ -242,6 +248,8 @@
   resize: none;
 
   font-size: 14px;
+
+  outline: none;
 }
 
 .editProfile button {
@@ -254,6 +262,24 @@
   width: 40%;
 
   font-size: 14px;
+
+  outline: none;
+  transition: 0.1s ease-out;
+}
+
+.editProfile button:hover {
+  background: darkgrey;
+}
+
+.editProfile button:active {
+  transform: scale(0.9);
+}
+
+.editProfile .nameInput {
+  margin-left: 4px;
+  margin-right: 4px;
+
+  width: 40%;
 }
 
 .modalTagsContainer {

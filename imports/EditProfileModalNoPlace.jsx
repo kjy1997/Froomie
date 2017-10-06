@@ -6,16 +6,17 @@ export default class EditProfileModalNoPlace extends Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    const nameField   = ReactDOM.findDOMNode(this.refs.nameField).value.trim();
+    const fNameField  = ReactDOM.findDOMNode(this.refs.firstNameField).value.trim();
+    const lNameField  = ReactDOM.findDOMNode(this.refs.lastNameField).value.trim();
     const aboutField  = ReactDOM.findDOMNode(this.refs.aboutField).value.trim();
     
-    if (!nameField || !aboutField) {
+    if (!fNameField || !lNameField || !aboutField) {
       alert("Missing information!");
       return;
     }
 
     let obj = {
-      name: nameField,
+      name: fNameField + " " + lNameField,
       about: aboutField
     }
 
@@ -77,7 +78,7 @@ export default class EditProfileModalNoPlace extends Component {
           <br />
 
           <label>Tags</label>
-          <br />
+          <p>Click tag to remove</p>
           <div className="modalTagsContainer">
             {this.renderTags()}
           </div>

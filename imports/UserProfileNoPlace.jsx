@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
 import UserTags from './UserTags.jsx';
@@ -9,7 +10,7 @@ export default class UserProfileNoPlace extends Component {
     super();
     this.state = {
       // temp 
-      data: "I'm passionate about animals and music. Loves travel and food",
+      about: "I'm passionate about animals and music. Loves travel and food",
       tags: [
         'Adventurous',
         'Extrovert',
@@ -23,7 +24,7 @@ export default class UserProfileNoPlace extends Component {
     }
   }
 
-  // temporary fake json data
+  // temporary fake json data - switch to MongoDB collections
   getUserData() {
     $.ajax({
       url: 'https://jsonplaceholder.typicode.com/users',
@@ -45,14 +46,18 @@ export default class UserProfileNoPlace extends Component {
     });
   }
 
-  handleSubmit(e) {
+  handleContactSubmit(e) {
     e.preventDefault();
+
+    let message = ReactDOM.findDOMNode(this.refs.contactForm).value;
+
+    console.log(message);
   }
 
   handleEdit(obj) {
     this.setState({
       name: obj.name,
-      data: obj.about,
+      about: obj.about,
       address: obj.address
     });
   }
@@ -80,7 +85,7 @@ return (
       <div className="profile-container">
         <EditProfileModalNoPlace
           name={this.state.name} 
-          about={this.state.data} 
+          about={this.state.about} 
           tags={this.state.tags}
           handleEdit={this.handleEdit.bind(this)}
           handleAddTag={this.handleTagEdit.bind(this)}
@@ -99,15 +104,15 @@ return (
           <button onClick={this.openModal.bind(this)}>Edit</button>
           <div className="about">
             <h4>About me</h4>
-            <p>{this.state.data}</p>
+            <p>{this.state.about}</p>
             <UserTags tags={this.state.tags}/>
           </div>
         </div>
         <div className="line-split"></div>
         <div className="contact">
           <h4>Contact Me</h4>
-          <form onSubmit={this.handleSubmit}>
-            <textarea className="contact-subject"></textarea>
+          <form onSubmit={this.handleContactSubmit.bind(this)}>
+            <textarea className="contact-subject" ref="contactForm"></textarea>
             <br/>
             <input type="submit" value="Submit"/>
           </form>
@@ -120,7 +125,7 @@ return (
 UserProfileNoPlace.propTypes = {
   id:     PropTypes.number,
   name:   PropTypes.string,
-  data:   PropTypes.string
+  about:   PropTypes.string
 }
 
 
