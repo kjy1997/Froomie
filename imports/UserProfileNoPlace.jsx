@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import { Button } from 'react-bootstrap';
 
 import UserTags from './UserTags.jsx';
 import EditProfileModalNoPlace from './EditProfileModalNoPlace.jsx';
@@ -116,6 +117,11 @@ return (
             <br/>
             <input type="submit" value="Submit"/>
           </form>
+        </div>
+         <div className="updateprofile">
+         <Button className="update" href="/updatewithoutplace">
+          Update Profile
+        </Button>
         </div>
       </div>
     );

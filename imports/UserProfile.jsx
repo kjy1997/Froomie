@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import GoogleMapReact from 'google-map-react';
+import { Button } from 'react-bootstrap';
 
 import ProfileMapMarker from './ProfileMapMarker.jsx';
 import UserTags from './UserTags.jsx';
@@ -148,6 +149,11 @@ export default class UserProfile extends Component {
             <br/>
             <input type="submit" value="Submit"/>
           </form>
+        </div>
+        <div className="updateprofile">
+         <Button className="update" href="/updatewithplace">
+          Update Profile
+        </Button>
         </div>
       </div>
     );
