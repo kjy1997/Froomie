@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Col, Row, Button, FormControl,Image } from 'react-bootstrap';
+import ReactDOM from 'react-dom';
+import { Col, Row, Button, FormControl,Image, FormGroup } from 'react-bootstrap';
+import { Users } from './api/users.js';
 import SignUpMain from './SignUpMain'
 
 export default class SignUpWithoutPlace extends Component { 
@@ -9,10 +11,48 @@ export default class SignUpWithoutPlace extends Component {
     	));
 	}
 
+   register(event) {
+        event.preventDefault();
+
+        // const username = ReactDOM.findDOMNode(this.refs.username).value.trim();
+        // const pass = ReactDOM.findDOMNode(this.refs.password).value.trim();
+        var mainInfos = this.SignUpMain.infos();
+        const budget = ReactDOM.findDOMNode(this.refs.budget).value.trim();
+        const movein = ReactDOM.findDOMNode(this.refs.movein).value.trim();
+        const lengthofstay = ReactDOM.findDOMNode(this.refs.lengthofstay).value.trim();
+
+        Accounts.createUser({username: mainInfos.username , password: mainInfos.password}, (error) => {
+            if (error) {
+                console.log("Error: " + error.reason);
+            } else {
+                Users.update(Meteor.userId(), {
+                    $set: {
+                      "profile.email": mainInfos.email,
+                      "profile.firstname": mainInfos.firstname,
+                      "profile.lastname": mainInfos.lastname,
+                      "profile.age": mainInfos.age,
+                      "profile.gender": mainInfos.gender,
+                      "profile.roomates": mainInfos.roommates,
+                      "profile.introduction": mainInfos.introduction,
+                      
+                      "profile.budget": budget,
+                      "profile.moveindate": movein,
+                      "profile.lengthofstay": lengthofstay
+                    }
+                })
+                console.log("Registered in user: " + Meteor.user().username);
+            }
+        });
+    }
+
 	render() {
 		return (
 			<div>
-				<SignUpMain/>
+      <form onSubmit={this.register.bind(this)}>
+        <FormGroup>
+
+				<SignUpMain onRef={ref => (this.SignUpMain = ref)}/>
+
 				<div className="container">
 					<Row className="place">
         				<Col sm={4} className="subtitle">
@@ -24,16 +64,19 @@ export default class SignUpWithoutPlace extends Component {
 				   		className="input"
             			type="text"
             			placeholder="Budget"
+                  ref="budget"
           			/>
           			<FormControl
           			    className="input"
             			type="text"
             			placeholder="Move in date"
+                  ref="movein"
           			/>
           			<FormControl
           			    className="input"
             			type="text"
             			placeholder="Length of stay"
+                  ref="lengthofstay"
           			/>  
        	 	</Row>
        	 
@@ -53,7 +96,8 @@ export default class SignUpWithoutPlace extends Component {
        	 </Col>
         </Row>
         </div>
-			
+      </FormGroup>
+			</form>
 
 			</div>
 
