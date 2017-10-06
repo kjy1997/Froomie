@@ -64,7 +64,7 @@ export default class SignUpMain extends Component {
           			/>
           			<FormControl
           			    className="input"
-            			type="text"
+            			type="password"
             			placeholder="Password"
             			ref="password"
           			/>

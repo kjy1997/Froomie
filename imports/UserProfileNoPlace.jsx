@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Button } from 'react-bootstrap';
 
 export default class UserProfileNoPlace extends Component {
   constructor() {
@@ -59,6 +60,11 @@ export default class UserProfileNoPlace extends Component {
             <br/>
             <input type="submit" value="Submit"/>
           </form>
+        </div>
+         <div className="updateprofile">
+         <Button className="update" href="/updatewithoutplace">
+          Update Profile
+        </Button>
         </div>
       </div>
     );

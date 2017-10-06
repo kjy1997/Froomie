@@ -11,6 +11,9 @@ import Login from './Login.jsx';
 import Registration from './Registration';
 import UserProfile from './UserProfile.jsx';
 import UserProfileNoPlace from './UserProfileNoPlace.jsx';
+import UpdateWithPlace from './UpdateWithPlace.jsx';
+import UpdateWithoutPlace from './UpdateWithoutPlace.jsx';
+
 
 export default class App extends Component {
 
@@ -26,6 +29,8 @@ export default class App extends Component {
         <Route path="/registration" component={Registration} />
         <Route path="/profile" component={UserProfile} />
         <Route path="/profilenoplace" component={UserProfileNoPlace} />
+        <Route path="/updatewithplace" component={UpdateWithPlace} />
+        <Route path="/updatewithoutplace" component={UpdateWithoutPlace} />
         </div>
        </Router>
     );

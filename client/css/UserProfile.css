@@ -98,6 +98,20 @@
   text-align: left;
 }
 
+.update {
+  width: 80px;
+  height: 35px;
+  border: none;
+  border-radius: 10px;
+
+  color: black;
+  background: #0b8966;
+}
+
+.updateprofile {
+  text-align: center;
+}
+
 .contact input[type=submit] {
   width: 80px;
   height: 35px;
