@@ -78,20 +78,22 @@ export default class Search extends Component {
 					</Col>
        	 		<Col sm={9} className="display">
          	 		 <Row>
-				 {userList.map(function(firstName, index) {
 					<Col xs={6} md={4}>
+         	 			<Row>
+					{userList.map(function(firstName, index){
+						<Col xs={6} md={4}>
 						<Thumbnail className="thumbnail" src="/img/avatar.jpg" alt="242x200">
-						<h3 key={ index }>{firstName}</h3>
+						<h3>Thumbnail label</h3>
 						<p>Description</p>
 						<p>
 						<Button bsStyle="primary">Button</Button>&nbsp;
 						<Button bsStyle="default">Button</Button>
 						</p>
 						</Thumbnail>
-					</Col>
-					}
-			</Row>	
-			</Col>
+						</Col>
+					})}
+					</Row>	
+				</Col>
 			</Row>
 		</div>
 		);
