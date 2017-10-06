@@ -18,7 +18,7 @@ export default class Home extends Component {
 				<h3> Froomie! </h3>
 			</Col>
 			<Col sm={1} className="right-bar">	
-				<a href="#">Login</a>
+				<a href="/login">Login</a>
 			</Col>
 			</Row>
 
