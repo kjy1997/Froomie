@@ -70,36 +70,26 @@ export default class Search extends Component {
 					</Col>
        	 		<Col sm={9} className="display">
          	 		 <Row>
-						<Col xs={6} md={4}>
+				var userList =    dbPlaceholder.collection.find({
+ 	        	                 age: this.state.age,
+        	        	          gender: this.state.gender,
+	                	          address: this.state.loc,
+	                        	  tagName: this.state.tag,
+		                          budget: this.state.budget
+			                 }).fetch().map(function(firstName, index) {
+					return
+
+					<Col xs={6} md={4}>
 						<Thumbnail className="thumbnail" src="/img/avatar.jpg" alt="242x200">
-						<h3>Thumbnail label</h3>
+						<h3 key={ index }>{firstName}</h3>
 						<p>Description</p>
 						<p>
 						<Button bsStyle="primary">Button</Button>&nbsp;
 						<Button bsStyle="default">Button</Button>
 						</p>
 						</Thumbnail>
-				</Col>
-				<Col xs={6} md={4}>
-					<Thumbnail className="thumbnail" src="/assets/thumbnaildiv.png" alt="242x200">
-					<h3>Thumbnail label</h3>
-					<p>Description</p>
-					<p>
-					<Button bsStyle="primary">Button</Button>&nbsp;
-					<Button bsStyle="default">Button</Button>
-					</p>
-					</Thumbnail>
-				</Col>
-				<Col xs={6} md={4}>
-					<Thumbnail className="thumbnail" src="/assets/thumbnaildiv.png" alt="242x200">
-					<h3>Thumbnail label</h3>
-					<p>Description</p>
-					<p>
-					<Button bsStyle="primary">Button</Button>&nbsp;
-					<Button bsStyle="default">Button</Button>
-					</p>
-					</Thumbnail>
-				</Col>
+					</Col>
+					}
 			</Row>	
 			</Col>
 			</Row>
