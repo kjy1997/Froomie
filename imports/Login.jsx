@@ -7,6 +7,13 @@ export default class Login extends Component {
 
     render() {
         return (
+
+            <form onSubmit={this.login.bind(this)}>
+                <input ref="username" type="username" name="username" placeholder="username" />
+                <input ref="password" type="password" name="password" placeholder="password" />
+                <button type="submit">Submit</button>
+            </form>
+		);
             <div>
                 <div>
                     <Row className="top-bar">
@@ -47,6 +54,7 @@ export default class Login extends Component {
                 </div>
             </div>
         );
+
     }
 
     login(event) {
@@ -54,7 +62,14 @@ export default class Login extends Component {
 
         const user = ReactDOM.findDOMNode(this.refs.username).value.trim();
         const pass = ReactDOM.findDOMNode(this.refs.password).value.trim();
-
+		Meteor.loginWithFacebook({
+				requestPermissions: ['public_profile']
+				}, (error) => {
+				if (error) {
+				Session.set('errorMessage', error.reason || 'Unknown error');
+				}
+		});
+        
         Meteor.loginWithPassword(user, pass, (error) => {
             if (error) {
                 alert("Error: " + error.reason);
