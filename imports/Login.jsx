@@ -7,13 +7,6 @@ export default class Login extends Component {
 
     render() {
         return (
-
-            <form onSubmit={this.login.bind(this)}>
-                <input ref="username" type="username" name="username" placeholder="username" />
-                <input ref="password" type="password" name="password" placeholder="password" />
-                <button type="submit">Submit</button>
-            </form>
-		);
             <div>
                 <div>
                     <Row className="top-bar">
@@ -46,7 +39,7 @@ export default class Login extends Component {
                         <Col sm={3} className="blank">
                         </Col>
                         <Col sm={6} className="btn-content">
-                            <Button className="submit" type="submit">Submit</Button>
+                            <Button className="submit" type="submit" onClick={this.login.bind(this)}>Submit</Button>
                         </Col>
                         <Col sm={3} className="blank">
                         </Col>
@@ -54,7 +47,6 @@ export default class Login extends Component {
                 </div>
             </div>
         );
-
     }
 
     login(event) {
