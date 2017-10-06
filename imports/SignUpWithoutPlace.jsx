@@ -28,12 +28,11 @@ export default class SignUpWithoutPlace extends Component {
                 Users.update(Meteor.userId(), {
                     $set: {
                       "profile.email": mainInfos.email,
-                      "profile.firstname": mainInfos.firstname,
-                      "profile.lastname": mainInfos.lastname,
+                      "profile.firstName": mainInfos.firstName,
+                      "profile.lastName": mainInfos.lastName,
                       "profile.age": mainInfos.age,
                       "profile.gender": mainInfos.gender,
-                      "profile.roomates": mainInfos.roommates,
-                      "profile.introduction": mainInfos.introduction,
+                      "profile.about": mainInfos.about,
                       
                       "profile.budget": budget,
                       "profile.moveindate": movein,
