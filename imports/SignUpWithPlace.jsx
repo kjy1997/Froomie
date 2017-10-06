@@ -36,26 +36,26 @@ export default class SignUpWithPlace extends Component {
                 Users.update(Meteor.userId(), {
                     $set: {
                       "profile.email": mainInfos.email,
-                      "profile.firstname": mainInfos.firstname,
-                      "profile.lastname": mainInfos.lastname,
+                      "profile.firstName": mainInfos.firstName,
+                      "profile.lastName": mainInfos.lastName,
                       "profile.age": mainInfos.age,
                       "profile.gender": mainInfos.gender,
                       "profile.roomates": mainInfos.roommates,
-                      "profile.introduction": mainInfos.introduction,
+                      "profile.about": mainInfos.introduction,
                       
-                      "profile.address": address,
-                      "profile.property": property,
-                      "profile.rooms": rooms,
-                      "profile.bathroom": bathroom,
-                      "profile.internet": internet,
-                      "profile.parking": parking,
-                      "profile.ac": ac,
-                      "profile.rent": rent,
-                      "profile.deposit": deposit,
-                      "profile.roomtype": roomtype,
-                      "profile.furnishing": furnishing,
-                      "profile.bathroomtype": bathroomtype,
-                      "profile.prefergender": prefergender
+                      "profile.place.address": address,
+                      "profile.place.property": property,
+                      "profile.place.rooms": rooms,
+                      "profile.place.bathroom": bathroom,
+                      "profile.place.internet": internet,
+                      "profile.place.parking": parking,
+                      "profile.place.ac": ac,
+                      "profile.place.rent": rent,
+                      "profile.place.deposit": deposit,
+                      "profile.place.roomtype": roomtype,
+                      "profile.place.furnishing": furnishing,
+                      "profile.place.bathroomType": bathroomtype,
+                      "profile.place.preferGender": prefergender
                      
                     }
                 })
