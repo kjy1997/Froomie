@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import GoogleMapReact from 'google-map-react';
+import { createContainer } from 'react-meteor-data';
 
 import ProfileMapMarker from './ProfileMapMarker.jsx';
 import UserTags from './UserTags.jsx';
 import EditProfileModal from './EditProfileModal.jsx';
 
-export default class UserProfile extends Component {
+class UserProfile extends Component {
+
   static defaultProps = {
     // default U.S
     center: {lat: 37, lng: -95},
@@ -114,21 +116,36 @@ export default class UserProfile extends Component {
   }
 
   render() {
-    let address = this.state.address;
-    let property = this.state.property;
-    let amenities = this.state.amenities;
-    let room = this.state.room;
+    let user = this.props.user;
+    console.log(user);
 
+    let address = user ? user.profile.place.address : "Loading...";
+    let property = user ? user.profile.place.property : "Loading...";
+    let amenities = user ? {
+      internet: user.profile.place.internet,
+      parking: user.profile.place.parking,
+      ac: user.profile.place.ac
+    } : {};
+    let room = user ? {
+      rent: user.profile.place.rent,
+      deposit: user.profile.place.deposit,
+      roomType: user.profile.place.roomtype,
+      bathroomType: user.profile.place.bathroomType,
+      furnishing: user.profile.place.furnishing,
+      genderPref: user.profile.place.prefergender
+    } : {};
+  
     return (
       <div className="profile-container">
         <EditProfileModal 
-          name={this.state.name} 
-          about={this.state.about} 
+          fname={user ? user.profile.firstName : "Loading..."} 
+          lname={user ? user.profile.lastName : "Loading..."}
+          about={user ? user.profile.about : "Loading..."} 
           tags={this.state.tags}
-          address={this.state.address}
-          property={this.state.property}
-          amenities={this.state.amenities}
-          room={this.state.room}
+          address={address}
+          property={property}
+          amenities={amenities}
+          room={room}
           handleEdit={this.handleEdit.bind(this)}
           handleTagEdit={this.handleTagEdit.bind(this)}
           isOpen={this.state.isModalOpen} 
@@ -141,22 +158,22 @@ export default class UserProfile extends Component {
           <div className="user-pic"></div>
         </div>
         <div className="user-info">
-          <h2>{this.state.name}</h2>
+          <h2>{user ? user.profile.firstName + " " + user.profile.lastName : "Loading..."}</h2>
           <button onClick={this.openModal.bind(this)}>Edit</button>
           <div className="about">
             <h4>About me</h4>
-            <p>{this.state.about}</p>
+            <p>{user ? user.profile.about : "Loading..."}</p>
             <UserTags tags={this.state.tags}/>
             <div className="line-split"></div>
 
             <h4>About my place</h4>
-            <p>{address.street}, {address.city} {address.zipcode}, {address.suite}</p>
+            <p>{address}</p>
 
             <div className="profileHousingInfo">
               <div className="housingColumn">
                 <strong>Property Type <br/><p>{property.propertyType ? property.propertyType : "N/A"}</p></strong>
-                <strong>Room Count <br/><p>{property.roomCount}</p></strong>
-                <strong>Bathroom Count <br/><p>{property.bathroomCount}</p></strong>
+                <strong>Room Count <br/><p>0</p></strong>
+                <strong>Bathroom Count <br/><p>0</p></strong>
               </div>
               <div className="housingColumn">
                 <strong>Internet <br/><p>{amenities.internet ? "yes" : "no"}</p></strong>
@@ -201,11 +218,14 @@ export default class UserProfile extends Component {
 }
 
 UserProfile.propTypes = {
-  id:     PropTypes.number,
-  name:   PropTypes.string,
-  about:   PropTypes.string,
-  address:  PropTypes.object
+  user: PropTypes.object,
 }
+
+export default createContainer(() => {
+  return {
+    user: Meteor.user()
+  };
+}, UserProfile);
 
 
 

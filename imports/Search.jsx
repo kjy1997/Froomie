@@ -1,3 +1,4 @@
+/*
 import React, { Component } from 'react';
 import { Col, Row, Button, FormControl, Image, Thumbnail } from 'react-bootstrap';
 import '../client/css/search.css';
@@ -15,7 +16,7 @@ export default class Search extends Component {
 	  budget: 0
     };
   }
-/*	filterResults() {
+		filterResults() {
 		//Get results
 		collectionPlaceholder.find({
 			age: this.state.age,
@@ -24,7 +25,7 @@ export default class Search extends Component {
 			tagName: this.state.tag,
 			budget: this.state.budget
 		}).fetch();
-	}*/
+	}
 	updateFilter() {
 		//Update on submit click
 		events.subscribe('update-filter', this.updateStates)
@@ -98,4 +99,4 @@ export default class Search extends Component {
 		</div>
 		);
 	}
-}
+}*/

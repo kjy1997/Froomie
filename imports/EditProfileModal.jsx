@@ -18,9 +18,9 @@ export default class EditProfileModal extends Component {
     const fNameField  = ReactDOM.findDOMNode(this.refs.firstNameField).value.trim();
     const lNameField  = ReactDOM.findDOMNode(this.refs.lastNameField).value.trim();
     const aboutField  = ReactDOM.findDOMNode(this.refs.aboutField).value.trim();
-    const streetField = ReactDOM.findDOMNode(this.refs.streetField).value.trim();
-    const cityField   = ReactDOM.findDOMNode(this.refs.cityField).value.trim();
-    const zipField    = ReactDOM.findDOMNode(this.refs.zipField).value.trim();
+    //const streetField = ReactDOM.findDOMNode(this.refs.streetField).value.trim();
+    //const cityField   = ReactDOM.findDOMNode(this.refs.cityField).value.trim();
+    //const zipField    = ReactDOM.findDOMNode(this.refs.zipField).value.trim();
     const suiteField  = ReactDOM.findDOMNode(this.refs.suiteField).value.trim();
     const propertyField     = ReactDOM.findDOMNode(this.refs.propertyField).value.trim();
     const roomField         = ReactDOM.findDOMNode(this.refs.roomCountField).value.trim();
@@ -35,15 +35,15 @@ export default class EditProfileModal extends Component {
     const furnishingField   = ReactDOM.findDOMNode(this.refs.furnishingField).value.trim();
     const genderPrefField   = ReactDOM.findDOMNode(this.refs.genderPrefField).value.trim();
 
-    if (!fNameField || !lNameField || !aboutField || !streetField || !cityField || !zipField) {
+    if (!fNameField || !lNameField || !aboutField) {
       alert("Missing information!");
       return;
     }
 
     let address = {
-      street: streetField,
-      city: cityField,
-      zipcode: zipField,
+      //street: streetField,
+      //city: cityField,
+      //zipcode: zipField,
       suite: suiteField
     }
 
@@ -123,9 +123,8 @@ export default class EditProfileModal extends Component {
   }
 
   getEditTools() {
-    let nameSplit = this.props.name.split(" ");
-    let firstName = nameSplit[0];
-    let lastName = nameSplit[1];
+    let firstName = this.props.fname;
+    let lastName = this.props.lname;
     let address = this.props.address;
     let property = this.props.property;
     let amenities = this.props.amenities;
@@ -161,9 +160,7 @@ export default class EditProfileModal extends Component {
           <div className="housingInfo">
             <div className="housingColumn propertyInfo">
               <label className="housingColumnName">Property</label>
-              <input type="text" ref="streetField" placeholder="street *" defaultValue={address.street}/>
-              <input type="text" ref="cityField" placeholder="city *" defaultValue={address.city}/>
-              <input type="text" ref="zipField" placeholder="zipcode *" defaultValue={address.zipcode}/>
+              <input type="text" ref="addressField" placeholder="address" defaultValue={address}/>
               <input type="text" ref="suiteField" placeholder="suite" defaultValue={address.suite}/>
               <input type="text" ref="propertyField" placeholder="property type" defaultValue={property.propertyType}/>
               <input type="number" ref="roomCountField" placeholder="# of rooms" defaultValue={property.roomCount}/>

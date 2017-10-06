@@ -3,7 +3,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import UserProfile from './UserProfile.jsx';
-
+ 
 describe('Profile', () => {
 
     beforeEach(() => {
