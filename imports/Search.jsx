@@ -15,16 +15,16 @@ export default class Search extends Component {
 	  budget: 0
     };
   }
-	filterResults() {
+/*	filterResults() {
 		//Get results
-		dbPlaceholder.collection.find({
+		collectionPlaceholder.find({
 			age: this.state.age,
 			gender: this.state.gender,
 			address: this.state.loc,
 			tagName: this.state.tag,
 			budget: this.state.budget
 		}).fetch();
-	}
+	}*/
 	updateFilter() {
 		//Update on submit click
 		events.subscribe('update-filter', this.updateStates)
@@ -33,6 +33,14 @@ export default class Search extends Component {
 			this.setState({});
 	}	
 	render() {
+		 var userList = collectionPlaceholder.find({
+                                           age: this.state.age,
+                                            gender: this.state.gender,
+                                            address: this.state.loc,
+                                            tagName: this.state.tag,
+                                            budget: this.state.budget
+                                          }).fetch().map(function(firstName, index) {
+
 		return (	
 			<div>
 				<Row className="top-bar">
@@ -70,15 +78,7 @@ export default class Search extends Component {
 					</Col>
        	 		<Col sm={9} className="display">
          	 		 <Row>
-				var userList =    dbPlaceholder.collection.find({
- 	        	                 age: this.state.age,
-        	        	          gender: this.state.gender,
-	                	          address: this.state.loc,
-	                        	  tagName: this.state.tag,
-		                          budget: this.state.budget
-			                 }).fetch().map(function(firstName, index) {
-					return
-
+				 {userList.map(function(firstName, index) {
 					<Col xs={6} md={4}>
 						<Thumbnail className="thumbnail" src="/img/avatar.jpg" alt="242x200">
 						<h3 key={ index }>{firstName}</h3>
