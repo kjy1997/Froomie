@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import { Button } from 'react-bootstrap';
 
 import UserTags from './UserTags.jsx';
 import EditProfileModalNoPlace from './EditProfileModalNoPlace.jsx';
@@ -12,6 +11,11 @@ export default class UserProfileNoPlace extends Component {
     this.state = {
       // temp 
       about: "I'm passionate about animals and music. Loves travel and food",
+      stay: {
+        budget: 0,
+        moveIn: "",
+        stayLength: ""
+      },
       tags: [
         'Adventurous',
         'Extrovert',
@@ -33,12 +37,9 @@ export default class UserProfileNoPlace extends Component {
       cache: false,
       success: function(data) {
         var user = data[1];
-        this.setState(
-          {
-            id:     user.id,
-            name:   user.name
-          }, function() {
-          console.log(user);
+        this.setState({
+          id:     user.id,
+          name:   user.name
         });
       }.bind(this),
       error: function(xhr, status, err) {
@@ -59,7 +60,7 @@ export default class UserProfileNoPlace extends Component {
     this.setState({
       name: obj.name,
       about: obj.about,
-      address: obj.address
+      stay: obj.stay
     });
   }
 
@@ -82,12 +83,15 @@ export default class UserProfileNoPlace extends Component {
   }
 
   render() {
-return (
+    let stay = this.state.stay;
+
+    return (
       <div className="profile-container">
         <EditProfileModalNoPlace
           name={this.state.name} 
           about={this.state.about} 
           tags={this.state.tags}
+          stay={this.state.stay}
           handleEdit={this.handleEdit.bind(this)}
           handleAddTag={this.handleTagEdit.bind(this)}
           handleRemoveTag={this.handleTagEdit.bind(this)}
@@ -106,7 +110,15 @@ return (
           <div className="about">
             <h4>About me</h4>
             <p>{this.state.about}</p>
-            <UserTags tags={this.state.tags}/>
+            <UserTags tags={this.state.tags}/>  
+
+            <div className="profileHousingInfo">
+              <div className="housingColumn housingSingle">
+                <strong>Budget<br/><p>${stay.budget}</p></strong>
+                <strong>Move In Date<br/><p>{stay.moveInDate ? stay.moveInDate : "N/A"}</p></strong>
+                <strong>Stay Length<br/><p>{stay.stayLength ? stay.stayLength : "N/A"}</p></strong>
+              </div>
+            </div>  
           </div>
         </div>
         <div className="line-split"></div>
@@ -117,11 +129,6 @@ return (
             <br/>
             <input type="submit" value="Submit"/>
           </form>
-        </div>
-         <div className="updateprofile">
-         <Button className="update" href="/updatewithoutplace">
-          Update Profile
-        </Button>
         </div>
       </div>
     );

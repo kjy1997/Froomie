@@ -123,7 +123,6 @@ export default class EditProfileModal extends Component {
   }
 
   getEditTools() {
-    // temporary name split
     let nameSplit = this.props.name.split(" ");
     let firstName = nameSplit[0];
     let lastName = nameSplit[1];

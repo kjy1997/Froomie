@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import GoogleMapReact from 'google-map-react';
-import { Button } from 'react-bootstrap';
 
 import ProfileMapMarker from './ProfileMapMarker.jsx';
 import UserTags from './UserTags.jsx';
 import EditProfileModal from './EditProfileModal.jsx';
-import { Mongo } from 'meteor/mongo';
 
 export default class UserProfile extends Component {
   static defaultProps = {
@@ -63,13 +61,13 @@ export default class UserProfile extends Component {
       success: function(data) {
         var user = data[1];
         this.setState({
-            id:     user.id,
-            name:   user.name,
-            address:  user.address,
-            center:    {
-              lat: Number(user.address.geo.lat),
-              lng: Number(user.address.geo.lng)
-            }
+          id:     user.id,
+          name:   user.name,
+          address:  user.address,
+          center:    {
+            lat: Number(user.address.geo.lat),
+            lng: Number(user.address.geo.lng)
+          }
         });
       }.bind(this),
       error: function(xhr, status, err) {

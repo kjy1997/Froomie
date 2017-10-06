@@ -6,18 +6,28 @@ export default class EditProfileModalNoPlace extends Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    const fNameField  = ReactDOM.findDOMNode(this.refs.firstNameField).value.trim();
-    const lNameField  = ReactDOM.findDOMNode(this.refs.lastNameField).value.trim();
-    const aboutField  = ReactDOM.findDOMNode(this.refs.aboutField).value.trim();
+    const fNameField    = ReactDOM.findDOMNode(this.refs.firstNameField).value.trim();
+    const lNameField    = ReactDOM.findDOMNode(this.refs.lastNameField).value.trim();
+    const aboutField    = ReactDOM.findDOMNode(this.refs.aboutField).value.trim();
+    const budgetField   = ReactDOM.findDOMNode(this.refs.budgetField).value.trim();
+    const moveInField   = ReactDOM.findDOMNode(this.refs.moveInField).value.trim();
+    const stayLenField  = ReactDOM.findDOMNode(this.refs.stayLengthField).value.trim();
     
     if (!fNameField || !lNameField || !aboutField) {
       alert("Missing information!");
       return;
     }
 
+    let stay = {
+      budget: budgetField,
+      moveInDate: moveInField,
+      stayLength: stayLenField
+    }
+
     let obj = {
       name: fNameField + " " + lNameField,
-      about: aboutField
+      about: aboutField,
+      stay: stay
     }
 
     this.props.handleEdit(obj);
@@ -63,13 +73,19 @@ export default class EditProfileModalNoPlace extends Component {
   }
 
   getEditTools() {
+    let nameSplit = this.props.name.split(" ");
+    let firstName = nameSplit[0];
+    let lastName = nameSplit[1];
+    let stay = this.props.stay;
+
     return(
       <div className="editProfile">
         <h2>Editing Profile</h2>
         <form onSubmit={this.handleSubmit.bind(this)}>
           <label>Name</label>
           <br />
-          <input type="text" ref="nameField" placeholder="your name here *" defaultValue={this.props.name}/>
+          <input className="nameInput" type="text" ref="firstNameField" placeholder="first name *" defaultValue={firstName}/>
+          <input className="nameInput" type="text" ref="lastNameField" placeholder="last name *" defaultValue={lastName}/>
           <br />
 
           <label>About</label>
@@ -85,6 +101,15 @@ export default class EditProfileModalNoPlace extends Component {
           <input type="text" ref="tagField" placeholder="enter tag here"/>
           <button onClick={this.handleAddTag.bind(this)}>Add Tag</button>
           <br />
+
+          <div className="housingInfo">
+            <div className="housingColumn stayInfo">
+              <label className="housingColumnName">About My Stay</label>
+              <input type="number" ref="budgetField" placeholder="budget" defaultValue={stay.budget}/>
+              <input type="text" ref="moveInField" placeholder="move in date" defaultValue={stay.moveInDate}/>
+              <input type="text" ref="stayLengthField" placeholder="length of stay" defaultValue={stay.stayLength}/>
+            </div>
+          </div>
           
           <h6>* indicates required fields</h6>
           <input type="submit"/>
