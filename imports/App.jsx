@@ -13,7 +13,7 @@ import UserProfile from './UserProfile.jsx';
 import UserProfileNoPlace from './UserProfileNoPlace.jsx';
 import UpdateWithPlace from './UpdateWithPlace.jsx';
 import UpdateWithoutPlace from './UpdateWithoutPlace.jsx';
-
+import Profile from './Profile.jsx';
 
 export default class App extends Component {
 
@@ -31,6 +31,7 @@ export default class App extends Component {
         <Route path="/profilenoplace" component={UserProfileNoPlace} />
         <Route path="/updatewithplace" component={UpdateWithPlace} />
         <Route path="/updatewithoutplace" component={UpdateWithoutPlace} />
+        <Route path="/profile1" component={Profile} />
         </div>
        </Router>
     );

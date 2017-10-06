@@ -24,4 +24,7 @@ twbs:bootstrap
 jquery
 accounts-password
 aldeed:simple-schema
+accounts-ui
+accounts-facebook
 meteortoys:allthings
+react-meteor-data
