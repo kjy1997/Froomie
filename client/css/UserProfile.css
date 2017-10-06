@@ -88,6 +88,36 @@
   margin: 0;
 }
 
+.about .profileHousingInfo {
+  display: flex;
+  flex-direction: row;
+
+  border: 1px solid black;
+  border-radius: 25px;
+  padding: 10px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+
+  width: 75%;
+
+  background: #eee;
+}
+
+.about .profileHousingInfo strong, p{
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin: 0;
+
+  font-size: 15px;
+  text-align: center;
+}
+
+.about .profileHousingInfo p {
+  padding: 0;
+  
+  font-size: 13px;
+}
+
 .about .map {
   margin: 0 auto;
 
@@ -135,20 +165,6 @@
   text-align: left;
 
   outline: none;
-}
-
-.update {
-  width: 80px;
-  height: 35px;
-  border: none;
-  border-radius: 10px;
-
-  color: black;
-  background: #0b8966;
-}
-
-.updateprofile {
-  text-align: center;
 }
 
 .contact input[type=submit] {
@@ -203,7 +219,7 @@
 .editProfile {
   margin: 0 auto;
 
-  width: 50%;
+  width: 80%;
 
   text-align: center;
 }
@@ -309,7 +325,6 @@
     width: 100%;
 }
 
-
 .modalTagsContainer span {
     position: relative;
     display: inline-block;
@@ -334,6 +349,47 @@
     transform: scale(1.08);
 }
 
+.housingInfo {
+  display: flex;
+  box-sizing: border-box;
+
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 5px;
+
+  width: 100%;
+
+  background: #eee;
+}
+
+.housingColumn {
+  display: flex;
+  flex-direction: column;
+
+  width: 33%;
+}
+
+.housingColumn input {
+  width: 95%;
+}
+
+.housingColumn input[type=checkbox] {
+  margin-right: 5px;
+
+  width: initial;
+}
+
+.housingColumn label {
+  font-size: 14px;
+}
+
+.housingColumn .housingColumnName {
+  text-align: center;
+}
+
+.amenitiesInfo label {
+  text-align: left;
+}
 
 
 

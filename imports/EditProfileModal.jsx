@@ -22,6 +22,18 @@ export default class EditProfileModal extends Component {
     const cityField   = ReactDOM.findDOMNode(this.refs.cityField).value.trim();
     const zipField    = ReactDOM.findDOMNode(this.refs.zipField).value.trim();
     const suiteField  = ReactDOM.findDOMNode(this.refs.suiteField).value.trim();
+    const propertyField     = ReactDOM.findDOMNode(this.refs.propertyField).value.trim();
+    const roomField         = ReactDOM.findDOMNode(this.refs.roomCountField).value.trim();
+    const bathroomField     = ReactDOM.findDOMNode(this.refs.bathroomCountField).value.trim();
+    const internetField     = ReactDOM.findDOMNode(this.refs.internetField).checked;
+    const parkingField      = ReactDOM.findDOMNode(this.refs.parkingField).checked;
+    const acField           = ReactDOM.findDOMNode(this.refs.acField).checked;
+    const rentField         = ReactDOM.findDOMNode(this.refs.rentField).value.trim();
+    const depositField      = ReactDOM.findDOMNode(this.refs.depositField).value.trim();
+    const roomTypeField     = ReactDOM.findDOMNode(this.refs.roomTypeField).value.trim();
+    const bathroomTypeField = ReactDOM.findDOMNode(this.refs.bathroomTypeField).value.trim();
+    const furnishingField   = ReactDOM.findDOMNode(this.refs.furnishingField).value.trim();
+    const genderPrefField   = ReactDOM.findDOMNode(this.refs.genderPrefField).value.trim();
 
     if (!fNameField || !lNameField || !aboutField || !streetField || !cityField || !zipField) {
       alert("Missing information!");
@@ -35,10 +47,34 @@ export default class EditProfileModal extends Component {
       suite: suiteField
     }
 
+    let property = {
+      propertyType: propertyField,
+      roomCount: roomField,
+      bathroomCount: bathroomField
+    }
+
+    let amenities = {
+      internet: internetField,
+      parking: parkingField,
+      ac: acField
+    }
+
+    let room = {        
+      rent: rentField,
+      deposit: depositField,
+      roomType: roomTypeField,
+      bathroomType: bathroomTypeField,
+      furnishing: furnishingField,
+      genderPref: genderPrefField
+    }
+
     let obj = {
       name: fNameField + " " + lNameField,
       about: aboutField,
       address: address,
+      property: property,
+      amenities: amenities,
+      room: room,
     }
 
     let tags = JSON.parse(JSON.stringify(this.state.tags));
@@ -92,6 +128,9 @@ export default class EditProfileModal extends Component {
     let firstName = nameSplit[0];
     let lastName = nameSplit[1];
     let address = this.props.address;
+    let property = this.props.property;
+    let amenities = this.props.amenities;
+    let room = this.props.room;
 
     return(
       <div className="editProfile">
@@ -117,12 +156,36 @@ export default class EditProfileModal extends Component {
           <button onClick={this.handleAddTag.bind(this)}>Add Tag</button>
           <br />
 
-          <label>Address</label>
+          <label>Housing Info</label>
           <br />
-          <input type="text" ref="streetField" placeholder="street *" defaultValue={address.street}/>
-          <input type="text" ref="cityField" placeholder="city *" defaultValue={address.city}/>
-          <input type="text" ref="zipField" placeholder="zipcode *" defaultValue={address.zipcode}/>
-          <input type="text" ref="suiteField" placeholder="suite" defaultValue={address.suite}/>
+
+          <div className="housingInfo">
+            <div className="housingColumn propertyInfo">
+              <label className="housingColumnName">Property</label>
+              <input type="text" ref="streetField" placeholder="street *" defaultValue={address.street}/>
+              <input type="text" ref="cityField" placeholder="city *" defaultValue={address.city}/>
+              <input type="text" ref="zipField" placeholder="zipcode *" defaultValue={address.zipcode}/>
+              <input type="text" ref="suiteField" placeholder="suite" defaultValue={address.suite}/>
+              <input type="text" ref="propertyField" placeholder="property type" defaultValue={property.propertyType}/>
+              <input type="number" ref="roomCountField" placeholder="# of rooms" defaultValue={property.roomCount}/>
+              <input type="number" ref="bathroomCountField" placeholder="# of bathrooms" defaultValue={property.bathroomCount}/>
+            </div>
+            <div className="housingColumn amenitiesInfo">
+              <label className="housingColumnName">Amenities</label>
+              <label><input type="checkbox" ref="internetField" defaultChecked={amenities.internet}/>internet</label>
+              <label><input type="checkbox" ref="parkingField" defaultChecked={amenities.parking}/>parking</label>
+              <label><input type="checkbox" ref="acField" defaultChecked={amenities.ac}/>air conditioning</label>
+            </div>
+            <div className="housingColumn roomInfo">
+              <label className="housingColumnName">Room</label>
+              <input type="number" ref="rentField" placeholder="monthly rent" defaultValue={room.rent}/>
+              <input type="number" ref="depositField" placeholder="security deposit" defaultValue={room.deposit}/>
+              <input type="text" ref="roomTypeField" placeholder="room type" defaultValue={room.roomType}/>
+              <input type="text" ref="bathroomTypeField" placeholder="bathroom type" defaultValue={room.bathroomType}/>
+              <input type="text" ref="furnishingField" placeholder="furnishing" defaultValue={room.furnishing}/>
+              <input type="text" ref="genderPrefField" placeholder="preferred gender" defaultValue={room.genderPref}/>
+            </div>
+          </div>
 
           <h6>* indicates required fields</h6>
           <input type="submit" value="Save"/>

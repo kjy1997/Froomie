@@ -22,6 +22,24 @@ export default class UserProfile extends Component {
       // temp
       about: "I'm passionate about animals and music. Loves travel and food",
       address: {},
+      property: {
+        propertyType: "",
+        roomCount: 0,
+        bathroomCount: 0
+      },
+      amenities: {
+        internet: false,
+        parking: false,
+        ac: false
+      },
+      room: {
+        rent: 0,
+        deposit: 0,
+        roomType: "",
+        bathroomType: "",
+        furnishing: "",
+        genderPref: ""
+      },
       center: {},
       tags: [
         'Adventurous',
@@ -44,8 +62,7 @@ export default class UserProfile extends Component {
       cache: false,
       success: function(data) {
         var user = data[1];
-        this.setState(
-          {
+        this.setState({
             id:     user.id,
             name:   user.name,
             address:  user.address,
@@ -53,8 +70,6 @@ export default class UserProfile extends Component {
               lat: Number(user.address.geo.lat),
               lng: Number(user.address.geo.lng)
             }
-          }, function() {
-          console.log(user);
         });
       }.bind(this),
       error: function(xhr, status, err) {
@@ -75,7 +90,10 @@ export default class UserProfile extends Component {
     this.setState({
       name: obj.name,
       about: obj.about,
-      address: obj.address
+      address: obj.address,
+      property: obj.property,
+      amenities: obj.amenities,
+      room: obj.room
     });
   }
 
@@ -98,7 +116,11 @@ export default class UserProfile extends Component {
   }
 
   render() {
-    var p = this.state.address;
+    let address = this.state.address;
+    let property = this.state.property;
+    let amenities = this.state.amenities;
+    let room = this.state.room;
+
     return (
       <div className="profile-container">
         <EditProfileModal 
@@ -106,6 +128,9 @@ export default class UserProfile extends Component {
           about={this.state.about} 
           tags={this.state.tags}
           address={this.state.address}
+          property={this.state.property}
+          amenities={this.state.amenities}
+          room={this.state.room}
           handleEdit={this.handleEdit.bind(this)}
           handleTagEdit={this.handleTagEdit.bind(this)}
           isOpen={this.state.isModalOpen} 
@@ -127,7 +152,29 @@ export default class UserProfile extends Component {
             <div className="line-split"></div>
 
             <h4>About my place</h4>
-            <p>{p.street}, {p.city} {p.zipcode}, {p.suite}</p>
+            <p>{address.street}, {address.city} {address.zipcode}, {address.suite}</p>
+
+            <div className="profileHousingInfo">
+              <div className="housingColumn">
+                <strong>Property Type <br/><p>{property.propertyType ? property.propertyType : "N/A"}</p></strong>
+                <strong>Room Count <br/><p>{property.roomCount}</p></strong>
+                <strong>Bathroom Count <br/><p>{property.bathroomCount}</p></strong>
+              </div>
+              <div className="housingColumn">
+                <strong>Internet <br/><p>{amenities.internet ? "yes" : "no"}</p></strong>
+                <strong>Parking <br/><p>{amenities.parking ? "yes" : "no"}</p></strong>
+                <strong>A/C <br/><p>{amenities.ac ? "yes" : "no"}</p></strong>
+              </div>
+              <div className="housingColumn">
+                <strong>Rent <br/><p>${room.rent}</p></strong>
+                <strong>Deposit <br/><p>${room.deposit}</p></strong>
+                <strong>Room Type <br/><p>{room.roomType ? room.roomType : "N/A"}</p></strong>
+                <strong>Bathroom Type <br/><p>{room.bathroomType ? room.bathroomType : "N/A"}</p></strong>
+                <strong>Furnishing <br/><p>{room.furnishing ? room.furnishing : "N/A"}</p></strong>
+                <strong>Preferred Gender <br/><p>{room.genderPref ? room.genderPref : "N/A"}</p></strong>
+              </div>
+            </div>
+
             <div className="map">
               <GoogleMapReact 
                 center={this.state.center} 
@@ -149,11 +196,6 @@ export default class UserProfile extends Component {
             <br/>
             <input type="submit" value="Submit"/>
           </form>
-        </div>
-        <div className="updateprofile">
-         <Button className="update" href="/updatewithplace">
-          Update Profile
-        </Button>
         </div>
       </div>
     );
