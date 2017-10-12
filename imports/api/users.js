@@ -13,5 +13,5 @@ Users.schema = new SimpleSchema({
     dislikes: {type: [Number]},
     about: {type: String},
     profilePicture: {type: String},
-    socialMediaLinks: {type: [String]},
+    socialMediaLinks: {type: [Object]},
 });
