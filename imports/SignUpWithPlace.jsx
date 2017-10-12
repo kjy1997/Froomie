@@ -59,7 +59,7 @@ export default class SignUpWithPlace extends Component {
                      
                     }
                 })
-                console.log("Registered in user: " + Meteor.user().username);
+                alert("Registered in user: " + Meteor.user().username);
             }
         });
     }

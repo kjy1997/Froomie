@@ -39,7 +39,7 @@ export default class SignUpWithoutPlace extends Component {
                       "profile.lengthofstay": lengthofstay
                     }
                 })
-                console.log("Registered in user: " + Meteor.user().username);
+                alert("Registered in user: " + Meteor.user().username);
             }
         });
     }

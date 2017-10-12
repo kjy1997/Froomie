@@ -69,9 +69,10 @@ export default class Login extends Component {
                 alert("Error: " + error.reason);
                 console.log("Error: " + error.reason);
             } else {
-                console.log("Logged in user: " + Meteor.user().username);
+                alert("Logged in user: " + Meteor.user().username);
             }
         });
+
     }
 }
 

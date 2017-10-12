@@ -15,22 +15,20 @@ export default class EditProfileModal extends Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    const fNameField  = ReactDOM.findDOMNode(this.refs.firstNameField).value.trim();
-    const lNameField  = ReactDOM.findDOMNode(this.refs.lastNameField).value.trim();
-    const aboutField  = ReactDOM.findDOMNode(this.refs.aboutField).value.trim();
-    //const streetField = ReactDOM.findDOMNode(this.refs.streetField).value.trim();
-    //const cityField   = ReactDOM.findDOMNode(this.refs.cityField).value.trim();
-    //const zipField    = ReactDOM.findDOMNode(this.refs.zipField).value.trim();
-    const suiteField  = ReactDOM.findDOMNode(this.refs.suiteField).value.trim();
-    const propertyField     = ReactDOM.findDOMNode(this.refs.propertyField).value.trim();
-    const roomField         = ReactDOM.findDOMNode(this.refs.roomCountField).value.trim();
-    const bathroomField     = ReactDOM.findDOMNode(this.refs.bathroomCountField).value.trim();
-    const internetField     = ReactDOM.findDOMNode(this.refs.internetField).checked;
-    const parkingField      = ReactDOM.findDOMNode(this.refs.parkingField).checked;
-    const acField           = ReactDOM.findDOMNode(this.refs.acField).checked;
-    const rentField         = ReactDOM.findDOMNode(this.refs.rentField).value.trim();
-    const depositField      = ReactDOM.findDOMNode(this.refs.depositField).value.trim();
-    const roomTypeField     = ReactDOM.findDOMNode(this.refs.roomTypeField).value.trim();
+    const fNameField    = ReactDOM.findDOMNode(this.refs.firstNameField).value.trim();
+    const lNameField    = ReactDOM.findDOMNode(this.refs.lastNameField).value.trim();
+    const aboutField    = ReactDOM.findDOMNode(this.refs.aboutField).value.trim();
+    const addressField  = ReactDOM.findDOMNode(this.refs.addressField).value.trim();
+    const suiteField    = ReactDOM.findDOMNode(this.refs.suiteField).value.trim();
+    const propertyField = ReactDOM.findDOMNode(this.refs.propertyField).value.trim();
+    const roomField     = ReactDOM.findDOMNode(this.refs.roomCountField).value.trim();
+    const bathroomField = ReactDOM.findDOMNode(this.refs.bathroomCountField).value.trim();
+    const internetField = ReactDOM.findDOMNode(this.refs.internetField).checked;
+    const parkingField  = ReactDOM.findDOMNode(this.refs.parkingField).checked;
+    const acField       = ReactDOM.findDOMNode(this.refs.acField).checked;
+    const rentField     = ReactDOM.findDOMNode(this.refs.rentField).value.trim();
+    const depositField  = ReactDOM.findDOMNode(this.refs.depositField).value.trim();
+    const roomTypeField = ReactDOM.findDOMNode(this.refs.roomTypeField).value.trim();
     const bathroomTypeField = ReactDOM.findDOMNode(this.refs.bathroomTypeField).value.trim();
     const furnishingField   = ReactDOM.findDOMNode(this.refs.furnishingField).value.trim();
     const genderPrefField   = ReactDOM.findDOMNode(this.refs.genderPrefField).value.trim();
@@ -40,41 +38,23 @@ export default class EditProfileModal extends Component {
       return;
     }
 
-    let address = {
-      //street: streetField,
-      //city: cityField,
-      //zipcode: zipField,
-      suite: suiteField
-    }
-
-    let property = {
-      propertyType: propertyField,
+    let obj = {
+      fname: fNameField,
+      lname: lNameField,
+      about: aboutField,
+      address: addressField,
+      property: propertyField,
       roomCount: roomField,
-      bathroomCount: bathroomField
-    }
-
-    let amenities = {
+      bathroomCount: bathroomField,
       internet: internetField,
       parking: parkingField,
-      ac: acField
-    }
-
-    let room = {        
+      ac: acField,
       rent: rentField,
       deposit: depositField,
       roomType: roomTypeField,
       bathroomType: bathroomTypeField,
       furnishing: furnishingField,
       genderPref: genderPrefField
-    }
-
-    let obj = {
-      name: fNameField + " " + lNameField,
-      about: aboutField,
-      address: address,
-      property: property,
-      amenities: amenities,
-      room: room,
     }
 
     let tags = JSON.parse(JSON.stringify(this.state.tags));
@@ -161,7 +141,7 @@ export default class EditProfileModal extends Component {
             <div className="housingColumn propertyInfo">
               <label className="housingColumnName">Property</label>
               <input type="text" ref="addressField" placeholder="address" defaultValue={address}/>
-              <input type="text" ref="suiteField" placeholder="suite" defaultValue={address.suite}/>
+              <input type="text" ref="suiteField" placeholder="suite"/>
               <input type="text" ref="propertyField" placeholder="property type" defaultValue={property.propertyType}/>
               <input type="number" ref="roomCountField" placeholder="# of rooms" defaultValue={property.roomCount}/>
               <input type="number" ref="bathroomCountField" placeholder="# of bathrooms" defaultValue={property.bathroomCount}/>

@@ -19,28 +19,6 @@ class UserProfile extends Component {
   constructor() {
     super();
     this.state = {
-      // temp
-      about: "I'm passionate about animals and music. Loves travel and food",
-      address: {},
-      property: {
-        propertyType: "",
-        roomCount: 0,
-        bathroomCount: 0
-      },
-      amenities: {
-        internet: false,
-        parking: false,
-        ac: false
-      },
-      room: {
-        rent: 0,
-        deposit: 0,
-        roomType: "",
-        bathroomType: "",
-        furnishing: "",
-        genderPref: ""
-      },
-      center: {},
       tags: [
         'Adventurous',
         'Extrovert',
@@ -54,46 +32,35 @@ class UserProfile extends Component {
     }
   }
 
-  // temporary fake json data - switch to MongoDB collections
-  getUserData() {
-    $.ajax({
-      url: 'https://jsonplaceholder.typicode.com/users',
-      dataType: 'json',
-      cache: false,
-      success: function(data) {
-        var user = data[1];
-        this.setState({
-          id:     user.id,
-          name:   user.name,
-          address:  user.address,
-          center:    {
-            lat: Number(user.address.geo.lat),
-            lng: Number(user.address.geo.lng)
-          }
-        });
-      }.bind(this),
-      error: function(xhr, status, err) {
-        console.log(err);
-      }
-    });
-  }
-
   handleContactSubmit(e) {
     e.preventDefault();
 
     let message = ReactDOM.findDOMNode(this.refs.contactForm).value;
 
-    console.log(message);
+    alert(message);
   }
 
   handleEdit(obj) {
-    this.setState({
-      name: obj.name,
-      about: obj.about,
-      address: obj.address,
-      property: obj.property,
-      amenities: obj.amenities,
-      room: obj.room
+    Meteor.users.update(Meteor.userId(), {
+      $set: {
+        "profile.firstName": obj.fname,
+        "profile.lastName": obj.lname,
+        "profile.about": obj.about,
+        // property
+        "profile.place.address": obj.address,
+        "profile.place.property": obj.property,
+        // amenities
+        "profile.place.internet": obj.internet,
+        "profile.place.parking": obj.parking,
+        "profile.place.ac": obj.ac,
+        // room
+        "profile.place.rent": obj.rent,
+        "profile.place.deposit": obj.deposit,
+        "profile.place.roomtype": obj.roomType,
+        "profile.place.bathroomType": obj.bathroomType,
+        "profile.place.furnishing": obj.furnishing,
+        "profile.place.prefergender": obj.genderPref
+      }
     });
   }
 
@@ -109,10 +76,6 @@ class UserProfile extends Component {
 
   closeModal() {
     this.setState({ isModalOpen: false });
-  }
-
-  componentDidMount() {
-    this.getUserData();
   }
 
   render() {
@@ -172,8 +135,8 @@ class UserProfile extends Component {
             <div className="profileHousingInfo">
               <div className="housingColumn">
                 <strong>Property Type <br/><p>{property.propertyType ? property.propertyType : "N/A"}</p></strong>
-                <strong>Room Count <br/><p>0</p></strong>
-                <strong>Bathroom Count <br/><p>0</p></strong>
+                <strong>Room Count <br/><p>{property.roomCount ? property.roomCount : 0}</p></strong>
+                <strong>Bathroom Count <br/><p>{property.roomCount ? property.roomCount : 0}</p></strong>
               </div>
               <div className="housingColumn">
                 <strong>Internet <br/><p>{amenities.internet ? "yes" : "no"}</p></strong>
@@ -192,11 +155,11 @@ class UserProfile extends Component {
 
             <div className="map">
               <GoogleMapReact 
-                center={this.state.center} 
+                center={this.props.center} 
                 defaultZoom={this.props.zoom}>
                 <ProfileMapMarker
-                  lat={this.state.center.lat}
-                  lng={this.state.center.lng}
+                  lat={this.props.center.lat}
+                  lng={this.props.center.lng}
                   text={'My Place'}
                 />
               </GoogleMapReact>

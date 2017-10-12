@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import { createContainer } from 'react-meteor-data';
 import PropTypes from 'prop-types';
 
@@ -29,7 +30,7 @@ class Profile extends Component {
 
         let message = ReactDOM.findDOMNode(this.refs.contactForm).value;
 
-        console.log(message);
+        alert(message);
     }
 
     render() {

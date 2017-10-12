@@ -28,10 +28,9 @@ export default class App extends Component {
         <Route path="/login" component={Login} />
         <Route path="/registration" component={Registration} />
         <Route path="/profile" component={UserProfile} />
-        <Route path="/profilenoplace" component={UserProfileNoPlace} />
+        <Route path="/profilenoplace" component={Profile} />
         <Route path="/updatewithplace" component={UpdateWithPlace} />
         <Route path="/updatewithoutplace" component={UpdateWithoutPlace} />
-        <Route path="/profile1" component={Profile} />
         </div>
        </Router>
     );
