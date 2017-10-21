@@ -33,6 +33,10 @@
 	margin: 10px;
 }
 
+.money {
+	margin: 10px;
+}
+
 .username .first-row{
 	padding-top: 25px;
 }
@@ -83,4 +87,26 @@
 .place-input {
 	margin-top: 10px;
 	margin-bottom: 10px;
+}
+
+.avatar-uploader,
+.avatar-uploader-trigger,
+.avatar {
+  width: 150px;
+  height: 150px;
+  
+}
+.avatar-uploader {
+  display: block;
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  
+}
+.avatar-uploader-trigger {
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 28px;
+  color: #999;
+  
 }
