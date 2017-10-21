@@ -59,7 +59,7 @@ class UserProfile extends Component {
         "profile.place.roomtype": obj.roomType,
         "profile.place.bathroomType": obj.bathroomType,
         "profile.place.furnishing": obj.furnishing,
-        "profile.place.prefergender": obj.genderPref
+        "profile.place.preferGender": obj.genderPref
       }
     });
   }
@@ -95,7 +95,7 @@ class UserProfile extends Component {
       roomType: user.profile.place.roomtype,
       bathroomType: user.profile.place.bathroomType,
       furnishing: user.profile.place.furnishing,
-      genderPref: user.profile.place.prefergender
+      genderPref: user.profile.place.preferGender
     } : {};
   
     return (
@@ -120,60 +120,62 @@ class UserProfile extends Component {
         <div className="user-back">
           <div className="user-pic"></div>
         </div>
-        <div className="user-info">
-          <h2>{user ? user.profile.firstName + " " + user.profile.lastName : "Loading..."}</h2>
-          <button onClick={this.openModal.bind(this)}>Edit</button>
-          <div className="about">
-            <h4>About me</h4>
-            <p>{user ? user.profile.about : "Loading..."}</p>
-            <UserTags tags={this.state.tags}/>
-            <div className="line-split"></div>
+        <div className="info-container">
+          <div className="user-info">
+            <h2>{user ? user.profile.firstName + " " + user.profile.lastName : "Loading..."}</h2>
+            <button onClick={this.openModal.bind(this)}>Edit</button>
+            <div className="about">
+              <h4>About me</h4>
+              <p>{user ? user.profile.about : "Loading..."}</p>
+              <UserTags tags={this.state.tags}/>
+              <div className="line-split"></div>
 
-            <h4>About my place</h4>
-            <p>{address}</p>
+              <h4>About my place</h4>
+              <p>{address}</p>
 
-            <div className="profileHousingInfo">
-              <div className="housingColumn">
-                <strong>Property Type <br/><p>{property.propertyType ? property.propertyType : "N/A"}</p></strong>
-                <strong>Room Count <br/><p>{property.roomCount ? property.roomCount : 0}</p></strong>
-                <strong>Bathroom Count <br/><p>{property.roomCount ? property.roomCount : 0}</p></strong>
+              <div className="profileHousingInfo">
+                <div className="housingColumn">
+                  <strong>Property Type <br/><p>{property.propertyType ? property.propertyType : "N/A"}</p></strong>
+                  <strong>Room Count <br/><p>{property.roomCount ? property.roomCount : 0}</p></strong>
+                  <strong>Bathroom Count <br/><p>{property.roomCount ? property.roomCount : 0}</p></strong>
+                </div>
+                <div className="housingColumn">
+                  <strong>Internet <br/><p>{amenities.internet ? "yes" : "no"}</p></strong>
+                  <strong>Parking <br/><p>{amenities.parking ? "yes" : "no"}</p></strong>
+                  <strong>A/C <br/><p>{amenities.ac ? "yes" : "no"}</p></strong>
+                </div>
+                <div className="housingColumn">
+                  <strong>Rent <br/><p>${room.rent}</p></strong>
+                  <strong>Deposit <br/><p>${room.deposit}</p></strong>
+                  <strong>Room Type <br/><p>{room.roomType ? room.roomType : "N/A"}</p></strong>
+                  <strong>Bathroom Type <br/><p>{room.bathroomType ? room.bathroomType : "N/A"}</p></strong>
+                  <strong>Furnishing <br/><p>{room.furnishing ? room.furnishing : "N/A"}</p></strong>
+                  <strong>Preferred Gender <br/><p>{room.genderPref ? room.genderPref : "N/A"}</p></strong>
+                </div>
               </div>
-              <div className="housingColumn">
-                <strong>Internet <br/><p>{amenities.internet ? "yes" : "no"}</p></strong>
-                <strong>Parking <br/><p>{amenities.parking ? "yes" : "no"}</p></strong>
-                <strong>A/C <br/><p>{amenities.ac ? "yes" : "no"}</p></strong>
-              </div>
-              <div className="housingColumn">
-                <strong>Rent <br/><p>${room.rent}</p></strong>
-                <strong>Deposit <br/><p>${room.deposit}</p></strong>
-                <strong>Room Type <br/><p>{room.roomType ? room.roomType : "N/A"}</p></strong>
-                <strong>Bathroom Type <br/><p>{room.bathroomType ? room.bathroomType : "N/A"}</p></strong>
-                <strong>Furnishing <br/><p>{room.furnishing ? room.furnishing : "N/A"}</p></strong>
-                <strong>Preferred Gender <br/><p>{room.genderPref ? room.genderPref : "N/A"}</p></strong>
-              </div>
-            </div>
 
-            <div className="map">
-              <GoogleMapReact 
-                center={this.props.center} 
-                defaultZoom={this.props.zoom}>
-                <ProfileMapMarker
-                  lat={this.props.center.lat}
-                  lng={this.props.center.lng}
-                  text={'My Place'}
-                />
-              </GoogleMapReact>
+              <div className="map">
+                <GoogleMapReact 
+                  center={this.props.center} 
+                  defaultZoom={this.props.zoom}>
+                  <ProfileMapMarker
+                    lat={this.props.center.lat}
+                    lng={this.props.center.lng}
+                    text={'My Place'}
+                  />
+                </GoogleMapReact>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="line-split"></div>
-        <div className="contact">
-          <h4>Contact Me</h4>
-          <form onSubmit={this.handleContactSubmit.bind(this)}>
-            <textarea className="contact-subject" ref="contactForm"></textarea>
-            <br/>
-            <input type="submit" value="Submit"/>
-          </form>
+          <div className="line-split"></div>
+          <div className="contact">
+            <h4>Contact Me</h4>
+            <form onSubmit={this.handleContactSubmit.bind(this)}>
+              <textarea className="contact-subject" ref="contactForm"></textarea>
+              <br/>
+              <input type="submit" value="Submit"/>
+            </form>
+          </div>
         </div>
       </div>
     );

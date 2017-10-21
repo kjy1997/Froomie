@@ -6,7 +6,8 @@ import Bootstrap from '../client/css/bootstrap/bootstrap.css';
 import App from '../imports/App.jsx';
  
 Meteor.startup(() => {
-  render(
-  	<App />, document.getElementById('main-app')
-  );
+    //console.log(process.env)
+    render(
+    	<App />, document.getElementById('main-app')
+    );
 });

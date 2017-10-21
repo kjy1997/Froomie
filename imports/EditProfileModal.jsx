@@ -171,12 +171,12 @@ export default class EditProfileModal extends Component {
   }
 
   render() {
-    if (this.props.isOpen === false)
+    if (!this.props.isOpen)
       return null;
 
     return(
       <div>
-        <div className="backdrop" onClick={e => this.close(e)}>
+        <div className="backdrop" onClick={this.close.bind(this)}>
           <div className="profileModal" onClick={e => e.stopPropagation()}>
           {this.getEditTools()}
           </div>
@@ -185,8 +185,7 @@ export default class EditProfileModal extends Component {
     );
   }
 
-  close(e) {
-    e.preventDefault();
+  close() {
     this.props.onClose();
   }
 }
