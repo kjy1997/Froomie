@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
-import GoogleMapReact from 'google-map-react';
 import { createContainer } from 'react-meteor-data';
 
 import UserProfile from './UserProfile.jsx';

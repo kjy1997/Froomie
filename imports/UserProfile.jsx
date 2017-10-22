@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
 
-import ProfileMapMarker from './ProfileMapMarker.jsx';
 import UserTags from './UserTags.jsx';
 import EditProfileModal from './EditProfileModal.jsx';
 

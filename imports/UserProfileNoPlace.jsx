@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
 
 import UserTags from './UserTags.jsx';
 import EditProfileModalNoPlace from './EditProfileModalNoPlace.jsx';
