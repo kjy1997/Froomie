@@ -6,20 +6,15 @@ import EditProfileModalNoPlace from './EditProfileModalNoPlace.jsx';
 
 export default class UserProfileNoPlace extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      tags: [
-        'Adventurous',
-        'Extrovert',
-        'Well-Organized',
-        'Friendly',
-        'Athletic',
-        'Dynamic',
-        'Reliable'
-      ],
       isModalOpen: false
     }
+
+    // TEMPORARY 
+    if (!props.user.profile.hasOwnProperty('tags'))
+      props.user["profile"]["tags"] = [];
   }
 
   handleContactSubmit(e) {
@@ -27,7 +22,7 @@ export default class UserProfileNoPlace extends Component {
 
     let message = ReactDOM.findDOMNode(this.refs.contactForm).value;
 
-    console.log(message);
+    alert(message);
   }
 
   handleEdit(obj) {
@@ -36,18 +31,13 @@ export default class UserProfileNoPlace extends Component {
         "profile.firstName": obj.fname,
         "profile.lastName": obj.lname,
         "profile.about": obj.about,
+        "profile.tags": obj.tags,
         // stay
         "profile.budget": obj.budget,
         "profile.moveindate": obj.moveindate,
         "profile.lengthofstay": obj.lengthofstay
       }
     });
-  }
-
-  handleTagEdit(obj) {
-    this.setState({
-      tags: obj,
-    })
   }
 
   openModal() {
@@ -73,10 +63,9 @@ export default class UserProfileNoPlace extends Component {
           fname={user.profile.firstName} 
           lname={user.profile.lastName}
           about={user.profile.about} 
-          tags={this.state.tags}
+          tags={user.profile.tags}
           stay={stay}
           handleEdit={this.handleEdit.bind(this)}
-          handleTagEdit={this.handleTagEdit.bind(this)}
           isOpen={this.state.isModalOpen} 
           onClose={this.closeModal.bind(this)}
         />
@@ -91,8 +80,8 @@ export default class UserProfileNoPlace extends Component {
           <button onClick={this.openModal.bind(this)}>Edit</button>
           <div className="about">
             <h4>About me</h4>
-            <p>{this.state.about}</p>
-            <UserTags tags={this.state.tags}/>  
+            <p>{user.profile.about}</p>
+            <UserTags tags={user.profile.tags}/>  
 
             <div className="profileHousingInfo">
               <div className="housingColumn housingSingle">

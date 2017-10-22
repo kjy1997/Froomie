@@ -6,22 +6,17 @@ import EditProfileModal from './EditProfileModal.jsx';
 
 export default class UserProfile extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.defaultZoom = 4;
     this.defaultCenter = {lat: 37, lng: -95};
     this.state = {
-      tags: [
-        'Adventurous',
-        'Extrovert',
-        'Well-Organized',
-        'Friendly',
-        'Athletic',
-        'Dynamic',
-        'Reliable'
-      ],
       isModalOpen: false
     }
+
+    // TEMPORARY 
+    if (!props.user.profile.hasOwnProperty('tags'))
+      props.user["profile"]["tags"] = [];
   }
 
   handleContactSubmit(e) {
@@ -38,6 +33,7 @@ export default class UserProfile extends Component {
         "profile.firstName": obj.fname,
         "profile.lastName": obj.lname,
         "profile.about": obj.about,
+        "profile.tags": obj.tags,
         // property
         "profile.place.address": obj.address,
         "profile.place.property": obj.property,
@@ -57,12 +53,6 @@ export default class UserProfile extends Component {
     this.geocodeAddress(obj.address);
   }
 
-  handleTagEdit(obj) {
-    this.setState({
-      tags: obj,
-    });
-  }
-
   openModal() {
     this.setState({ isModalOpen: true });
   }
@@ -79,7 +69,7 @@ export default class UserProfile extends Component {
         this.marker.setPosition(results[0].geometry.location);
       }
       else {
-        console.log(status);
+        console.log("Map Error: " + status);
         this.map.setZoom(this.defaultZoom);
         this.map.setCenter(this.defaultCenter);
       }
@@ -102,6 +92,8 @@ export default class UserProfile extends Component {
 
   render() {
     let user = this.props.user;
+
+    console.log(user);
 
     let address = user.profile.place.address;
     let property = {
@@ -129,13 +121,12 @@ export default class UserProfile extends Component {
           fname={user.profile.firstName} 
           lname={user.profile.lastName}
           about={user.profile.about} 
-          tags={this.state.tags}
+          tags={user.profile.tags}
           address={address}
           property={property}
           amenities={amenities}
           room={room}
           handleEdit={this.handleEdit.bind(this)}
-          handleTagEdit={this.handleTagEdit.bind(this)}
           isOpen={this.state.isModalOpen} 
           onClose={this.closeModal.bind(this)}
         />
@@ -152,7 +143,7 @@ export default class UserProfile extends Component {
             <div className="about">
               <h4>About me</h4>
               <p>{user.profile.about}</p>
-              <UserTags tags={this.state.tags}/>
+              <UserTags tags={user.profile.tags}/>
               <div className="line-split"></div>
 
               <h4>About my place</h4>

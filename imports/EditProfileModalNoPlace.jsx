@@ -2,6 +2,15 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 export default class EditProfileModalNoPlace extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentWillReceiveProps() {
+    this.setState({
+      tags: this.props.tags
+    })
+  }
 
   handleSubmit(e) {
     e.preventDefault();
@@ -21,14 +30,13 @@ export default class EditProfileModalNoPlace extends Component {
     let obj = {
       name: fNameField + " " + lNameField,
       about: aboutField,
+      tags: this.state.tags,
       budget: budgetField,
       moveindate: moveInField,
       lengthofstay: stayLenField
     }
 
     this.props.handleEdit(obj);
-    this.props.handleTagEdit(this.props.tags);
-
     this.close(e);
   }
 
@@ -37,11 +45,12 @@ export default class EditProfileModalNoPlace extends Component {
 
     const tagField = ReactDOM.findDOMNode(this.refs.tagField).value.trim();
     
-    let tempArr = this.props.tags.map(function(tag) {return tag.toLowerCase();});
+    // check if input is empty or if tag already exists in the list
+    let tempArr = this.state.tags.map(tag => tag.toLowerCase());
     if (!tagField || tempArr.indexOf(tagField.toLowerCase()) != -1)
       return
 
-    this.props.tags.push(tagField);
+    this.state.tags.push(tagField);
     this.forceUpdate();
 
     ReactDOM.findDOMNode(this.refs.tagField).value = "";
@@ -52,17 +61,18 @@ export default class EditProfileModalNoPlace extends Component {
     e.preventDefault();
 
     const tagValue = $(e.target).text();
-    const tagIndex = this.props.tags.indexOf(tagValue);
+    const tagIndex = this.state.tags.indexOf(tagValue);
 
-    if (tagIndex === -1 || this.props.tags.length === 1)
+    // do nothing if tag doesn't exist or if there is only one tag left
+    if (tagIndex === -1 || this.state.tags.length === 1)
       return;
 
-    this.props.tags.splice(tagIndex, 1);
+    this.state.tags.splice(tagIndex, 1);
     this.forceUpdate();
   }
 
   renderTags() {
-    return this.props.tags.map((tag) => (
+    return this.state.tags.map((tag) => (
       <span onClick={this.handleRemoveTag.bind(this)} key={tag}>{tag}</span>
     ));
   }

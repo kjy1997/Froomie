@@ -8,7 +8,7 @@ export default class EditProfileModal extends Component {
 
   componentWillReceiveProps() {
     this.setState({
-      tags: JSON.parse(JSON.stringify(this.props.tags)),
+      tags: this.props.tags
     })
   }
 
@@ -42,6 +42,7 @@ export default class EditProfileModal extends Component {
       fname: fNameField,
       lname: lNameField,
       about: aboutField,
+      tags: this.state.tags,
       address: addressField,
       property: propertyField,
       roomCount: roomField,
@@ -57,11 +58,7 @@ export default class EditProfileModal extends Component {
       genderPref: genderPrefField
     }
 
-    let tags = JSON.parse(JSON.stringify(this.state.tags));
-
     this.props.handleEdit(obj);
-    this.props.handleTagEdit(tags);
-
     this.close(e);
   }
 
