@@ -149,7 +149,7 @@ export default class SignUpMain extends Component {
 							placeholder="Age"
 							ref="age"
 						/>
-						<FormControl className="input" componentClass="select" placeholder="Gender">
+						<FormControl className="input" componentClass="select" placeholder="Gender" ref="gender">
 						<option value="select">Gender</option>
 						<option value="male">Male</option>
 						<option value="female">Female</option>

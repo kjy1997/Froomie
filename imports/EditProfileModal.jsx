@@ -23,9 +23,9 @@ export default class EditProfileModal extends Component {
     const propertyField = ReactDOM.findDOMNode(this.refs.propertyField).value.trim();
     const roomField     = ReactDOM.findDOMNode(this.refs.roomCountField).value.trim();
     const bathroomField = ReactDOM.findDOMNode(this.refs.bathroomCountField).value.trim();
-    const internetField = ReactDOM.findDOMNode(this.refs.internetField).checked;
-    const parkingField  = ReactDOM.findDOMNode(this.refs.parkingField).checked;
-    const acField       = ReactDOM.findDOMNode(this.refs.acField).checked;
+    const internetField = ReactDOM.findDOMNode(this.refs.internetField).checked ? 'yes' : 'no';
+    const parkingField  = ReactDOM.findDOMNode(this.refs.parkingField).checked ? 'yes' : 'no';
+    const acField       = ReactDOM.findDOMNode(this.refs.acField).checked ? 'yes' : 'no';
     const rentField     = ReactDOM.findDOMNode(this.refs.rentField).value.trim();
     const depositField  = ReactDOM.findDOMNode(this.refs.depositField).value.trim();
     const roomTypeField = ReactDOM.findDOMNode(this.refs.roomTypeField).value.trim();
@@ -148,9 +148,9 @@ export default class EditProfileModal extends Component {
             </div>
             <div className="housingColumn amenitiesInfo">
               <label className="housingColumnName">Amenities</label>
-              <label><input type="checkbox" ref="internetField" defaultChecked={amenities.internet}/>internet</label>
-              <label><input type="checkbox" ref="parkingField" defaultChecked={amenities.parking}/>parking</label>
-              <label><input type="checkbox" ref="acField" defaultChecked={amenities.ac}/>air conditioning</label>
+              <label><input type="checkbox" ref="internetField" defaultChecked={amenities.internet === 'yes'}/>internet</label>
+              <label><input type="checkbox" ref="parkingField" defaultChecked={amenities.parking === 'yes'}/>parking</label>
+              <label><input type="checkbox" ref="acField" defaultChecked={amenities.ac === 'yes'}/>air conditioning</label>
             </div>
             <div className="housingColumn roomInfo">
               <label className="housingColumnName">Room</label>

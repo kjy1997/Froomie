@@ -18,21 +18,16 @@ export default class EditProfileModalNoPlace extends Component {
       return;
     }
 
-    let stay = {
-      budget: budgetField,
-      moveInDate: moveInField,
-      stayLength: stayLenField
-    }
-
     let obj = {
       name: fNameField + " " + lNameField,
       about: aboutField,
-      stay: stay
+      budget: budgetField,
+      moveindate: moveInField,
+      lengthofstay: stayLenField
     }
 
     this.props.handleEdit(obj);
-    this.props.handleAddTag(this.props.tags);
-    this.props.handleRemoveTag(this.props.tags);
+    this.props.handleTagEdit(this.props.tags);
 
     this.close(e);
   }
@@ -73,9 +68,8 @@ export default class EditProfileModalNoPlace extends Component {
   }
 
   getEditTools() {
-    let nameSplit = this.props.name.split(" ");
-    let firstName = nameSplit[0];
-    let lastName = nameSplit[1];
+    let firstName = this.props.fname;
+    let lastName = this.props.lname;
     let stay = this.props.stay;
 
     return(
@@ -106,8 +100,8 @@ export default class EditProfileModalNoPlace extends Component {
             <div className="housingColumn stayInfo">
               <label className="housingColumnName">About My Stay</label>
               <input type="number" ref="budgetField" placeholder="budget" defaultValue={stay.budget}/>
-              <input type="text" ref="moveInField" placeholder="move in date" defaultValue={stay.moveInDate}/>
-              <input type="text" ref="stayLengthField" placeholder="length of stay" defaultValue={stay.stayLength}/>
+              <input type="text" ref="moveInField" placeholder="move in date" defaultValue={stay.moveindate}/>
+              <input type="text" ref="stayLengthField" placeholder="length of stay" defaultValue={stay.lengthofstay}/>
             </div>
           </div>
           

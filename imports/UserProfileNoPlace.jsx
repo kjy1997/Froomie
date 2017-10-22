@@ -6,14 +6,10 @@ import UserTags from './UserTags.jsx';
 import EditProfileModalNoPlace from './EditProfileModalNoPlace.jsx';
 
 export default class UserProfileNoPlace extends Component {
+
   constructor() {
     super();
     this.state = {
-      stay: {
-        budget: 0,
-        moveIn: "",
-        stayLength: ""
-      },
       tags: [
         'Adventurous',
         'Extrovert',
@@ -27,25 +23,6 @@ export default class UserProfileNoPlace extends Component {
     }
   }
 
-  // temporary fake json data - switch to MongoDB collections
-  getUserData() {
-    $.ajax({
-      url: 'https://jsonplaceholder.typicode.com/users',
-      dataType: 'json',
-      cache: false,
-      success: function(data) {
-        var user = data[1];
-        this.setState({
-          id:     user.id,
-          name:   user.name
-        });
-      }.bind(this),
-      error: function(xhr, status, err) {
-        console.log(err);
-      }
-    });
-  }
-
   handleContactSubmit(e) {
     e.preventDefault();
 
@@ -55,10 +32,16 @@ export default class UserProfileNoPlace extends Component {
   }
 
   handleEdit(obj) {
-    this.setState({
-      name: obj.name,
-      about: obj.about,
-      stay: obj.stay
+    Meteor.users.update(Meteor.userId(), {
+      $set: {
+        "profile.firstName": obj.fname,
+        "profile.lastName": obj.lname,
+        "profile.about": obj.about,
+        // stay
+        "profile.budget": obj.budget,
+        "profile.moveindate": obj.moveindate,
+        "profile.lengthofstay": obj.lengthofstay
+      }
     });
   }
 
@@ -76,23 +59,25 @@ export default class UserProfileNoPlace extends Component {
     this.setState({ isModalOpen: false });
   }
 
-  componentDidMount() {
-    this.getUserData();
-  }
-
   render() {
-    let stay = this.state.stay;
+    let user = this.props.user;
+
+    let stay = {
+      budget: user.profile.budget,
+      moveindate: user.profile.moveindate,
+      lengthofstay: user.profile.lengthofstay
+    }
 
     return (
       <div className="profile-container">
         <EditProfileModalNoPlace
-          name={this.state.name} 
-          about={this.state.about} 
+          fname={user.profile.firstName} 
+          lname={user.profile.lastName}
+          about={user.profile.about} 
           tags={this.state.tags}
-          stay={this.state.stay}
+          stay={stay}
           handleEdit={this.handleEdit.bind(this)}
-          handleAddTag={this.handleTagEdit.bind(this)}
-          handleRemoveTag={this.handleTagEdit.bind(this)}
+          handleTagEdit={this.handleTagEdit.bind(this)}
           isOpen={this.state.isModalOpen} 
           onClose={this.closeModal.bind(this)}
         />
@@ -103,7 +88,7 @@ export default class UserProfileNoPlace extends Component {
           <div className="user-pic"></div>
         </div>
         <div className="user-info">
-          <h2>{this.state.name}</h2>
+          <h2>{user.profile.firstName + " " + user.profile.lastName}</h2>
           <button onClick={this.openModal.bind(this)}>Edit</button>
           <div className="about">
             <h4>About me</h4>
@@ -113,8 +98,8 @@ export default class UserProfileNoPlace extends Component {
             <div className="profileHousingInfo">
               <div className="housingColumn housingSingle">
                 <strong>Budget<br/><p>${stay.budget}</p></strong>
-                <strong>Move In Date<br/><p>{stay.moveInDate ? stay.moveInDate : "N/A"}</p></strong>
-                <strong>Stay Length<br/><p>{stay.stayLength ? stay.stayLength : "N/A"}</p></strong>
+                <strong>Move In Date<br/><p>{stay.moveindate}</p></strong>
+                <strong>Stay Length<br/><p>{stay.lengthofstay}</p></strong>
               </div>
             </div>  
           </div>
@@ -132,12 +117,5 @@ export default class UserProfileNoPlace extends Component {
     );
   }
 }
-
-UserProfileNoPlace.propTypes = {
-  id:     PropTypes.number,
-  name:   PropTypes.string,
-  about:   PropTypes.string
-}
-
 
 

@@ -9,8 +9,7 @@ import Search from './Search.jsx';
 import Home from './HomeLayout.jsx';
 import Login from './Login.jsx';
 import Registration from './Registration';
-import UserProfile from './UserProfile.jsx';
-import UserProfileNoPlace from './UserProfileNoPlace.jsx';
+import UserProfileMain from './UserProfileMain.jsx';
 import UpdateWithPlace from './UpdateWithPlace.jsx';
 import UpdateWithoutPlace from './UpdateWithoutPlace.jsx';
 import Profile from './Profile.jsx';
@@ -27,8 +26,7 @@ export default class App extends Component {
         <Route path="/search" component={Search}/>
         <Route path="/login" component={Login} />
         <Route path="/registration" component={Registration} />
-        <Route path="/profile" component={UserProfile} />
-        <Route path="/profilenoplace" component={Profile} />
+        <Route path="/profilemain" component={UserProfileMain} />
         <Route path="/updatewithplace" component={UpdateWithPlace} />
         <Route path="/updatewithoutplace" component={UpdateWithoutPlace} />
         </div>

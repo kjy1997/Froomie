@@ -103,19 +103,19 @@ export default class SignUpWithPlace extends Component {
 								ref="bathroom"
 							/>
 
-							<FormControl className="input" componentClass="select">
+							<FormControl className="input" componentClass="select" ref="internet">
 								<option value="select">Internet access</option>
 								<option value="yes">Yes</option>
 								<option value="no">No</option>
 							</FormControl>
 
-							<FormControl className="input" componentClass="select">
+							<FormControl className="input" componentClass="select" ref="parking">
 								<option value="select">Parking</option>
 								<option value="yes">Yes</option>
 								<option value="no">No</option>
 							</FormControl>
 
-							<FormControl className="input" componentClass="select">
+							<FormControl className="input" componentClass="select" ref="ac">
 								<option value="select">Air conditioning</option>
 								<option value="yes">Yes</option>
 								<option value="no">No</option>
@@ -136,34 +136,34 @@ export default class SignUpWithPlace extends Component {
 							<FormGroup className="money">
 								<InputGroup>
 									<InputGroup.Addon>$</InputGroup.Addon>
-									<FormControl type="text" placeholder="Monthly Rent" />
+									<FormControl type="text" placeholder="Monthly Rent" ref="rent"/>
 								</InputGroup>
 							</FormGroup>
 
 							<FormGroup className="money">
 								<InputGroup>
 									<InputGroup.Addon>$</InputGroup.Addon>
-									<FormControl type="text" placeholder="Security Deposit" />
+									<FormControl type="text" placeholder="Security Deposit" ref="deposit"/>
 								</InputGroup>
 							</FormGroup>
 
-							<FormControl className="input" componentClass="select">
+							<FormControl className="input" componentClass="select" ref="roomtype">
 								<option value="select">Room Type</option>
 								<option value="private">Private room</option>
 								<option value="shared">Room shared with others</option>
 							</FormControl>
 
-							<FormControl className="input" componentClass="select">
+							<FormControl className="input" componentClass="select" ref="furnishing">
 								<option value="select">Furnishing</option>
 								<option value="yes">Yes</option>
 								<option value="no">No</option>
 							</FormControl>
-							<FormControl className="input" componentClass="select">
+							<FormControl className="input" componentClass="select" ref="bathroomtype">
 								<option value="select">Bathroom Type</option>
 								<option value="private">Private bathroom</option>
 								<option value="shared">Shared bathroom</option>
 							</FormControl>
-							<FormControl className="input" componentClass="select">
+							<FormControl className="input" componentClass="select" ref="prefergender">
 								<option value="select">Preferred Gender</option>
 								<option value="male">Male</option>
 								<option value="female">Female</option>

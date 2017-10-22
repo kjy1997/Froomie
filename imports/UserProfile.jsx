@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import GoogleMapReact from 'google-map-react';
-import { createContainer } from 'react-meteor-data';
 
 import ProfileMapMarker from './ProfileMapMarker.jsx';
 import UserTags from './UserTags.jsx';
 import EditProfileModal from './EditProfileModal.jsx';
 
-class UserProfile extends Component {
+export default class UserProfile extends Component {
 
   static defaultProps = {
     // default U.S
@@ -80,30 +79,33 @@ class UserProfile extends Component {
 
   render() {
     let user = this.props.user;
-    console.log(user);
 
-    let address = user ? user.profile.place.address : "Loading...";
-    let property = user ? user.profile.place.property : "Loading...";
-    let amenities = user ? {
+    let address = user.profile.place.address;
+    let property = {
+      propertyType: user.profile.place.property,
+      roomCount: user.profile.place.rooms,
+      bathroomCount: user.profile.place.bathroom,
+    };
+    let amenities = {
       internet: user.profile.place.internet,
       parking: user.profile.place.parking,
       ac: user.profile.place.ac
-    } : {};
-    let room = user ? {
+    };
+    let room = {
       rent: user.profile.place.rent,
       deposit: user.profile.place.deposit,
       roomType: user.profile.place.roomtype,
       bathroomType: user.profile.place.bathroomType,
       furnishing: user.profile.place.furnishing,
       genderPref: user.profile.place.preferGender
-    } : {};
+    };
   
     return (
       <div className="profile-container">
         <EditProfileModal 
-          fname={user ? user.profile.firstName : "Loading..."} 
-          lname={user ? user.profile.lastName : "Loading..."}
-          about={user ? user.profile.about : "Loading..."} 
+          fname={user.profile.firstName} 
+          lname={user.profile.lastName}
+          about={user.profile.about} 
           tags={this.state.tags}
           address={address}
           property={property}
@@ -115,18 +117,18 @@ class UserProfile extends Component {
           onClose={this.closeModal.bind(this)}
         />
         <div className="header">
-          Froomie!
+          <h1>Froomie!</h1>
         </div>
         <div className="user-back">
           <div className="user-pic"></div>
         </div>
         <div className="info-container">
           <div className="user-info">
-            <h2>{user ? user.profile.firstName + " " + user.profile.lastName : "Loading..."}</h2>
+            <h2>{user.profile.firstName + " " + user.profile.lastName}</h2>
             <button onClick={this.openModal.bind(this)}>Edit</button>
             <div className="about">
               <h4>About me</h4>
-              <p>{user ? user.profile.about : "Loading..."}</p>
+              <p>{user.profile.about}</p>
               <UserTags tags={this.state.tags}/>
               <div className="line-split"></div>
 
@@ -140,9 +142,9 @@ class UserProfile extends Component {
                   <strong>Bathroom Count <br/><p>{property.roomCount ? property.roomCount : 0}</p></strong>
                 </div>
                 <div className="housingColumn">
-                  <strong>Internet <br/><p>{amenities.internet ? "yes" : "no"}</p></strong>
-                  <strong>Parking <br/><p>{amenities.parking ? "yes" : "no"}</p></strong>
-                  <strong>A/C <br/><p>{amenities.ac ? "yes" : "no"}</p></strong>
+                  <strong>Internet <br/><p>{amenities.internet === 'yes' ? "yes" : "no"}</p></strong>
+                  <strong>Parking <br/><p>{amenities.parking === 'yes' ? "yes" : "no"}</p></strong>
+                  <strong>A/C <br/><p>{amenities.ac === 'yes' ? "yes" : "no"}</p></strong>
                 </div>
                 <div className="housingColumn">
                   <strong>Rent <br/><p>${room.rent}</p></strong>
@@ -181,16 +183,6 @@ class UserProfile extends Component {
     );
   }
 }
-
-UserProfile.propTypes = {
-  user: PropTypes.object,
-}
-
-export default createContainer(() => {
-  return {
-    user: Meteor.user()
-  };
-}, UserProfile);
 
 
 
