@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import GoogleMapReact from 'google-map-react';
 
 import ProfileMapMarker from './ProfileMapMarker.jsx';
 import UserTags from './UserTags.jsx';
@@ -9,14 +8,10 @@ import EditProfileModal from './EditProfileModal.jsx';
 
 export default class UserProfile extends Component {
 
-  static defaultProps = {
-    // default U.S
-    center: {lat: 37, lng: -95},
-    zoom: 1
-  }
-
   constructor() {
     super();
+    this.defaultZoom = 4;
+    this.defaultCenter = {lat: 37, lng: -95};
     this.state = {
       tags: [
         'Adventurous',
@@ -61,6 +56,7 @@ export default class UserProfile extends Component {
         "profile.place.preferGender": obj.genderPref
       }
     });
+    this.geocodeAddress(obj.address);
   }
 
   handleTagEdit(obj) {
@@ -75,6 +71,35 @@ export default class UserProfile extends Component {
 
   closeModal() {
     this.setState({ isModalOpen: false });
+  }
+
+  geocodeAddress(address) {
+    this.geocoder.geocode({'address': address}, function handleResults(results, status) {
+      if (status === google.maps.GeocoderStatus.OK) {
+        this.map.setZoom(16);
+        this.map.setCenter(results[0].geometry.location);
+        this.marker.setPosition(results[0].geometry.location);
+      }
+      else {
+        console.log(status);
+        this.map.setZoom(this.defaultZoom);
+        this.map.setCenter(this.defaultCenter);
+      }
+    }.bind(this));
+  }
+
+  componentDidMount() {
+    this.map = new google.maps.Map(document.getElementById('map'), {
+      zoom: this.defaultZoom,
+      center: this.defaultCenter
+    });
+    this.marker = new google.maps.Marker({
+      map: this.map,
+      position: this.defaultCenter
+    });
+
+    this.geocoder = new google.maps.Geocoder();
+    this.geocodeAddress(this.props.user.profile.place.address);
   }
 
   render() {
@@ -156,17 +181,7 @@ export default class UserProfile extends Component {
                 </div>
               </div>
 
-              <div className="map">
-                <GoogleMapReact 
-                  center={this.props.center} 
-                  defaultZoom={this.props.zoom}>
-                  <ProfileMapMarker
-                    lat={this.props.center.lat}
-                    lng={this.props.center.lng}
-                    text={'My Place'}
-                  />
-                </GoogleMapReact>
-              </div>
+              <div id="map"></div>
             </div>
           </div>
           <div className="line-split"></div>
