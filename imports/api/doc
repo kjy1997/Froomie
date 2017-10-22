@@ -1,0 +1,73 @@
+Froomie
+Team 6
+
+API Field Naming & Docs (for consistency purposes)
+
+//*********************  Documentation  *****************//
+
+    "a / b"     = a and b are required values in order
+    "a || b"    = a and b are possible values
+    "a*"        = a is required
+
+//*********************  Field List  ********************//
+
+    Description     Field           Type
+
+/----------------------- Account -------------------------/
+
+    Username:       username        String*
+    Password:       password        String*
+    Email:          email           String*
+
+/----------------------- User ----------------------------/
+
+    First Name:     firstName       String*
+    Last Name:      lastName        String*
+    Age:            age             Number* >= 0
+    Gender:         gender          String*
+    About:          about           String*
+    Tags:           tags            String[]*
+
+/----------------------- No Housing ----------------------/
+
+    Budget:         budget          Number* >= 0
+    Move In Date:   moveInDate      Number* / Number* / Number*
+    Stay Length:    stayLength      (String || Number)*
+
+/----------------------- Housing -------------------------/
+
+    House Number:   houseNumber     String*
+    Street:         street          String*
+    City:           city            String*
+    State:          state           String*
+    Suite:          suite           String
+    Zipcode:        zipcode         String*
+
+    Property Type:  propertyType    String*
+    Room Count:     roomCount       Number* >= 0
+    Bathroom Count: bathrooomCount  Number* >= 0
+
+    Internet:       internet        Boolean*
+    Parking:        parking         Boolean*
+    A/C:            ac              Boolean*
+
+    Rent:           rent            Number* >= 0
+    Deposit:        deposit         Number* >= 0
+    Room Type:      roomType        String*
+    Bathroom Type:  bathroomType    String*
+    Furnishing:     furnishing      Boolean*
+    Pref. Gender:   preferredGender String*
+
+//*********************  Notes  *************************//
+
+    > all fields are case-sensitive
+
+    > stay length can be user-defined string or number in terms of approximate days/months/years
+
+    > some string fields will be system-defined rather than user-defined
+        (e.g. Room Type -> private or shared)
+
+
+
+
+
