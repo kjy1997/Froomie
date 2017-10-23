@@ -23,6 +23,8 @@ function beforeUpload(file) {
 	return isJPG && isLt2M;
 }
 
+//
+
 //SignUp Main Class
 export default class SignUpMain extends Component {
 	componentDidMount() {
@@ -158,6 +160,7 @@ export default class SignUpMain extends Component {
 
 					</Row>
 					<Row>
+
 						<FormControl
 							className="block"
 							componentClass="textarea"
