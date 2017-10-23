@@ -64,6 +64,12 @@ export default class SignUpWithPlace extends Component {
 		});
 	}
 
+	//google places autocomplete api
+	componentDidMount() {
+		  var input = document.getElementById('google-places');
+		  autocomplete = new google.maps.places.Autocomplete(input, options);
+	}
+
 	render() {
 		return (
 			<div>
@@ -77,11 +83,13 @@ export default class SignUpWithPlace extends Component {
 						</Row>
 						<Row className="place-input">
 							<FormControl
+								id="google-places"
 								className="address"
 								type="text"
 								placeholder="Type your address..."
 								ref="address"
 							/>
+							<div id="map-canvas"></div>
 						</Row>
 						<Row>
 							<FormControl
