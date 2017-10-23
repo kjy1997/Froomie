@@ -67,7 +67,7 @@ export default class SignUpWithPlace extends Component {
 	//google places autocomplete api
 	componentDidMount() {
 		  var input = document.getElementById('google-places');
-		  autocomplete = new google.maps.places.Autocomplete(input, options);
+		  autocomplete = new google.maps.places.Autocomplete(input);
 	}
 
 	render() {
