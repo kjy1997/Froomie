@@ -147,7 +147,7 @@ export default class SignUpMain extends Component {
 						/>
 						<FormControl
 							className="input"
-							type="text"
+							type="number"
 							placeholder="Age"
 							ref="age"
 						/>

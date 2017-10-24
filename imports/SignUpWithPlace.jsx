@@ -100,13 +100,13 @@ export default class SignUpWithPlace extends Component {
 							/>
 							<FormControl
 								className="input"
-								type="text"
+								type="number"
 								placeholder="Number of rooms"
 								ref="rooms"
 							/>
 							<FormControl
 								className="input"
-								type="text"
+								type="number"
 								placeholder="Number of bathrooms"
 								ref="bathroom"
 							/>
@@ -143,36 +143,36 @@ export default class SignUpWithPlace extends Component {
 
 							<FormGroup className="money">
 								<InputGroup>
-									<InputGroup.Addon>$</InputGroup.Addon>
-									<FormControl type="text" placeholder="Monthly Rent" ref="rent"/>
+									
+									<FormControl type="number" placeholder="Monthly Rent" ref="rent"/>
 								</InputGroup>
 							</FormGroup>
 
 							<FormGroup className="money">
 								<InputGroup>
-									<InputGroup.Addon>$</InputGroup.Addon>
-									<FormControl type="text" placeholder="Security Deposit" ref="deposit"/>
+									
+									<FormControl type="number" placeholder="Security Deposit" ref="deposit"/>
 								</InputGroup>
 							</FormGroup>
 
 							<FormControl className="input" componentClass="select" ref="roomtype">
-								<option value="select">Room Type</option>
+								<option value="unknown">Room Type</option>
 								<option value="private">Private room</option>
 								<option value="shared">Room shared with others</option>
 							</FormControl>
 
 							<FormControl className="input" componentClass="select" ref="furnishing">
-								<option value="select">Furnishing</option>
+								<option value="unknown">Furnishing</option>
 								<option value="yes">Yes</option>
 								<option value="no">No</option>
 							</FormControl>
 							<FormControl className="input" componentClass="select" ref="bathroomtype">
-								<option value="select">Bathroom Type</option>
+								<option value="unknown">Bathroom Type</option>
 								<option value="private">Private bathroom</option>
 								<option value="shared">Shared bathroom</option>
 							</FormControl>
 							<FormControl className="input" componentClass="select" ref="prefergender">
-								<option value="select">Preferred Gender</option>
+								<option value="unknown">Preferred Gender</option>
 								<option value="male">Male</option>
 								<option value="female">Female</option>
 								<option value="undecided">I don't have a preference</option>

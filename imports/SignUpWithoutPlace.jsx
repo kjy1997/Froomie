@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Col, Row, Button, FormControl, Image, FormGroup } from 'react-bootstrap';
+import DatePicker from 'react-date-picker';
+
 import { Users } from './api/users.js';
 import SignUpMain from './SignUpMain'
 
@@ -44,6 +46,13 @@ export default class SignUpWithoutPlace extends Component {
 		});
 	}
 
+	//datepicker
+	state = {
+		date: new Date(2017,1,20),
+	  }
+	 
+	  onChange = date => this.setState({ date })
+
 	render() {
 		return (
 			<div>
@@ -61,20 +70,22 @@ export default class SignUpWithoutPlace extends Component {
 							<Row>
 								<FormControl
 									className="input"
-									type="text"
+									type="number"
 									placeholder="Budget"
 									ref="budget"
 								/>
-								<FormControl
-									className="input"
-									type="text"
+								<DatePicker
+								onChange={this.onChange}
+								className="input"
+									type="date"
 									placeholder="Move in date"
-									ref="movein"
-								/>
+									ref="moveindate"
+							  />
+
 								<FormControl
 									className="input"
 									type="text"
-									placeholder="Length of stay"
+									placeholder="Length of stay (e.g. 1 month)"
 									ref="lengthofstay"
 								/>
 							</Row>
