@@ -13,8 +13,10 @@ class UserProfileMain extends Component {
 
     if (user)
       hasPlace = user.profile.hasOwnProperty('place');
-    else
+    else {
+      console.log("User is null");
       return null;
+    }
 
     return (
       <div>

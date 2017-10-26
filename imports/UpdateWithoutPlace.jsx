@@ -28,8 +28,8 @@ export default class SignUpWithoutPlace extends Component {
                       "profile.lastname": mainInfos.lastname,
                       "profile.age": mainInfos.age,
                       "profile.gender": mainInfos.gender,
-                      "profile.roomates": mainInfos.roommates,
-                      "profile.introduction": mainInfos.introduction,
+                      "profile.roommates": mainInfos.roommates,
+                      "profile.about": mainInfos.about,
                       
                       "profile.budget": budget,
                       "profile.moveindate": movein,

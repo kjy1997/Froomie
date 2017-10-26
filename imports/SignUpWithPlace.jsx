@@ -40,8 +40,8 @@ export default class SignUpWithPlace extends Component {
 						"profile.lastName": mainInfos.lastName,
 						"profile.age": mainInfos.age,
 						"profile.gender": mainInfos.gender,
-						"profile.roomates": mainInfos.roommates,
-						"profile.about": mainInfos.introduction,
+						"profile.roommates": mainInfos.roommates,
+						"profile.about": mainInfos.about,
 
 						"profile.place.address": address,
 						"profile.place.property": property,
