@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Col, Row, Grid, Button, FormControl, Image } from 'react-bootstrap';
+import { Col, Row, Grid, Button, FormControl, Image, FormGroup } from 'react-bootstrap';
 import '../client/css/signupmain.css';
 import { Upload, Icon, message } from 'antd';
+import UserTags from './UserTags.jsx';
+
 
 //Upload avatar function
 function getBase64(img, callback) {
@@ -23,10 +25,15 @@ function beforeUpload(file) {
 	return isJPG && isLt2M;
 }
 
-//
 
 //SignUp Main Class
 export default class SignUpMain extends Component {
+
+	constructor(props) {
+		super(props);
+		this.state.tags = [];
+	}
+
 	componentDidMount() {
 		this.props.onRef(this);
 	}
@@ -67,7 +74,47 @@ export default class SignUpMain extends Component {
 		}
 	}
 
+	//tags
+
+	renderTags() {
+		return this.state.tags.map((tag) => (
+			<span onClick={this.handleRemoveTag.bind(this)} key={tag}>{tag}</span>
+		));
+	}
+
+	handleAddTag(e) {
+		e.preventDefault();
+
+		const tagField = ReactDOM.findDOMNode(this.refs.tagField).value.trim();
+
+		// check if input is empty or if tag already exists in the list
+		let tempArr = this.state.tags.map(tag => tag.toLowerCase());
+		// if (!tagField || tempArr.indexOf(tagField.toLowerCase()) != -1)
+		// 	return
+
+		this.state.tags.push(tagField);
+		this.forceUpdate();
+
+		ReactDOM.findDOMNode(this.refs.tagField).value = "";
+		ReactDOM.findDOMNode(this.refs.tagField).focus();
+	}
+
+	handleRemoveTag(e) {
+		e.preventDefault();
+
+		const tagValue = $(e.target).text();
+		const tagIndex = this.state.tags.indexOf(tagValue);
+
+		// do nothing if tag doesn't exist or if there is only one tag left ???
+		// if (tagIndex === -1 || this.state.tags.length === 1)
+		//   return;
+
+		this.state.tags.splice(tagIndex, 1);
+		this.forceUpdate();
+	}
+
 	render() {
+
 		const imageUrl = this.state.imageUrl;
 		return (
 			<div>
@@ -152,15 +199,27 @@ export default class SignUpMain extends Component {
 							ref="age"
 						/>
 						<FormControl className="input" componentClass="select" placeholder="Gender" ref="gender">
-						<option value="select">Gender</option>
-						<option value="male">Male</option>
-						<option value="female">Female</option>
-						<option value="undecided">I prefer not to answer</option>
-					  </FormControl>
+							<option value="select">Gender</option>
+							<option value="male">Male</option>
+							<option value="female">Female</option>
+							<option value="undecided">I prefer not to answer</option>
+						</FormControl>
 
 					</Row>
 					<Row>
-
+						<Col sm={9} className="subtitle">
+							<h5>Add a few tags about you! (You can click to remove tags)</h5>
+						</Col>
+					</Row>
+					<Row>
+						<div className="modalTagsContainer">
+							{this.renderTags()}
+						</div>
+						<FormControl className="input" id="tag-input" type="text" placeholder="Enter tags here" ref="tagField" />
+						<Button className="addtag" onClick={this.handleAddTag.bind(this)}>
+							Add tag
+						</Button>
+						<br />
 						<FormControl
 							className="block"
 							componentClass="textarea"

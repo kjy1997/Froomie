@@ -15,6 +15,7 @@
     "react": "^15.6.2",
     "react-addons-pure-render-mixin": "^15.6.2",
     "react-bootstrap": "^0.31.3",
+    "react-bootstrap-date-picker": "^5.1.0",
     "react-date-picker": "^6.2.2",
     "react-dom": "^15.6.2",
     "react-flexbox-grid": "^1.1.5",
