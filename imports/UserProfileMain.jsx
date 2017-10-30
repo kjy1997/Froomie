@@ -21,10 +21,9 @@ class UserProfileMain extends Component {
     return (
       <div>
         {
-          hasPlace ?
-          <UserProfile user={user} />
-          :
-          <UserProfileNoPlace user={user} />
+          hasPlace 
+            ? <UserProfile user={user} />
+            : <UserProfileNoPlace user={user} />
         }
       </div>
     );

@@ -7,8 +7,9 @@ export default class EditProfileModalNoPlace extends Component {
   }
 
   componentWillReceiveProps() {
+    // deep copy to prevent reference modification
     this.setState({
-      tags: this.props.tags
+      tags: JSON.parse(JSON.stringify(this.props.tags))
     })
   }
 

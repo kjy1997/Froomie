@@ -3,12 +3,13 @@ import ReactDOM from 'react-dom';
 
 import UserTags from './UserTags.jsx';
 import EditProfileModal from './EditProfileModal.jsx';
+import { Users } from './api/users.js';
 
 export default class UserProfile extends Component {
 
   constructor(props) {
     super(props);
-    this.defaultZoom = 4;
+    this.defaultZoom = 3;
     this.defaultCenter = {lat: 37, lng: -95};
     this.state = {
       isModalOpen: false
@@ -28,7 +29,7 @@ export default class UserProfile extends Component {
   }
 
   handleEdit(obj) {
-    Meteor.users.update(Meteor.userId(), {
+    Users.update(Meteor.userId(), {
       $set: {
         "profile.firstName": obj.fname,
         "profile.lastName": obj.lname,
@@ -66,12 +67,17 @@ export default class UserProfile extends Component {
       if (status === google.maps.GeocoderStatus.OK) {
         this.map.setZoom(16);
         this.map.setCenter(results[0].geometry.location);
-        this.marker.setPosition(results[0].geometry.location);
+        this.marker = new google.maps.Marker({
+          map: this.map,
+          position: results[0].geometry.location
+        });
       }
       else {
         console.log("Map Error: " + status);
         this.map.setZoom(this.defaultZoom);
         this.map.setCenter(this.defaultCenter);
+        if (this.marker)
+          this.marker.setMap(null);
       }
     }.bind(this));
   }
@@ -80,10 +86,6 @@ export default class UserProfile extends Component {
     this.map = new google.maps.Map(document.getElementById('map'), {
       zoom: this.defaultZoom,
       center: this.defaultCenter
-    });
-    this.marker = new google.maps.Marker({
-      map: this.map,
-      position: this.defaultCenter
     });
 
     this.geocoder = new google.maps.Geocoder();

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 import UserTags from './UserTags.jsx';
 import EditProfileModalNoPlace from './EditProfileModalNoPlace.jsx';
+import { Users } from './api/users.js';
 
 export default class UserProfileNoPlace extends Component {
 
@@ -26,7 +27,7 @@ export default class UserProfileNoPlace extends Component {
   }
 
   handleEdit(obj) {
-    Meteor.users.update(Meteor.userId(), {
+    Users.update(Meteor.userId(), {
       $set: {
         "profile.firstName": obj.fname,
         "profile.lastName": obj.lname,
