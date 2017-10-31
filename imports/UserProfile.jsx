@@ -34,6 +34,8 @@ export default class UserProfile extends Component {
         "profile.firstName": obj.fname,
         "profile.lastName": obj.lname,
         "profile.about": obj.about,
+        "profile.age": obj.age,
+        "profile.gender": obj.gender,
         "profile.tags": obj.tags,
         // property
         "profile.place.address": obj.address,
@@ -120,10 +122,7 @@ export default class UserProfile extends Component {
     return (
       <div className="profile-container">
         <EditProfileModal 
-          fname={user.profile.firstName} 
-          lname={user.profile.lastName}
-          about={user.profile.about} 
-          tags={user.profile.tags}
+          profile={user.profile}
           address={address}
           property={property}
           amenities={amenities}
@@ -144,6 +143,9 @@ export default class UserProfile extends Component {
             <button onClick={this.openModal.bind(this)}>Edit</button>
             <div className="about">
               <h4>About me</h4>
+              <p>Age: {user.profile.age}</p>
+              <p>Gender: {user.profile.gender}</p>
+              <h4>Introduction</h4>
               <p>{user.profile.about}</p>
               <UserTags tags={user.profile.tags}/>
               <div className="line-split"></div>

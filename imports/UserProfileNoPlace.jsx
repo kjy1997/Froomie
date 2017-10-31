@@ -32,6 +32,8 @@ export default class UserProfileNoPlace extends Component {
         "profile.firstName": obj.fname,
         "profile.lastName": obj.lname,
         "profile.about": obj.about,
+        "profile.age": obj.age,
+        "profile.gender": obj.gender,
         "profile.tags": obj.tags,
         // stay
         "profile.budget": obj.budget,
@@ -61,10 +63,7 @@ export default class UserProfileNoPlace extends Component {
     return (
       <div className="profile-container">
         <EditProfileModalNoPlace
-          fname={user.profile.firstName} 
-          lname={user.profile.lastName}
-          about={user.profile.about} 
-          tags={user.profile.tags}
+          profile={user.profile}
           stay={stay}
           handleEdit={this.handleEdit.bind(this)}
           isOpen={this.state.isModalOpen} 
@@ -81,6 +80,9 @@ export default class UserProfileNoPlace extends Component {
           <button onClick={this.openModal.bind(this)}>Edit</button>
           <div className="about">
             <h4>About me</h4>
+            <p>Age: {user.profile.age}</p>
+            <p>Gender: {user.profile.gender}</p>
+            <h4>Introduction</h4>
             <p>{user.profile.about}</p>
             <UserTags tags={user.profile.tags}/>  
 

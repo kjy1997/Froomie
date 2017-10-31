@@ -9,7 +9,7 @@ export default class EditProfileModalNoPlace extends Component {
   componentWillReceiveProps() {
     // deep copy to prevent reference modification
     this.setState({
-      tags: JSON.parse(JSON.stringify(this.props.tags))
+      tags: JSON.parse(JSON.stringify(this.props.profile.tags))
     })
   }
 
@@ -19,6 +19,8 @@ export default class EditProfileModalNoPlace extends Component {
     const fNameField    = ReactDOM.findDOMNode(this.refs.firstNameField).value.trim();
     const lNameField    = ReactDOM.findDOMNode(this.refs.lastNameField).value.trim();
     const aboutField    = ReactDOM.findDOMNode(this.refs.aboutField).value.trim();
+    const ageField      = ReactDOM.findDOMNode(this.refs.ageField).value.trim();
+    const genderField   = ReactDOM.findDOMNode(this.refs.genderField).value.trim();
     const budgetField   = ReactDOM.findDOMNode(this.refs.budgetField).value.trim();
     const moveInField   = ReactDOM.findDOMNode(this.refs.moveInField).value.trim();
     const stayLenField  = ReactDOM.findDOMNode(this.refs.stayLengthField).value.trim();
@@ -31,6 +33,8 @@ export default class EditProfileModalNoPlace extends Component {
     let obj = {
       name: fNameField + " " + lNameField,
       about: aboutField,
+      age: ageField,
+      gender: genderField,
       tags: this.state.tags,
       budget: budgetField,
       moveindate: moveInField,
@@ -79,8 +83,8 @@ export default class EditProfileModalNoPlace extends Component {
   }
 
   getEditTools() {
-    let firstName = this.props.fname;
-    let lastName = this.props.lname;
+    let firstName = this.props.profile.firstName;
+    let lastName = this.props.profile.lastName;
     let stay = this.props.stay;
 
     return(
@@ -95,7 +99,13 @@ export default class EditProfileModalNoPlace extends Component {
 
           <label>About</label>
           <br />
-          <textarea ref="aboutField" placeholder="tell us about yourself! *" defaultValue={this.props.about}></textarea>
+          <input type="number" ref="ageField" placeholder="age" defaultValue={this.props.profile.age}/>
+          <select ref="genderField" defaultValue={this.props.profile.gender}>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+          <br />
+          <textarea ref="aboutField" placeholder="tell us about yourself! *" defaultValue={this.props.profile.about}></textarea>
           <br />
 
           <label>Tags</label>
