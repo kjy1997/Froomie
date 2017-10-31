@@ -23,6 +23,22 @@ export default class SignUpWithoutPlace extends Component {
 		));
 	}
 
+	formatDate(date) {
+		var monthNames = [
+		  "January", "February", "March",
+		  "April", "May", "June", "July",
+		  "August", "September", "October",
+		  "November", "December"
+		];
+	  
+		var day = date.getDate();
+		var monthIndex = date.getMonth();
+		var year = date.getFullYear();
+	  
+		return day + ' ' + monthNames[monthIndex] + ' ' + year;
+	  }
+	  
+
 	register(event) {
 		event.preventDefault();
 
@@ -30,30 +46,40 @@ export default class SignUpWithoutPlace extends Component {
 		// const pass = ReactDOM.findDOMNode(this.refs.password).value.trim();
 		var mainInfos = this.SignUpMain.infos();
 		const budget = ReactDOM.findDOMNode(this.refs.budget).value.trim();
-		const movein = ReactDOM.findDOMNode(this.refs.movein).value.trim();
+		const movein = this.state.value.toISOString();
 		const lengthofstay = ReactDOM.findDOMNode(this.refs.lengthofstay).value.trim();
 
-		Accounts.createUser({ username: mainInfos.username, password: mainInfos.password }, (error) => {
-			if (error) {
-				console.log("Error: " + error.reason);
-			} else {
-				Users.update(Meteor.userId(), {
-					$set: {
-						"profile.email": mainInfos.email,
-						"profile.firstName": mainInfos.firstName,
-						"profile.lastName": mainInfos.lastName,
-						"profile.age": mainInfos.age,
-						"profile.gender": mainInfos.gender,
-						"profile.about": mainInfos.about,
+		if (mainInfos.username === '' || mainInfos.password === '' || mainInfos.email === '' || mainInfos.firstName === '' ||
+			mainInfos.lastName === '' || mainInfos.age === '' || mainInfos.gender === 'select' || budget === '' || movein === '' 
+			|| lengthofstay === ''|| mainInfos.about === '') {
+			alert("You must fill in all the information!");
+		} else {
 
-						"profile.budget": budget,
-						"profile.moveindate": movein,
-						"profile.lengthofstay": lengthofstay
-					}
-				})
-				console.log("Registered in user: " + Meteor.user().username);
-			}
-		});
+			Accounts.createUser({ username: mainInfos.username, password: mainInfos.password }, (error) => {
+				if (error) {
+					console.log("Error: " + error.reason);
+					alert("Error:" + error.reason);
+				} else {
+					Users.update(Meteor.userId(), {
+						$set: {
+							"profile.email": mainInfos.email,
+							"profile.firstName": mainInfos.firstName,
+							"profile.lastName": mainInfos.lastName,
+							"profile.age": mainInfos.age,
+							"profile.gender": mainInfos.gender,
+							"profile.tags" : mainInfos.tags,
+							"profile.about": mainInfos.about,
+
+							"profile.budget": budget,
+							"profile.moveindate": movein,
+							"profile.lengthofstay": lengthofstay
+						}
+					})
+					console.log("Registered in user: " + Meteor.user().username);
+					alert(Meteor.user().username + " is registered!");
+				}
+			});
+		}
 	}
 
 	//datepicker

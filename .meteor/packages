@@ -29,3 +29,4 @@ accounts-facebook@1.2.1
 # meteortoys:allthings
 react-meteor-data
 vsivsi:file-collection
+ultimatejs:tracker-react

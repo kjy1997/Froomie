@@ -50,6 +50,7 @@ export default class SignUpMain extends Component {
 		const lastName = ReactDOM.findDOMNode(this.refs.lastName).value.trim();
 		const age = ReactDOM.findDOMNode(this.refs.age).value.trim();
 		const gender = ReactDOM.findDOMNode(this.refs.gender).value.trim();
+		const tags = this.state.tags;
 		const about = ReactDOM.findDOMNode(this.refs.about).value.trim();
 
 		return {
@@ -60,6 +61,7 @@ export default class SignUpMain extends Component {
 			"lastName": lastName,
 			"age": age,
 			"gender": gender,
+			"tags" : tags,
 			"about": about
 		};
 	}
@@ -130,7 +132,7 @@ export default class SignUpMain extends Component {
 
 						<Col sm={3} className="avatar">
 							<Upload
-								className="avatar-uploader"
+								className="avatar-uploader fileBrowse"
 								name="avatar"
 								showUploadList={false}
 								action="./img"
