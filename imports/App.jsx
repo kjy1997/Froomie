@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom';
 import SignUpWithPlace from './SignUpWithPlace.jsx';
 import SignUpWithoutPlace from './SignUpWithoutPlace.jsx';
 import Search from './Search.jsx';
+import SearchWithoutPlace from './SearchWithoutPlace.jsx';
 import Home from './HomeLayout.jsx';
 import Login from './Login.jsx';
 import Registration from './Registration';
@@ -24,6 +25,7 @@ export default class App extends Component {
         <Route path="/signupwithplace" component={SignUpWithPlace}/>
         <Route path="/signupwithoutplace" component={SignUpWithoutPlace}/>
         <Route path="/search" component={Search}/>
+        <Route path="/searchwithoutplace" component={SearchWithoutPlace}/>
         <Route path="/login" component={Login} />
         <Route path="/registration" component={Registration} />
         <Route path="/profilemain" component={UserProfileMain} />
