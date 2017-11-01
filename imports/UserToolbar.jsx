@@ -16,10 +16,10 @@ const dropdownStyle = {
 }
 class UserToolbar extends Component {
 
-    logout() {
-
+    logout(e) {
+        e.preventDefault()
+        Meteor.logout();
     }
-
 
     render() {
         let user = this.props.user;
@@ -30,7 +30,7 @@ class UserToolbar extends Component {
                 <button style={btnStyle}>Welcome {user.profile.firstName}! &#9660;</button>
                 <div style={dropdownStyle}>
                     <p><a href="/profilemain">Profile</a></p>
-                    <p>Logout</p>
+                    <p onClick={logout}>Logout</p>
                 </div>
                 </div> 
             );
