@@ -37,7 +37,7 @@ class UserProfileMain extends TrackerReact(Component) {
 export default createContainer((route) => {
   let name = route.match.params.username;
   return {
-    user: Meteor.users.findOne({username: name})
+    user: Meteor.user() ? Meteor.user() : Meteor.users.findOne({username: name})
   };
 }, UserProfileMain);
 

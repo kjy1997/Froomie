@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { createContainer } from 'react-meteor-data';
 import UserProfileMain from './UserProfileMain.jsx';
 
-class Login extends Component {
+export default class Login extends Component {
 
     render() {
         let user = this.props.user;
@@ -87,8 +87,8 @@ Login.propTypes = {
     user: PropTypes.object
 }
 
-export default createContainer(() => {
-    return {
-        user: Meteor.user()
-    };
-}, Login)
+// export default createContainer(() => {
+//     return {
+//         user: Meteor.user()
+//     };
+// }, Login)

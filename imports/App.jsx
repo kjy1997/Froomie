@@ -13,7 +13,6 @@ import Registration from './Registration';
 import UserProfileMain from './UserProfileMain.jsx';
 import UpdateWithPlace from './UpdateWithPlace.jsx';
 import UpdateWithoutPlace from './UpdateWithoutPlace.jsx';
-import Profile from './Profile.jsx';
 
 export default class App extends Component {
 

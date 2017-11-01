@@ -4,8 +4,10 @@ import ReactDOM from 'react-dom';
 import UserTags from './UserTags.jsx';
 import EditProfileModal from './EditProfileModal.jsx';
 import { Users } from './api/users.js';
+import { Image } from 'react-bootstrap';
+import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
-export default class UserProfile extends Component {
+export default class UserProfile extends TrackerReact(Component) {
 
   constructor(props) {
     super(props);
@@ -84,6 +86,10 @@ export default class UserProfile extends Component {
     }.bind(this));
   }
 
+  componentWillMount() {
+    Meteor.subscribe("myData", Meteor.userId());
+  }
+
   componentDidMount() {
     this.map = new google.maps.Map(document.getElementById('map'), {
       zoom: this.defaultZoom,
@@ -92,6 +98,14 @@ export default class UserProfile extends Component {
 
     this.geocoder = new google.maps.Geocoder();
     this.geocodeAddress(this.props.user.profile.place.address);
+
+    avatar.resumable.assignBrowse($(".fileBrowse"));
+  }
+
+  renderImagePreview() {
+    let first = avatar.findOne({"metadata.owner": Meteor.userId() });
+    if (first)
+      return <Image src={avatar.baseURL + "/md5/" + first.md5} rounded />
   }
 
   render() {
@@ -135,7 +149,9 @@ export default class UserProfile extends Component {
           <h1>Froomie!</h1>
         </div>
         <div className="user-back">
-          <div className="user-pic"></div>
+          <div className="user-pic fileBrowse">
+            {this.renderImagePreview.bind(this)}
+          </div>
         </div>
         <div className="info-container">
           <div className="user-info">
