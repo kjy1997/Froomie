@@ -31,6 +31,7 @@ export default class App extends Component {
         <Route path="/profilemain" component={UserProfileMain} />
         <Route path="/updatewithplace" component={UpdateWithPlace} />
         <Route path="/updatewithoutplace" component={UpdateWithoutPlace} />
+        <Route path="/user/:username" component={UserProfileMain} />
         </div>
        </Router>
     );

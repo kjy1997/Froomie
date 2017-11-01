@@ -4,10 +4,13 @@ import { createContainer } from 'react-meteor-data';
 
 import UserProfile from './UserProfile.jsx';
 import UserProfileNoPlace from './UserProfileNoPlace.jsx';
+import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
-class UserProfileMain extends Component {
+class UserProfileMain extends TrackerReact(Component) {
 
   render() {
+    Meteor.subscribe('allUsers');
+
     let user = this.props.user;
     let hasPlace;
 
@@ -31,9 +34,10 @@ class UserProfileMain extends Component {
 
 }
 
-export default createContainer(() => {
+export default createContainer((route) => {
+  let name = route.match.params.username;
   return {
-    user: Meteor.user()
+    user: Meteor.users.findOne({username: name})
   };
 }, UserProfileMain);
 

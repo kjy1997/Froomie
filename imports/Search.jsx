@@ -49,7 +49,7 @@ class Search extends TrackerReact(Component) {
 					<p>
 						{user.profile.about}
 					</p>
-					<Button className="btn" href="/">
+					<Button className="btn" href={"/user/" + user.username}>
 							Details
 						</Button>
 				</Thumbnail>
