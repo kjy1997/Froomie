@@ -75,6 +75,13 @@
 	color: white;
 }
 
+.social {
+	min-width: 100%;
+	min-height: 30px;
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
 /*
 	Sign Up With Place CSS
 */
@@ -83,6 +90,7 @@
 	min-height: 30px;
 	margin-left: 10px;
 }
+
 
 .place-input {
 	margin-top: 10px;
@@ -109,4 +117,22 @@
   font-size: 28px;
   color: #999;
   
+}
+
+#example-datepicker {
+	width: 180px;
+	margin: 10px;
+}
+
+.addtag {
+	width: 100px;
+	height: 30px;
+	background-color: #0b8966;
+	border: none;
+	color: white;
+	margin: 10px 0px;
+}
+
+.form-control {
+	font-size: 12px;
 }

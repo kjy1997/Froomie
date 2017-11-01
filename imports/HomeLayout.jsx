@@ -2,8 +2,18 @@ import React, { Component } from 'react';
 import "../client/css/home.css";
 import { Col, Row, Button } from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'; 
+import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
-export default class Home extends Component { 
+
+export default class Home extends TrackerReact(Component) { 
+
+	isUser() {
+		if (Meteor.user()){
+			return <a href="/profilemain">{Meteor.user().username}</a>
+		}else if (!Meteor.loggingIn()){
+			return <a href="/login">Login</a>
+		}
+	}
 
 	render() {
 		return (	
@@ -18,7 +28,7 @@ export default class Home extends Component {
 				<h3> Froomie! </h3>
 			</Col>
 			<Col sm={1} className="right-bar">	
-				<a href="/login">Login</a>
+				{this.isUser()}
 			</Col>
 			</Row>
 

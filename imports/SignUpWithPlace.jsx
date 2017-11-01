@@ -29,45 +29,57 @@ export default class SignUpWithPlace extends Component {
 		const bathroomtype = ReactDOM.findDOMNode(this.refs.bathroomtype).value.trim();
 		const prefergender = ReactDOM.findDOMNode(this.refs.prefergender).value.trim();
 
-		Accounts.createUser({ username: mainInfos.username, password: mainInfos.password }, (error) => {
-			if (error) {
-				console.log("Error: " + error.reason);
-			} else {
-				Users.update(Meteor.userId(), {
-					$set: {
-						"profile.email": mainInfos.email,
-						"profile.firstName": mainInfos.firstName,
-						"profile.lastName": mainInfos.lastName,
-						"profile.age": mainInfos.age,
-						"profile.gender": mainInfos.gender,
-						"profile.roommates": mainInfos.roommates,
-						"profile.about": mainInfos.about,
+		if (mainInfos.username === '' || mainInfos.password === '' || mainInfos.email === '' || mainInfos.firstName === '' ||
+			mainInfos.lastName === '' || mainInfos.age === '' || mainInfos.gender === 'select' || mainInfos.social === '' || address === '' || property === 'select' ||
+			rooms === '' || internet === 'select' || parking === 'select' || ac === 'select' || rent === '' || deposit === '' || roomtype === 'select' ||
+			furnishing === 'select' || bathroomtype === 'select' || prefergender === 'select' || mainInfos.about === '') {
+			alert("You must fill in all the information!");
+		} else {
 
-						"profile.place.address": address,
-						"profile.place.property": property,
-						"profile.place.rooms": rooms,
-						"profile.place.bathroom": bathroom,
-						"profile.place.internet": internet,
-						"profile.place.parking": parking,
-						"profile.place.ac": ac,
-						"profile.place.rent": rent,
-						"profile.place.deposit": deposit,
-						"profile.place.roomtype": roomtype,
-						"profile.place.furnishing": furnishing,
-						"profile.place.bathroomType": bathroomtype,
-						"profile.place.preferGender": prefergender
+			Accounts.createUser({ username: mainInfos.username, password: mainInfos.password }, (error) => {
+				if (error) {
+					console.log("Error: " + error.reason);
+					alert("Error:" + error.reason);
+				} else {
+					Users.update(Meteor.userId(), {
+						$set: {
+							"profile.email": mainInfos.email,
+							"profile.firstName": mainInfos.firstName,
+							"profile.lastName": mainInfos.lastName,
+							"profile.age": mainInfos.age,
+							"profile.gender": mainInfos.gender,
+							"profile.tags": mainInfos.tags,
+							"profile.about": mainInfos.introduction,
+							"profile.social" : mainInfos.social,
 
-					}
-				})
-				console.log("Registered in user: " + Meteor.user().username);
-			}
-		});
+							"profile.place.address": address,
+							"profile.place.property": property,
+							"profile.place.rooms": rooms,
+							"profile.place.bathroom": bathroom,
+							"profile.place.internet": internet,
+							"profile.place.parking": parking,
+							"profile.place.ac": ac,
+							"profile.place.rent": rent,
+							"profile.place.deposit": deposit,
+							"profile.place.roomtype": roomtype,
+							"profile.place.furnishing": furnishing,
+							"profile.place.bathroomType": bathroomtype,
+							"profile.place.preferGender": prefergender
+
+						}
+					})
+					console.log("Registered in user: " + Meteor.user().username);
+					alert(Meteor.user().username + " is registered!");
+
+				}
+			});
+		}
 	}
 
 	//google places autocomplete api
 	componentDidMount() {
-		  var input = document.getElementById('google-places');
-		  autocomplete = new google.maps.places.Autocomplete(input);
+		var input = document.getElementById('google-places');
+		autocomplete = new google.maps.places.Autocomplete(input);
 	}
 
 	render() {
@@ -92,12 +104,13 @@ export default class SignUpWithPlace extends Component {
 							<div id="map-canvas"></div>
 						</Row>
 						<Row>
-							<FormControl
-								className="input"
-								type="text"
-								placeholder="Type of property"
-								ref="property"
-							/>
+							<FormControl className="input" componentClass = "select" placeholder="Type of property" ref="property">
+							<option value="select">Type of property</option>
+								<option value="apartment">Apartment</option>
+								<option value="coop">Co-Op</option>
+								<option value="house">House</option>
+								<option value="townhouse">Townhouse</option>
+								</FormControl>
 							<FormControl
 								className="input"
 								type="number"
@@ -143,15 +156,15 @@ export default class SignUpWithPlace extends Component {
 
 							<FormGroup className="money">
 								<InputGroup>
-									
-									<FormControl type="number" placeholder="Monthly Rent" ref="rent"/>
+
+									<FormControl type="number" placeholder="Monthly Rent" ref="rent" />
 								</InputGroup>
 							</FormGroup>
 
 							<FormGroup className="money">
 								<InputGroup>
-									
-									<FormControl type="number" placeholder="Security Deposit" ref="deposit"/>
+
+									<FormControl type="number" placeholder="Security Deposit" ref="deposit" />
 								</InputGroup>
 							</FormGroup>
 
