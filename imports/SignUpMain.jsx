@@ -52,6 +52,7 @@ export default class SignUpMain extends Component {
 		const gender = ReactDOM.findDOMNode(this.refs.gender).value.trim();
 		const tags = this.state.tags;
 		const about = ReactDOM.findDOMNode(this.refs.about).value.trim();
+		const social = ReactDOM.findDOMNode(this.refs.social).value.trim();
 
 		return {
 			"username": username,
@@ -62,7 +63,8 @@ export default class SignUpMain extends Component {
 			"age": age,
 			"gender": gender,
 			"tags" : tags,
-			"about": about
+			"about": about,
+			"social" : social
 		};
 	}
 
@@ -228,6 +230,12 @@ export default class SignUpMain extends Component {
 							placeholder="Tell us about yourself"
 							ref="about"
 						/>
+						<FormControl
+								className="social"
+								type="text"
+								placeholder="Social media link"
+								ref="social"
+							/>
 					</Row>
 				</div>
 			</div>

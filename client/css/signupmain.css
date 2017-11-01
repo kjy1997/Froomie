@@ -75,6 +75,13 @@
 	color: white;
 }
 
+.social {
+	min-width: 100%;
+	min-height: 30px;
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
 /*
 	Sign Up With Place CSS
 */
@@ -83,6 +90,7 @@
 	min-height: 30px;
 	margin-left: 10px;
 }
+
 
 .place-input {
 	margin-top: 10px;
