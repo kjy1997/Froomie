@@ -4,7 +4,7 @@ import { Col, Row, Grid, Button, FormControl, Image, FormGroup } from 'react-boo
 import '../client/css/signupmain.css';
 import { Upload, Icon, message } from 'antd';
 import UserTags from './UserTags.jsx';
-
+import UserToolbar from './UserToolbar.jsx';
 
 //Upload avatar function
 function getBase64(img, callback) {
@@ -126,6 +126,9 @@ export default class SignUpMain extends Component {
 					<Row className="top-bar">
 						<Col sm={3} className="logo">
 							<h3>Froomie!</h3>
+						</Col>
+						<Col sm={3}>
+							<UserToolbar></UserToolbar>
 						</Col>
 					</Row>
 				</div>

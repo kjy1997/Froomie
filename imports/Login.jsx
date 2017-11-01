@@ -2,51 +2,59 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { Col, Row, Grid, Button, FormControl, Image } from 'react-bootstrap';
+import PropTypes from 'prop-types';
+import { createContainer } from 'react-meteor-data';
+import UserProfileMain from './UserProfileMain.jsx';
 
-export default class Login extends Component {
+class Login extends Component {
 
     render() {
-        return (
-            <div>
+        let user = this.props.user;
+        if (user) {
+            return (<UserProfileMain />);
+        } else {
+            return (
                 <div>
-                    <Row className="top-bar">
-                        <Col sm={3} className="logo">
-                            <h3>Froomie!</h3>
-                        </Col>
-                    </Row>
+                    <div>
+                        <Row className="top-bar">
+                            <Col sm={3} className="logo">
+                                <h3>Froomie!</h3>
+                            </Col>
+                        </Row>
+                    </div>
+                    <div className="container">
+                        <Row className="login">
+                            <Col sm={2}></Col>
+                            <Col sm={3}>
+                            <FormControl
+                                className="input"
+                                type="text"
+                                placeholder="Username"
+                                ref="username"
+                            />
+                            </Col>
+                            <Col sm={3}>
+                            <FormControl
+                                className="input"
+                                type="password"
+                                placeholder="Password"
+                                ref="password"
+                            />
+                            </Col>
+                        </Row>
+                        <Row className="button-row">
+                            <Col sm={3} className="blank">
+                            </Col>
+                            <Col sm={6} className="btn-content">
+                                <Button className="submit" type="submit" onClick={this.login.bind(this)}>Submit</Button>
+                            </Col>
+                            <Col sm={3} className="blank">
+                            </Col>
+                        </Row>
+                    </div>
                 </div>
-                <div className="container">
-                    <Row className="login">
-                        <Col sm={2}></Col>
-                        <Col sm={3}>
-                        <FormControl
-                            className="input"
-                            type="text"
-                            placeholder="Username"
-                            ref="username"
-                        />
-                        </Col>
-                        <Col sm={3}>
-                        <FormControl
-                            className="input"
-                            type="password"
-                            placeholder="Password"
-                            ref="password"
-                        />
-                        </Col>
-                    </Row>
-                    <Row className="button-row">
-                        <Col sm={3} className="blank">
-                        </Col>
-                        <Col sm={6} className="btn-content">
-                            <Button className="submit" type="submit" onClick={this.login.bind(this)}>Submit</Button>
-                        </Col>
-                        <Col sm={3} className="blank">
-                        </Col>
-                    </Row>
-                </div>
-            </div>
-        );
+            );
+        }
     }
 
     login(event) {
@@ -75,3 +83,12 @@ export default class Login extends Component {
     }
 }
 
+Login.propTypes = {
+    user: PropTypes.object
+}
+
+export default createContainer(() => {
+    return {
+        user: Meteor.user()
+    };
+}, Login)
