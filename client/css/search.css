@@ -38,13 +38,14 @@
 	margin: 20px;
 }
 
-.filter .submit {
+.btn {
 	width: 150px;
 	color: white;
 	font-family: 'Quicksand', sans-serif;
 	font-size: 18px;
 	height: 40px;
 	margin: 20px;
+	background-color: #0b8966;
 }
 
 .display {
@@ -59,3 +60,17 @@
 	width: 250px;
 	margin: 0px;
 }
+
+.thumbnail h3 {
+	font-family: 'Quicksand', sans-serif;
+	font-size: 16px;
+	color: #0b8966;
+}
+
+.thumbnail p {
+	font-family: 'Quicksand', sans-serif;
+	font-size: 16px;
+	color: #0b8966;
+}
+
+

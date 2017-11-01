@@ -8,5 +8,7 @@ import '../imports/api/rooms.js';
 import '../imports/uploadpic/upload.js';
 
 Meteor.startup(() => {
-    
+    Meteor.publish('allUsers', function() {
+        return Meteor.users.find();
+    });
 });

@@ -30,7 +30,7 @@ export default class SignUpWithPlace extends Component {
 		const prefergender = ReactDOM.findDOMNode(this.refs.prefergender).value.trim();
 
 		if (mainInfos.username === '' || mainInfos.password === '' || mainInfos.email === '' || mainInfos.firstName === '' ||
-			mainInfos.lastName === '' || mainInfos.age === '' || mainInfos.gender === 'select' || address === '' || property === 'select' ||
+			mainInfos.lastName === '' || mainInfos.age === '' || mainInfos.gender === 'select' || mainInfos.social === '' || address === '' || property === 'select' ||
 			rooms === '' || internet === 'select' || parking === 'select' || ac === 'select' || rent === '' || deposit === '' || roomtype === 'select' ||
 			furnishing === 'select' || bathroomtype === 'select' || prefergender === 'select' || mainInfos.about === '') {
 			alert("You must fill in all the information!");
@@ -50,6 +50,7 @@ export default class SignUpWithPlace extends Component {
 							"profile.gender": mainInfos.gender,
 							"profile.tags": mainInfos.tags,
 							"profile.about": mainInfos.introduction,
+							"profile.social" : mainInfos.social,
 
 							"profile.place.address": address,
 							"profile.place.property": property,
@@ -69,6 +70,7 @@ export default class SignUpWithPlace extends Component {
 					})
 					console.log("Registered in user: " + Meteor.user().username);
 					alert(Meteor.user().username + " is registered!");
+
 				}
 			});
 		}

@@ -26,7 +26,7 @@ accounts-password@1.4.0
 aldeed:simple-schema
 accounts-ui@1.1.9
 accounts-facebook@1.2.1
-# meteortoys:allthings
+meteortoys:allthings
 react-meteor-data
 vsivsi:file-collection
 ultimatejs:tracker-react

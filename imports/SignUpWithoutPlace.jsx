@@ -22,21 +22,6 @@ export default class SignUpWithoutPlace extends Component {
 			<SignUpMain key={task._id} task={task} />
 		));
 	}
-
-	formatDate(date) {
-		var monthNames = [
-		  "January", "February", "March",
-		  "April", "May", "June", "July",
-		  "August", "September", "October",
-		  "November", "December"
-		];
-	  
-		var day = date.getDate();
-		var monthIndex = date.getMonth();
-		var year = date.getFullYear();
-	  
-		return day + ' ' + monthNames[monthIndex] + ' ' + year;
-	  }
 	  
 
 	register(event) {
@@ -50,8 +35,8 @@ export default class SignUpWithoutPlace extends Component {
 		const lengthofstay = ReactDOM.findDOMNode(this.refs.lengthofstay).value.trim();
 
 		if (mainInfos.username === '' || mainInfos.password === '' || mainInfos.email === '' || mainInfos.firstName === '' ||
-			mainInfos.lastName === '' || mainInfos.age === '' || mainInfos.gender === 'select' || budget === '' || movein === '' 
-			|| lengthofstay === ''|| mainInfos.about === '') {
+			mainInfos.lastName === '' || mainInfos.age === '' || mainInfos.gender === 'select' || mainInfos.social === '' 
+			|| budget === '' || movein === '' || lengthofstay === ''|| mainInfos.about === '') {
 			alert("You must fill in all the information!");
 		} else {
 
@@ -69,6 +54,7 @@ export default class SignUpWithoutPlace extends Component {
 							"profile.gender": mainInfos.gender,
 							"profile.tags" : mainInfos.tags,
 							"profile.about": mainInfos.about,
+							"profile.social" : mainInfos.social,
 
 							"profile.budget": budget,
 							"profile.moveindate": movein,
