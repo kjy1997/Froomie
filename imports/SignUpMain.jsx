@@ -2,28 +2,8 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Col, Row, Grid, Button, FormControl, Image, FormGroup } from 'react-bootstrap';
 import '../client/css/signupmain.css';
-import { Upload, Icon, message } from 'antd';
 import UserTags from './UserTags.jsx';
 import UserToolbar from './UserToolbar.jsx';
-
-//Upload avatar function
-function getBase64(img, callback) {
-	const reader = new FileReader();
-	reader.addEventListener('load', () => callback(reader.result));
-	reader.readAsDataURL(img);
-}
-
-function beforeUpload(file) {
-	const isJPG = file.type === 'image/jpeg';
-	if (!isJPG) {
-		message.error('You can only upload JPG file!');
-	}
-	const isLt2M = file.size / 1024 / 1024 < 2;
-	if (!isLt2M) {
-		message.error('Image must smaller than 2MB!');
-	}
-	return isJPG && isLt2M;
-}
 
 
 //SignUp Main Class
@@ -62,21 +42,15 @@ export default class SignUpMain extends Component {
 			"lastName": lastName,
 			"age": age,
 			"gender": gender,
-			"tags" : tags,
+			"tags": tags,
 			"about": about,
-			"social" : social
+			"social": social
 		};
 	}
 
 	//Upload avatar function
 	state = {};
 
-	handleChange = (info) => {
-		if (info.file.status === 'done') {
-			// Get this url from response in real world.
-			getBase64(info.file.originFileObj, imageUrl => this.setState({ imageUrl }));
-		}
-	}
 
 	//tags
 
@@ -119,7 +93,7 @@ export default class SignUpMain extends Component {
 
 	render() {
 
-		const imageUrl = this.state.imageUrl;
+
 		return (
 			<div>
 				<div>
@@ -133,51 +107,34 @@ export default class SignUpMain extends Component {
 					</Row>
 				</div>
 				<div className="container">
-					<Row className="user-login" >
+					<div className="user-login" >
+						<Row className="about">
+							<Col sm={3} className="subtitle">
+								<h2>Basic Info</h2>
+							</Col>
+						</Row>
 
-						<Col sm={3} className="avatar">
-							<Upload
-								className="avatar-uploader fileBrowse"
-								name="avatar"
-								showUploadList={false}
-								action="./img"
-								beforeUpload={beforeUpload}
-								onChange={this.handleChange}
-							>
-								{
-									imageUrl ?
-										<img src={imageUrl} alt="" className="avatar" /> :
-										<Icon type="plus" className="avatar-uploader-trigger" />
-								}
-							</Upload>
-
-						</Col>
-
-						<Col sm={8} className="username">
-							<Row className="first-row">
-								<FormControl
-									className="input"
-									type="text"
-									placeholder="Username"
-									ref="username"
-								/>
-								<FormControl
-									className="input"
-									type="password"
-									placeholder="Password"
-									ref="password"
-								/>
-							</Row>
-							<Row className="second-row">
-								<FormControl
-									className="input"
-									type="email"
-									placeholder="Email"
-									ref="email"
-								/>
-							</Row>
-						</Col>
-					</Row>
+						<Row className="first-row">
+							<FormControl
+								className="input"
+								type="text"
+								placeholder="Username"
+								ref="username"
+							/>
+							<FormControl
+								className="input"
+								type="password"
+								placeholder="Password"
+								ref="password"
+							/>
+							<FormControl
+								className="input"
+								type="email"
+								placeholder="Email"
+								ref="email"
+							/>
+						</Row>
+					</div>
 				</div>
 
 				<div className="container">
@@ -234,11 +191,11 @@ export default class SignUpMain extends Component {
 							ref="about"
 						/>
 						<FormControl
-								className="social"
-								type="text"
-								placeholder="Social media link"
-								ref="social"
-							/>
+							className="social"
+							type="text"
+							placeholder="Social media link"
+							ref="social"
+						/>
 					</Row>
 				</div>
 			</div>
