@@ -65,9 +65,7 @@ export default class UserProfileNoPlace extends Component {
           isOpen={this.state.isModalOpen} 
           onClose={this.closeModal.bind(this)}
         />
-        <div className="header">
-          Froomie!
-        </div>
+        
         <div className="user-back">
           <div className="user-pic"></div>
         </div>

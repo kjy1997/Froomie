@@ -5,6 +5,7 @@ import { Mongo } from 'meteor/mongo';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { createContainer } from 'react-meteor-data';
 import ReactDOM from 'react-dom';
+import Navbar from './Navbar.jsx';
 
 class Search extends TrackerReact(Component) {
 	constructor(props) {
@@ -84,12 +85,7 @@ class Search extends TrackerReact(Component) {
 	render() {
 		return (
 			<div>
-				<Row className="top-bar">
-					<Col sm={3} className="logo">
-						<h3>Froomie!</h3>
-					</Col>
-				</Row>
-
+				<Navbar plain={false} />
 				<Row className="content">
 					<Col sm={3} className="filter">
 						<h3>Filters</h3>
