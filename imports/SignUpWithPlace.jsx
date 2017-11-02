@@ -22,7 +22,7 @@ export default class SignUpWithPlace extends Component {
 		const internet = ReactDOM.findDOMNode(this.refs.internet).value.trim();
 		const parking = ReactDOM.findDOMNode(this.refs.parking).value.trim();
 		const ac = ReactDOM.findDOMNode(this.refs.ac).value.trim();
-		const rent = ReactDOM.findDOMNode(this.refs.rent).value.trim();
+		const rent = parseInt(ReactDOM.findDOMNode(this.refs.rent).value.trim());
 		const deposit = ReactDOM.findDOMNode(this.refs.deposit).value.trim();
 		const roomtype = ReactDOM.findDOMNode(this.refs.roomtype).value.trim();
 		const furnishing = ReactDOM.findDOMNode(this.refs.furnishing).value.trim();

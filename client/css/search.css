@@ -54,23 +54,20 @@
 
 }
 
-.thumbnail {
-	height: 250px;
-	width: 250px;
-	margin: 0px;
+
+
+.thumbnail p{
+	color: #0b8966;
+	font-family: 'Quicksand', sans-serif;
+	font-size: 14px;
 }
 
-.thumbnail h3 {
-	font-family: 'Quicksand', sans-serif;
-	font-size: 16px;
+.thumbnail h3{
 	color: #0b8966;
+	font-family: 'Quicksand', sans-serif;
+	font-weight: bold;
 }
 
-.thumbnail p {
-	font-family: 'Quicksand', sans-serif;
-	font-size: 16px;
-	color: #0b8966;
-}
 .detail {
 	width: 100px;
 	color: white;

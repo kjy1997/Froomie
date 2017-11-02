@@ -16,23 +16,44 @@ class Search extends TrackerReact(Component) {
 	updateFilters() {
 		const agefilter = ReactDOM.findDOMNode(this.refs.agefilter).value;
 		const genderfilter = ReactDOM.findDOMNode(this.refs.genderfilter).value;
-		const tagfilter = ReactDOM.findDOMNode(this.refs.tagfilter).value;
-		const budgetfilter = ReactDOM.findDOMNode(this.refs.budgetfilter).value;
+		const rentfilter = ReactDOM.findDOMNode(this.refs.rentfilter).value;
 
-		if (agefilter === 'select' && genderfilter === 'select' && tagfilter === '' && budgetfilter === 'select') {
+		if (agefilter === 'select' && genderfilter === 'select' && rentfilter === 'select') {
 			Session.set('filters', {});
+		} else {
+			let selector = {
+				$and: [],
+			};
+			if (agefilter === "18-25") {
+				selector.$and.push({ "profile.age": { $gte: 18, $lte: 25 } });
+			} else if (agefilter === "25") {
+				selector.$and.push({ "profile.age": { $gte: 25 } });
+			} else if (genderfilter === "male") {
+				selector.$and.push({ "profile.gender" : "male" })
+			} else if (genderfilter === "female") {
+				selector.$and.push({ "profile.gender" : "female" })
+			} else if (rentfilter === 'lte400') {
+				selector.$and.push({ "profile.place.rent" : { $lte: 400 } })
+			} else if (rentfilter === '400-600') {
+				selector.$and.push({ "profile.place.rent" : { $gt: 400, $lte: 600 } })
+			} else if (rentfilter === '600-1000') {
+				selector.$and.push({ "profile.place.rent" : { $gt: 600, $lte: 1000 } })
+			} else if (rentfilter === 'gte1000') {
+				selector.$and.push({ "profile.place.rent" : { $gt: 1000 } })
+			}
+
+			Session.set('filters', selector);
 		}
-		let selector = {
-			$and: [],
-		};
-		if (agefilter === "18-25") {
-			selector.$and.push({ "profile.age": { $gte: 18, $lte: 25 } });
-		} else if (agefilter === "25") {
-			selector.$and.push({ "profile.age": { $gte: 25 } });
-		}
-		
-		Session.set('filters', selector);
 	}
+
+	renderImagePreview(userid) {
+		let useravatar = avatar.findOne({ "metadata.owner": userid }, { sort: { uploadDate: -1 } });
+		if (useravatar) {
+		  return avatar.baseURL + "/md5/" + useravatar.md5;
+		} else {
+			return "./img/temp.jpg";
+		}
+	  }
 
 	getUsers(filters) {
 		let userarray = [];
@@ -41,10 +62,10 @@ class Search extends TrackerReact(Component) {
 			if (user.profile.hasOwnProperty('place')) {
 				userarray.push(
 					<Col xs={6} md={4}>
-						<Thumbnail className="thumbnail" src="/assets/thumbnaildiv.png" alt="242x200">
+							<Thumbnail className="thumbnail" src={this.renderImagePreview(user._id)} alt="242x200">
 							<h3>{user.profile.firstName + ", " + user.profile.gender + ", " + user.profile.age}</h3>
 
-							<h3>{"Address: " + user.profile.place.address}</h3>
+							<p>{"Address: " + user.profile.place.address}</p>
 							<p>
 								{user.profile.about}
 							</p>
@@ -82,19 +103,12 @@ class Search extends TrackerReact(Component) {
 							<option value="male">Male</option>
 							<option value="female">Female</option>
 						</FormControl>
-						<FormControl
-							className="input"
-							type="text"
-							placeholder="Type your tag"
-							ref="tagfilter"
-						/>
-						<FormControl componentClass="select" placeholder="select" ref="budgetfilter">
+						<FormControl componentClass="select" placeholder="select" ref="rentfilter">
 							<option value="select">select budget</option>
-							<option value="300">Less than $300</option>
-							<option value="400">$400-$600</option>
-							<option value="600">$600-$800</option>
-							<option value="800">$800-$1000</option>
-							<option value="1000">More than $1000</option>
+							<option value="lte400">Less than $400</option>
+							<option value="400-600">$400-$600</option>
+							<option value="600-1000">$600-$1000</option>
+							<option value="gte1000">More than $1000</option>
 						</FormControl>
 						<Button className="searchbtn" type="submit" onClick={this.updateFilters.bind(this)} >
 							Apply filter

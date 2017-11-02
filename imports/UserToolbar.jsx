@@ -29,7 +29,7 @@ class UserToolbar extends Component {
                 <button style={btnStyle}>Welcome {user.profile.firstName}! &#9660;</button>
                 <div style={dropdownStyle}>
                     <p><a href="/profilemain">Profile</a></p>
-                    <p onClick={logout}>Logout</p>
+                    <p onClick={logout()}>Logout</p>
                 </div>
                 </div> 
             );
