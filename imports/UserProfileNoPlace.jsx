@@ -31,6 +31,7 @@ export default class UserProfileNoPlace extends Component {
         "profile.age": obj.age,
         "profile.gender": obj.gender,
         "profile.tags": obj.tags,
+        "profile.social": obj.social,
         // stay
         "profile.budget": obj.budget,
         "profile.moveindate": obj.moveindate,
@@ -83,6 +84,13 @@ export default class UserProfileNoPlace extends Component {
             <h4>Introduction</h4>
             <p>{user.profile.about}</p>
             <UserTags tags={user.profile.tags} />  
+
+            <div className="profileSocialGallery">
+              <a href={"http://www.facebook.com"} target="_blank"><img className="profileSocial" src={(this.props.isOwn ? "./" : "../") + "socialmedia/logo_facebook.jpg"} alt="logo_facebook" /></a>
+              <a href={"http://www.twitter.com"} target="_blank"><img className="profileSocial" src={(this.props.isOwn ? "./" : "../")+ "socialmedia/logo_twitter.jpg"} alt="logo_twitter" /></a>
+              <a href={"http://www.github.com"} target="_blank"><img className="profileSocial" src={(this.props.isOwn ? "./" : "../") + "socialmedia/logo_github.jpg"} alt="logo_github" /></a>
+              <a href={"http://www.linkedin.com"} target="_blank"><img className="profileSocial" src={(this.props.isOwn ? "./" : "../") + "socialmedia/logo_linkedin.jpg"} alt="logo_linkedin" /></a>
+            </div>
 
             <div className="profileHousingInfo">
               <div className="housingColumn housingSingle">

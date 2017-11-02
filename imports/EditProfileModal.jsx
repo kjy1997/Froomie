@@ -21,6 +21,7 @@ export default class EditProfileModal extends Component {
     const aboutField    = ReactDOM.findDOMNode(this.refs.aboutField).value.trim();
     const ageField      = ReactDOM.findDOMNode(this.refs.ageField).value.trim();
     const genderField   = ReactDOM.findDOMNode(this.refs.genderField).value.trim();
+    const socialField   = ReactDOM.findDOMNode(this.refs.socialField).value.trim();
     const addressField  = ReactDOM.findDOMNode(this.refs.addressField).value.trim();
     const suiteField    = ReactDOM.findDOMNode(this.refs.suiteField).value.trim();
     const propertyField = ReactDOM.findDOMNode(this.refs.propertyField).value.trim();
@@ -48,6 +49,7 @@ export default class EditProfileModal extends Component {
       age: ageField,
       gender: genderField,
       tags: this.state.tags,
+      social: socialField,
       address: addressField,
       property: propertyField,
       roomCount: roomField,
@@ -140,6 +142,9 @@ export default class EditProfileModal extends Component {
           </div>
           <input type="text" ref="tagField" placeholder="enter tag here"/>
           <button onClick={this.handleAddTag.bind(this)}>Add Tag</button>
+          <br />
+
+          <input className="nameInput" type="text" ref="socialField" placeholder="social media link" defaultValue={this.props.profile.social}/>
           <br />
 
           <label>Housing Info</label>
