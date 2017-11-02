@@ -92,6 +92,23 @@
   padding-top: 15px;
 }
 
+.about a {
+  border-radius: 25px;
+  padding: 0px 8px;
+
+  background: #0b8966;
+  color: white;
+  font-size: 16px;
+  text-decoration: none;
+
+  transition: 0.25s ease-out;
+}
+
+.about a:hover {
+  background: white;
+  color: #0b8966;
+}
+
 .about p {
   font-size: 14px;
 }
@@ -100,6 +117,30 @@
   padding-top: 5px;
   padding-bottom: 5px;
   margin: 0;
+}
+
+.about .profileSocialGallery {
+  padding: 10px 0px;
+}
+
+.about .profileSocialGallery a {
+  padding: 0;
+  
+  background: white;
+}
+
+.about .profileSocial {
+  margin: 0px 5px;
+
+  width: 40px;
+  height: 40px;
+
+  cursor: pointer;
+  transition: 0.25s ease-out;
+}
+
+.about .profileSocial:hover {
+  transform: scale(1.2);
 }
 
 .about .profileHousingInfo {

@@ -8,7 +8,6 @@ import { Image } from 'react-bootstrap';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { createContainer } from 'react-meteor-data';
 
-
 class UserProfile extends TrackerReact(Component) {
 
   constructor(props) {
@@ -178,6 +177,16 @@ class UserProfile extends TrackerReact(Component) {
               <h4>Introduction</h4>
               <p>{user.profile.about}</p>
               <UserTags tags={user.profile.tags} />
+
+              <div className="profileSocialGallery">
+                <a href={"http://www.facebook.com"} target="_blank"><img className="profileSocial" src={"./socialmedia/logo_facebook.jpg"} alt="logo_facebook" /></a>
+                <a href={"http://www.twitter.com"} target="_blank"><img className="profileSocial" src={"./socialmedia/logo_twitter.jpg"} alt="logo_twitter" /></a>
+                <a href={"http://www.github.com"} target="_blank"><img className="profileSocial" src={"./socialmedia/logo_github.jpg"} alt="logo_github" /></a>
+                <a href={"http://www.linkedin.com"} target="_blank"><img className="profileSocial" src={"./socialmedia/logo_linkedin.jpg"} alt="logo_linkedin" /></a>
+              </div>
+
+              <a href={"http://www." + user.profile.social} target="_blank">My Social Media</a>
+
               <div className="line-split"></div>
 
               <h4>About my place</h4>
