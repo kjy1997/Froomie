@@ -8,6 +8,7 @@ import { Image } from 'react-bootstrap';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { createContainer } from 'react-meteor-data';
 
+import Navbar from './Navbar.jsx';
 
 class UserProfile extends TrackerReact(Component) {
 
@@ -155,9 +156,7 @@ class UserProfile extends TrackerReact(Component) {
           isOpen={this.state.isModalOpen}
           onClose={this.closeModal.bind(this)}
         />
-        <div className="header">
-          <h1>Froomie!</h1>
-        </div>
+        <Navbar plain={false} /> 
         <div className="user-back">
           <div className="user-pic fileBrowse">
             {this.renderImagePreview(Session.get('avatar'))}

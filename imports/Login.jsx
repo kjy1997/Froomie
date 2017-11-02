@@ -5,56 +5,54 @@ import { Col, Row, Grid, Button, FormControl, Image } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { createContainer } from 'react-meteor-data';
 import UserProfileMain from './UserProfileMain.jsx';
+import Navbar from './Navbar.jsx';
 
-export default class Login extends Component {
+class Login extends Component {
 
-    render() {
-        let user = this.props.user;
-        if (user) {
-            return (<UserProfileMain />);
-        } else {
-            return (
-                <div>
-                    <div>
-                        <Row className="top-bar">
-                            <Col sm={3} className="logo">
-                                <h3>Froomie!</h3>
-                            </Col>
-                        </Row>
-                    </div>
-                    <div className="container">
-                        <Row className="login">
-                            <Col sm={2}></Col>
-                            <Col sm={3}>
-                            <FormControl
-                                className="input"
-                                type="text"
-                                placeholder="Username"
-                                ref="username"
-                            />
-                            </Col>
-                            <Col sm={3}>
-                            <FormControl
-                                className="input"
-                                type="password"
-                                placeholder="Password"
-                                ref="password"
-                            />
-                            </Col>
-                        </Row>
-                        <Row className="button-row">
-                            <Col sm={3} className="blank">
-                            </Col>
-                            <Col sm={6} className="btn-content">
-                                <Button className="submit" type="submit" onClick={this.login.bind(this)}>Submit</Button>
-                            </Col>
-                            <Col sm={3} className="blank">
-                            </Col>
-                        </Row>
-                    </div>
-                </div>
-            );
+    componentDidUpdate() {
+        if (this.props.user) {
+            window.location.replace("/profilemain");
         }
+    }
+    
+    render() {
+        return (
+            <div>
+                <div>
+                <Navbar plain={true} />
+                </div>
+                <div className="container">
+                    <Row className="login">
+                        <Col sm={2}></Col>
+                        <Col sm={3}>
+                        <FormControl
+                            className="input"
+                            type="text"
+                            placeholder="Username"
+                            ref="username"
+                        />
+                        </Col>
+                        <Col sm={3}>
+                        <FormControl
+                            className="input"
+                            type="password"
+                            placeholder="Password"
+                            ref="password"
+                        />
+                        </Col>
+                    </Row>
+                    <Row className="button-row">
+                        <Col sm={3} className="blank">
+                        </Col>
+                        <Col sm={6} className="btn-content">
+                            <Button className="submit" type="submit" onClick={this.login.bind(this)}>Submit</Button>
+                        </Col>
+                        <Col sm={3} className="blank">
+                        </Col>
+                    </Row>
+                </div>
+            </div>
+        );
     }
 
     login(event) {
@@ -77,6 +75,7 @@ export default class Login extends Component {
                 console.log("Error: " + error.reason);
             } else {
                 alert("Logged in user: " + Meteor.user().username);
+                window.location.replace("/profilemain");
             }
         });
 
@@ -87,8 +86,8 @@ Login.propTypes = {
     user: PropTypes.object
 }
 
-// export default createContainer(() => {
-//     return {
-//         user: Meteor.user()
-//     };
-// }, Login)
+export default createContainer(() => {
+    return {
+        user: Meteor.user()
+    };
+}, Login)
