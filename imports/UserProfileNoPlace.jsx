@@ -73,7 +73,11 @@ export default class UserProfileNoPlace extends Component {
         </div>
         <div className="user-info">
           <h2>{user.profile.firstName + " " + user.profile.lastName}</h2>
-          <button onClick={this.openModal.bind(this)}>Edit</button>
+          {
+            this.props.isOwn
+              ? <button onClick={this.openModal.bind(this)}>Edit</button>
+              : null
+          }
           <div className="about">
             <h4>About me</h4>
             <p>Age: {user.profile.age}</p>

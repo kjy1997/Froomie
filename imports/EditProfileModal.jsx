@@ -60,7 +60,7 @@ export default class EditProfileModal extends Component {
       roomType: roomTypeField,
       bathroomType: bathroomTypeField,
       furnishing: furnishingField,
-      genderPref: genderPrefField
+      preferGender: genderPrefField
     }
 
     this.props.handleEdit(obj);
@@ -167,7 +167,7 @@ export default class EditProfileModal extends Component {
               <input type="text" ref="roomTypeField" placeholder="room type" defaultValue={room.roomType}/>
               <input type="text" ref="bathroomTypeField" placeholder="bathroom type" defaultValue={room.bathroomType}/>
               <input type="text" ref="furnishingField" placeholder="furnishing" defaultValue={room.furnishing}/>
-              <input type="text" ref="genderPrefField" placeholder="preferred gender" defaultValue={room.genderPref}/>
+              <input type="text" ref="genderPrefField" placeholder="preferred gender" defaultValue={room.preferGender}/>
             </div>
           </div>
 

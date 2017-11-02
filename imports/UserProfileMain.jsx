@@ -25,8 +25,8 @@ class UserProfileMain extends TrackerReact(Component) {
       <div>
         {
           hasPlace 
-            ? <UserProfile user={user} />
-            : <UserProfileNoPlace user={user} />
+            ? <UserProfile user={user} isOwn={this.props.isOwn} />
+            : <UserProfileNoPlace user={user} isOwn={this.props.isOwn} />
         }
       </div>
     );
@@ -36,12 +36,17 @@ class UserProfileMain extends TrackerReact(Component) {
 
 export default createContainer((route) => {
   // check if user is logged in and is accessing own page
-  if (Meteor.user() && route.match.path === '/profilemain')
-    return { user: Meteor.user() };
+  if (Meteor.user() && (route.match.path === '/profilemain' || route.match.url === '/user/' + Meteor.user().username))
+    return { 
+      user: Meteor.user(),
+      isOwn: true
+    };
   
+  // accessing another user's page
   let name = route.match.params.username;
   return {
-    user: Meteor.users.findOne({username: name})
+    user: Meteor.users.findOne({username: name}),
+    isOwn: false
   };
 }, UserProfileMain);
 

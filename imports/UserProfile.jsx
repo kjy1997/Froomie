@@ -48,7 +48,7 @@ export default class UserProfile extends TrackerReact(Component) {
         "profile.place.roomtype": obj.roomType,
         "profile.place.bathroomType": obj.bathroomType,
         "profile.place.furnishing": obj.furnishing,
-        "profile.place.preferGender": obj.genderPref
+        "profile.place.preferGender": obj.preferGender
       }
     });
     this.geocodeAddress(obj.address);
@@ -169,7 +169,11 @@ export default class UserProfile extends TrackerReact(Component) {
         <div className="info-container">
           <div className="user-info">
             <h2>{user.profile.firstName + " " + user.profile.lastName}</h2>
-            <button onClick={this.openModal.bind(this)}>Edit</button>
+            {
+              this.props.isOwn
+                ? <button onClick={this.openModal.bind(this)}>Edit</button>
+                : null
+            }
             <div className="about">
               <h4>About me</h4>
               <p>Age: {user.profile.age}</p>
