@@ -6,8 +6,10 @@ import EditProfileModal from './EditProfileModal.jsx';
 import { Users } from './api/users.js';
 import { Image } from 'react-bootstrap';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
+import { createContainer } from 'react-meteor-data';
 
-export default class UserProfile extends TrackerReact(Component) {
+
+class UserProfile extends TrackerReact(Component) {
 
   constructor(props) {
     super(props);
@@ -85,12 +87,10 @@ export default class UserProfile extends TrackerReact(Component) {
       }
     }.bind(this));
   }
-
-  componentWillMount() {
-    Meteor.subscribe("myData", Meteor.userId());
-  }
-
+  
   componentDidMount() {
+    let self = this;
+
     this.map = new google.maps.Map(document.getElementById('map'), {
       zoom: this.defaultZoom,
       center: this.defaultCenter
@@ -105,7 +105,7 @@ export default class UserProfile extends TrackerReact(Component) {
 
       // Create a new file in the file collection to upload
       avatar.insert({
-        //_id: file.uniqueIdentifier,  // This is the ID resumable will use
+        _id: file.uniqueIdentifier,  // This is the ID resumable will use
         filename: file.fileName,
         contentType: file.file.type
       },
@@ -117,19 +117,16 @@ export default class UserProfile extends TrackerReact(Component) {
       );
     });
 
-    $.cookie('X-Auth-Token', Accounts._storedLoginToken(), { path: '/' });
   }
 
-  renderImagePreview() {
-    let first = avatar.findOne({ "metadata.owner": Meteor.userId() });
-    if (first)
-      return <Image src={avatar.baseURL + "/md5/" + first.md5} rounded />
+
+  renderImagePreview(useravatar) {
+    if (useravatar)
+      return <Image src={avatar.baseURL + "/md5/" + useravatar.md5} circle className="avatar"/>
   }
 
   render() {
     let user = this.props.user;
-
-    console.log(user);
 
     let address = user.profile.place.address;
     let property = {
@@ -168,7 +165,7 @@ export default class UserProfile extends TrackerReact(Component) {
         </div>
         <div className="user-back">
           <div className="user-pic fileBrowse">
-            {this.renderImagePreview.bind(this)}
+            {this.renderImagePreview(Session.get('avatar'))}
           </div>
         </div>
         <div className="info-container">
@@ -226,5 +223,13 @@ export default class UserProfile extends TrackerReact(Component) {
   }
 }
 
+export default createContainer(() => {
+  Meteor.subscribe('avatar', setUserAvatar());
+  function setUserAvatar() {
+    let useravatar = avatar.findOne({ "metadata.owner": Meteor.userId() }, { sort: { uploadDate: -1 } });
+    Session.set('avatar', useravatar);
+  }
+	return {
 
-
+	};
+}, UserProfile);

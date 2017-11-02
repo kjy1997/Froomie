@@ -7,6 +7,7 @@ import '../imports/uploadpic/upload.js';
 import App from '../imports/App.jsx';
  
 Meteor.startup(() => {
+    Meteor.subscribe('avatar', Meteor.userId());
     //console.log(process.env)
     render(
     	<App />, document.getElementById('main-app')

@@ -46,6 +46,11 @@
   background-color: rgb(230, 230, 230);
 }
 
+.avatar {
+  width: 150px;
+  height: 150px;
+}
+
 .info-container {
   margin: 0 auto;
 

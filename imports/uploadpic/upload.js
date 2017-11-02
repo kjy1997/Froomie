@@ -2,7 +2,7 @@ avatar = new FileCollection('avatar',
   { resumable: true,   // Enable built-in resumable.js upload support
     http: [
       { method: 'get',
-        path: '/:md5',  // this will be at route "/gridfs/avatar/:md5"
+        path: '/md5/:md5',  // this will be at route "/gridfs/avatar/md5/:md5"
         lookup: function (params, query) {  // uses express style url params
           return { md5: params.md5 };       // a query mapping url to avatar
         }
@@ -15,7 +15,7 @@ if (Meteor.isServer) {
 
   // Only publish files owned by this userId, and ignore
   // file chunks being used by Resumable.js for current uploads
-  Meteor.publish('myData',
+  Meteor.publish('avatar',
     function (clientUserId) {
       if (clientUserId === this.userId) {
         return avatar.find({ 'metadata._Resumable': { $exists: false },
@@ -44,7 +44,7 @@ if (Meteor.isServer) {
     },
     // Only owners can retrieve a file via HTTP GET
     read: function (userId, file) {
-      return (userId === file.metadata.owner);
+      return true;
     },
     // This rule secures the HTTP REST interfaces' PUT/POST
     // Necessary to support Resumable.js
@@ -60,7 +60,7 @@ if (Meteor.isClient) {
   Meteor.startup(function() {
 
     // This assigns a file upload drop zone to some DOM node
-    avatar.resumable.assignDrop($(".fileDrop"));
+    //avatar.resumable.assignDrop($(".fileDrop"));
 
     // This assigns a browse action to a DOM node
     // avatar.resumable.assignBrowse($(".fileBrowse"));
@@ -90,7 +90,7 @@ if (Meteor.isClient) {
     //   Meteor.subscribe('myData', Meteor.userId());
     //   // $.cookie() assumes use of "jquery-cookie" Atmosphere package.
     //   // You can use any other cookie package you may prefer...
-    //   $.cookie('X-Auth-Token', Accounts._storedLoginToken(), { path: '/' });
+      $.cookie('X-Auth-Token', Accounts._storedLoginToken(), { path: '/' });
     // });
   });
 }
