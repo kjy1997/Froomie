@@ -63,24 +63,24 @@ if (Meteor.isClient) {
     avatar.resumable.assignDrop($(".fileDrop"));
 
     // This assigns a browse action to a DOM node
-    avatar.resumable.assignBrowse($(".fileBrowse"));
+    // avatar.resumable.assignBrowse($(".fileBrowse"));
 
     // When a file is added via drag and drop
-    avatar.resumable.on('fileAdded', function (file) {
+    // avatar.resumable.on('fileAdded', function (file) {
 
-      // Create a new file in the file collection to upload
-      avatar.insert({
-        _id: file.uniqueIdentifier,  // This is the ID resumable will use
-        filename: file.fileName,
-        contentType: file.file.type
-        },
-        function (err, _id) {  // Callback to .insert
-          if (err) { return console.error("File creation failed!", err); }
-          // Once the file exists on the server, start uploading
-          avatar.resumable.upload();
-        }
-      );
-    });
+    //   // Create a new file in the file collection to upload
+    //   avatar.insert({
+    //     _id: file.uniqueIdentifier,  // This is the ID resumable will use
+    //     filename: file.fileName,
+    //     contentType: file.file.type
+    //     },
+    //     function (err, _id) {  // Callback to .insert
+    //       if (err) { return console.error("File creation failed!", err); }
+    //       // Once the file exists on the server, start uploading
+    //       avatar.resumable.upload();
+    //     }
+    //   );
+    // });
 
     // // This autorun keeps a cookie up-to-date with the Meteor Auth token
     // // of the logged-in user. This is needed so that the read/write allow

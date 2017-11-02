@@ -12,7 +12,7 @@ export default class UserProfile extends TrackerReact(Component) {
   constructor(props) {
     super(props);
     this.defaultZoom = 3;
-    this.defaultCenter = {lat: 37, lng: -95};
+    this.defaultCenter = { lat: 37, lng: -95 };
     this.state = {
       isModalOpen: false
     }
@@ -67,7 +67,7 @@ export default class UserProfile extends TrackerReact(Component) {
   }
 
   geocodeAddress(address) {
-    this.geocoder.geocode({'address': address}, function handleResults(results, status) {
+    this.geocoder.geocode({ 'address': address }, function handleResults(results, status) {
       if (status === google.maps.GeocoderStatus.OK) {
         this.map.setZoom(16);
         this.map.setCenter(results[0].geometry.location);
@@ -100,10 +100,28 @@ export default class UserProfile extends TrackerReact(Component) {
     this.geocodeAddress(this.props.user.profile.place.address);
 
     avatar.resumable.assignBrowse($(".fileBrowse"));
+
+    avatar.resumable.on('fileAdded', function (file) {
+
+      // Create a new file in the file collection to upload
+      avatar.insert({
+        //_id: file.uniqueIdentifier,  // This is the ID resumable will use
+        filename: file.fileName,
+        contentType: file.file.type
+      },
+        function (err, _id) {  // Callback to .insert
+          if (err) { return console.error("File creation failed!", err); }
+          // Once the file exists on the server, start uploading
+          avatar.resumable.upload();
+        }
+      );
+    });
+
+    $.cookie('X-Auth-Token', Accounts._storedLoginToken(), { path: '/' });
   }
 
   renderImagePreview() {
-    let first = avatar.findOne({"metadata.owner": Meteor.userId() });
+    let first = avatar.findOne({ "metadata.owner": Meteor.userId() });
     if (first)
       return <Image src={avatar.baseURL + "/md5/" + first.md5} rounded />
   }
@@ -132,17 +150,17 @@ export default class UserProfile extends TrackerReact(Component) {
       furnishing: user.profile.place.furnishing,
       genderPref: user.profile.place.preferGender
     };
-  
+
     return (
       <div className="profile-container">
-        <EditProfileModal 
+        <EditProfileModal
           profile={user.profile}
           address={address}
           property={property}
           amenities={amenities}
           room={room}
           handleEdit={this.handleEdit.bind(this)}
-          isOpen={this.state.isModalOpen} 
+          isOpen={this.state.isModalOpen}
           onClose={this.closeModal.bind(this)}
         />
         <div className="header">
@@ -163,7 +181,7 @@ export default class UserProfile extends TrackerReact(Component) {
               <p>Gender: {user.profile.gender}</p>
               <h4>Introduction</h4>
               <p>{user.profile.about}</p>
-              <UserTags tags={user.profile.tags}/>
+              <UserTags tags={user.profile.tags} />
               <div className="line-split"></div>
 
               <h4>About my place</h4>
@@ -171,22 +189,22 @@ export default class UserProfile extends TrackerReact(Component) {
 
               <div className="profileHousingInfo">
                 <div className="housingColumn">
-                  <strong>Property Type <br/><p>{property.propertyType ? property.propertyType : "N/A"}</p></strong>
-                  <strong>Room Count <br/><p>{property.roomCount ? property.roomCount : 0}</p></strong>
-                  <strong>Bathroom Count <br/><p>{property.roomCount ? property.roomCount : 0}</p></strong>
+                  <strong>Property Type <br /><p>{property.propertyType ? property.propertyType : "N/A"}</p></strong>
+                  <strong>Room Count <br /><p>{property.roomCount ? property.roomCount : 0}</p></strong>
+                  <strong>Bathroom Count <br /><p>{property.roomCount ? property.roomCount : 0}</p></strong>
                 </div>
                 <div className="housingColumn">
-                  <strong>Internet <br/><p>{amenities.internet === 'yes' ? "yes" : "no"}</p></strong>
-                  <strong>Parking <br/><p>{amenities.parking === 'yes' ? "yes" : "no"}</p></strong>
-                  <strong>A/C <br/><p>{amenities.ac === 'yes' ? "yes" : "no"}</p></strong>
+                  <strong>Internet <br /><p>{amenities.internet === 'yes' ? "yes" : "no"}</p></strong>
+                  <strong>Parking <br /><p>{amenities.parking === 'yes' ? "yes" : "no"}</p></strong>
+                  <strong>A/C <br /><p>{amenities.ac === 'yes' ? "yes" : "no"}</p></strong>
                 </div>
                 <div className="housingColumn">
-                  <strong>Rent <br/><p>${room.rent}</p></strong>
-                  <strong>Deposit <br/><p>${room.deposit}</p></strong>
-                  <strong>Room Type <br/><p>{room.roomType ? room.roomType : "N/A"}</p></strong>
-                  <strong>Bathroom Type <br/><p>{room.bathroomType ? room.bathroomType : "N/A"}</p></strong>
-                  <strong>Furnishing <br/><p>{room.furnishing ? room.furnishing : "N/A"}</p></strong>
-                  <strong>Preferred Gender <br/><p>{room.genderPref ? room.genderPref : "N/A"}</p></strong>
+                  <strong>Rent <br /><p>${room.rent}</p></strong>
+                  <strong>Deposit <br /><p>${room.deposit}</p></strong>
+                  <strong>Room Type <br /><p>{room.roomType ? room.roomType : "N/A"}</p></strong>
+                  <strong>Bathroom Type <br /><p>{room.bathroomType ? room.bathroomType : "N/A"}</p></strong>
+                  <strong>Furnishing <br /><p>{room.furnishing ? room.furnishing : "N/A"}</p></strong>
+                  <strong>Preferred Gender <br /><p>{room.genderPref ? room.genderPref : "N/A"}</p></strong>
                 </div>
               </div>
 
@@ -198,8 +216,8 @@ export default class UserProfile extends TrackerReact(Component) {
             <h4>Contact Me</h4>
             <form onSubmit={this.handleContactSubmit.bind(this)}>
               <textarea className="contact-subject" ref="contactForm"></textarea>
-              <br/>
-              <input type="submit" value="Submit"/>
+              <br />
+              <input type="submit" value="Submit" />
             </form>
           </div>
         </div>

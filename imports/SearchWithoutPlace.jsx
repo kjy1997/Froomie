@@ -49,7 +49,7 @@ class SearchWithoutPlace extends TrackerReact(Component) {
 					<p>
 						{user.profile.about}
 					</p>
-                    <Button className="btn">
+                    <Button className="searchbtn">
 							Details
 						</Button>
 				</Thumbnail>
@@ -97,7 +97,7 @@ class SearchWithoutPlace extends TrackerReact(Component) {
                         <option value="800">$800-$1000</option>
                         <option value="1000">More than $1000</option>
                     </FormControl>
-                    <Button className="btn" type="submit" >
+                    <Button className="searchbtn" type="submit" >
                         Apply filter
                     </Button>
 					</Col>

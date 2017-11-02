@@ -16,8 +16,7 @@ const dropdownStyle = {
 }
 class UserToolbar extends Component {
 
-    logout(e) {
-        e.preventDefault()
+    logout() {
         Meteor.logout();
     }
 
