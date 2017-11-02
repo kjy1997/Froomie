@@ -16,10 +16,6 @@ export default class UserProfile extends TrackerReact(Component) {
     this.state = {
       isModalOpen: false
     }
-
-    // TEMPORARY 
-    if (!props.user.profile.hasOwnProperty('tags'))
-      props.user["profile"]["tags"] = [];
   }
 
   handleContactSubmit(e) {
@@ -128,7 +124,6 @@ export default class UserProfile extends TrackerReact(Component) {
 
   render() {
     let user = this.props.user;
-
     console.log(user);
 
     let address = user.profile.place.address;
@@ -148,7 +143,7 @@ export default class UserProfile extends TrackerReact(Component) {
       roomType: user.profile.place.roomtype,
       bathroomType: user.profile.place.bathroomType,
       furnishing: user.profile.place.furnishing,
-      genderPref: user.profile.place.preferGender
+      preferGender: user.profile.place.preferGender
     };
 
     return (
@@ -204,7 +199,7 @@ export default class UserProfile extends TrackerReact(Component) {
                   <strong>Room Type <br /><p>{room.roomType ? room.roomType : "N/A"}</p></strong>
                   <strong>Bathroom Type <br /><p>{room.bathroomType ? room.bathroomType : "N/A"}</p></strong>
                   <strong>Furnishing <br /><p>{room.furnishing ? room.furnishing : "N/A"}</p></strong>
-                  <strong>Preferred Gender <br /><p>{room.genderPref ? room.genderPref : "N/A"}</p></strong>
+                  <strong>Preferred Gender <br /><p>{room.preferGender ? room.preferGender : "N/A"}</p></strong>
                 </div>
               </div>
 

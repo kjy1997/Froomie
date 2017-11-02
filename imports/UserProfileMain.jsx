@@ -35,9 +35,13 @@ class UserProfileMain extends TrackerReact(Component) {
 }
 
 export default createContainer((route) => {
+  // check if user is logged in and is accessing own page
+  if (Meteor.user() && route.match.path === '/profilemain')
+    return { user: Meteor.user() };
+  
   let name = route.match.params.username;
   return {
-    user: Meteor.user() ? Meteor.user() : Meteor.users.findOne({username: name})
+    user: Meteor.users.findOne({username: name})
   };
 }, UserProfileMain);
 
