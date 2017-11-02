@@ -9,6 +9,7 @@ class SearchWithoutPlace extends TrackerReact(Component) {
 	constructor(props) {
 		super(props);
 		Meteor.subscribe('allUsers');
+		Session.set('filters', {})
 	}
 	updateFilters() {
 		const agefilter = ReactDOM.findDOMNode(this.refs.agefilter).value;
@@ -53,10 +54,11 @@ class SearchWithoutPlace extends TrackerReact(Component) {
 	  }
 
 	getUsers(filters) {
+		console.log('test');
 		let userarray = [];
 
 		Meteor.users.find(filters).forEach(function (user) {
-			if (!user.profile.hasOwnProperty('place')) {
+			if (!user.profile.place) {
 				userarray.push(
 					<Col xs={6} md={4}>
 							<Thumbnail className="thumbnail" src={this.renderImagePreview(user._id)} alt="242x200">
@@ -108,7 +110,7 @@ class SearchWithoutPlace extends TrackerReact(Component) {
 					<option value="600-1000">$600-$1000</option>
 					<option value="gte1000">More than $1000</option>
                     </FormControl>
-                    <Button className="searchbtn" type="submit" >
+                    <Button className="searchbtn" type="submit" onClick={this.updateFilters.bind(this)} >
                         Apply filter
                     </Button>
 					</Col>

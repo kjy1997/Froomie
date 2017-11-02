@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Col, Row, Grid, Button, FormControl, Image, FormGroup } from 'react-bootstrap';
 import '../client/css/signupmain.css';
 import UserTags from './UserTags.jsx';
-import UserToolbar from './UserToolbar.jsx';
+
 
 
 //SignUp Main Class
@@ -101,9 +101,7 @@ export default class SignUpMain extends Component {
 						<Col sm={3} className="logo">
 							<h3>Froomie!</h3>
 						</Col>
-						<Col sm={3}>
-							<UserToolbar></UserToolbar>
-						</Col>
+					
 					</Row>
 				</div>
 				<div className="container">

@@ -31,7 +31,8 @@ export default class SignUpWithoutPlace extends Component {
 		// const pass = ReactDOM.findDOMNode(this.refs.password).value.trim();
 		var mainInfos = this.SignUpMain.infos();
 		const budget = ReactDOM.findDOMNode(this.refs.budget).value.trim();
-		const movein = this.state.value.toISOString();
+		const movein = this.state.value;
+		console.log(this.state.value);
 		const lengthofstay = ReactDOM.findDOMNode(this.refs.lengthofstay).value.trim();
 
 		if (mainInfos.username === '' || mainInfos.password === '' || mainInfos.email === '' || mainInfos.firstName === '' ||

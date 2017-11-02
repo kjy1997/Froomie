@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-
+import { Image } from 'react-bootstrap';
 import UserTags from './UserTags.jsx';
 import EditProfileModalNoPlace from './EditProfileModalNoPlace.jsx';
 import { Users } from './api/users.js';
+import { createContainer } from 'react-meteor-data';
+import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
-export default class UserProfileNoPlace extends Component {
+class UserProfileNoPlace extends TrackerReact(Component) {
 
   constructor(props) {
     super(props);
@@ -47,6 +49,35 @@ export default class UserProfileNoPlace extends Component {
     this.setState({ isModalOpen: false });
   }
 
+  componentDidMount() {
+    let self = this;
+
+    avatar.resumable.assignBrowse($(".fileBrowse"));
+
+    avatar.resumable.on('fileAdded', function (file) {
+
+      // Create a new file in the file collection to upload
+      avatar.insert({
+        _id: file.uniqueIdentifier,  // This is the ID resumable will use
+        filename: file.fileName,
+        contentType: file.file.type
+      },
+        function (err, _id) {  // Callback to .insert
+          if (err) { return console.error("File creation failed!", err); }
+          // Once the file exists on the server, start uploading
+          avatar.resumable.upload();
+        }
+      );
+    });
+
+  }
+
+  renderImagePreview(useravatar) {
+    if (useravatar)
+      return <Image src={avatar.baseURL + "/md5/" + useravatar.md5} circle className="avatar"/>
+  }
+
+
   render() {
     let user = this.props.user;
 
@@ -69,7 +100,9 @@ export default class UserProfileNoPlace extends Component {
           Froomie!
         </div>
         <div className="user-back">
-          <div className="user-pic"></div>
+        <div className="user-pic fileBrowse">
+            {this.renderImagePreview(Session.get('avatar'))}
+          </div>
         </div>
         <div className="user-info">
           <h2>{user.profile.firstName + " " + user.profile.lastName}</h2>
@@ -109,4 +142,13 @@ export default class UserProfileNoPlace extends Component {
   }
 }
 
+export default createContainer(() => {
+  Meteor.subscribe('avatar', setUserAvatar());
+  function setUserAvatar() {
+    let useravatar = avatar.findOne({ "metadata.owner": Meteor.userId() }, { sort: { uploadDate: -1 } });
+    Session.set('avatar', useravatar);
+  }
+	return {
 
+	};
+}, UserProfileNoPlace);

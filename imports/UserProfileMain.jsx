@@ -44,8 +44,9 @@ export default createContainer((route) => {
   
   // accessing another user's page
   let name = route.match.params.username;
+  let targetUser = Meteor.users.findOne({username: name});
   return {
-    user: Meteor.users.findOne({username: name}),
+    user: targetUser,
     isOwn: false
   };
 }, UserProfileMain);
