@@ -2,21 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { createContainer } from 'react-meteor-data';
 
-const btnStyle = {
-    backgroundColor: '#0b8966',
-    color: '#fff',
-    border: '0px solid black',
-    borderRadius: '3px',
-    padding: '10px 20px'
-}
-
-const dropdownStyle = {
-    backgroundColor: '#fff',
-    border: '1px solid black'
-}
 class UserToolbar extends Component {
 
-    logout() {
+    logout(e) {
+        e.preventDefault();
         Meteor.logout();
     }
 
@@ -26,16 +15,16 @@ class UserToolbar extends Component {
         if (user) {
             return (
                 <div>
-                <button style={btnStyle}>Welcome {user.profile.firstName}! &#9660;</button>
-                <div style={dropdownStyle}>
+                <a href="#">Welcome {user.profile.firstName}! &#9660;</a>
+                <div>
                     <p><a href="/profilemain">Profile</a></p>
-                    <p onClick={logout()}>Logout</p>
+                    <p><a href="#" onClick={this.logout}>Logout</a></p>
                 </div>
                 </div> 
             );
         } else {
             return (
-                <button style={btnStyle}>Login</button>
+                <a href="/login">Login</a>
             );
         }
    }
