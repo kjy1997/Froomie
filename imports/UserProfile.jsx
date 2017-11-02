@@ -18,10 +18,6 @@ class UserProfile extends TrackerReact(Component) {
     this.state = {
       isModalOpen: false
     }
-
-    // TEMPORARY 
-    if (!props.user.profile.hasOwnProperty('tags'))
-      props.user["profile"]["tags"] = [];
   }
 
   handleContactSubmit(e) {
@@ -54,7 +50,7 @@ class UserProfile extends TrackerReact(Component) {
         "profile.place.roomtype": obj.roomType,
         "profile.place.bathroomType": obj.bathroomType,
         "profile.place.furnishing": obj.furnishing,
-        "profile.place.preferGender": obj.genderPref
+        "profile.place.preferGender": obj.preferGender
       }
     });
     this.geocodeAddress(obj.address);
@@ -127,7 +123,6 @@ class UserProfile extends TrackerReact(Component) {
 
   render() {
     let user = this.props.user;
-
     let address = user.profile.place.address;
     let property = {
       propertyType: user.profile.place.property,
@@ -145,7 +140,7 @@ class UserProfile extends TrackerReact(Component) {
       roomType: user.profile.place.roomtype,
       bathroomType: user.profile.place.bathroomType,
       furnishing: user.profile.place.furnishing,
-      genderPref: user.profile.place.preferGender
+      preferGender: user.profile.place.preferGender
     };
 
     return (
@@ -171,7 +166,11 @@ class UserProfile extends TrackerReact(Component) {
         <div className="info-container">
           <div className="user-info">
             <h2>{user.profile.firstName + " " + user.profile.lastName}</h2>
-            <button onClick={this.openModal.bind(this)}>Edit</button>
+            {
+              this.props.isOwn
+                ? <button onClick={this.openModal.bind(this)}>Edit</button>
+                : null
+            }
             <div className="about">
               <h4>About me</h4>
               <p>Age: {user.profile.age}</p>
@@ -201,7 +200,7 @@ class UserProfile extends TrackerReact(Component) {
                   <strong>Room Type <br /><p>{room.roomType ? room.roomType : "N/A"}</p></strong>
                   <strong>Bathroom Type <br /><p>{room.bathroomType ? room.bathroomType : "N/A"}</p></strong>
                   <strong>Furnishing <br /><p>{room.furnishing ? room.furnishing : "N/A"}</p></strong>
-                  <strong>Preferred Gender <br /><p>{room.genderPref ? room.genderPref : "N/A"}</p></strong>
+                  <strong>Preferred Gender <br /><p>{room.preferGender ? room.preferGender : "N/A"}</p></strong>
                 </div>
               </div>
 

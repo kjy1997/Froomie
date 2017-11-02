@@ -12,10 +12,6 @@ export default class UserProfileNoPlace extends Component {
     this.state = {
       isModalOpen: false
     }
-
-    // TEMPORARY 
-    if (!props.user.profile.hasOwnProperty('tags'))
-      props.user["profile"]["tags"] = [];
   }
 
   handleContactSubmit(e) {
@@ -77,20 +73,24 @@ export default class UserProfileNoPlace extends Component {
         </div>
         <div className="user-info">
           <h2>{user.profile.firstName + " " + user.profile.lastName}</h2>
-          <button onClick={this.openModal.bind(this)}>Edit</button>
+          {
+            this.props.isOwn
+              ? <button onClick={this.openModal.bind(this)}>Edit</button>
+              : null
+          }
           <div className="about">
             <h4>About me</h4>
             <p>Age: {user.profile.age}</p>
             <p>Gender: {user.profile.gender}</p>
             <h4>Introduction</h4>
             <p>{user.profile.about}</p>
-            <UserTags tags={user.profile.tags}/>  
+            <UserTags tags={user.profile.tags} />  
 
             <div className="profileHousingInfo">
               <div className="housingColumn housingSingle">
-                <strong>Budget<br/><p>${stay.budget}</p></strong>
-                <strong>Move In Date<br/><p>{stay.moveindate}</p></strong>
-                <strong>Stay Length<br/><p>{stay.lengthofstay}</p></strong>
+                <strong>Budget<br /><p>${stay.budget}</p></strong>
+                <strong>Move In Date<br /><p>{stay.moveindate}</p></strong>
+                <strong>Stay Length<br /><p>{stay.lengthofstay}</p></strong>
               </div>
             </div>  
           </div>
@@ -100,8 +100,8 @@ export default class UserProfileNoPlace extends Component {
           <h4>Contact Me</h4>
           <form onSubmit={this.handleContactSubmit.bind(this)}>
             <textarea className="contact-subject" ref="contactForm"></textarea>
-            <br/>
-            <input type="submit" value="Submit"/>
+            <br />
+            <input type="submit" value="Submit" />
           </form>
         </div>
       </div>

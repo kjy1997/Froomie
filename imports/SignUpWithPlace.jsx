@@ -49,7 +49,7 @@ export default class SignUpWithPlace extends Component {
 							"profile.age": mainInfos.age,
 							"profile.gender": mainInfos.gender,
 							"profile.tags": mainInfos.tags,
-							"profile.about": mainInfos.introduction,
+							"profile.about": mainInfos.about,
 							"profile.social" : mainInfos.social,
 
 							"profile.place.address": address,
