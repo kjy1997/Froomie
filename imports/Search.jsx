@@ -29,11 +29,13 @@ class Search extends TrackerReact(Component) {
 				selector.$and.push({ "profile.age": { $gte: 18, $lte: 25 } });
 			} else if (agefilter === "25") {
 				selector.$and.push({ "profile.age": { $gte: 25 } });
-			} else if (genderfilter === "male") {
+			} 
+			if (genderfilter === "male") {
 				selector.$and.push({ "profile.gender" : "male" })
 			} else if (genderfilter === "female") {
 				selector.$and.push({ "profile.gender" : "female" })
-			} else if (rentfilter === 'lte400') {
+			}
+			if (rentfilter === 'lte400') {
 				selector.$and.push({ "profile.place.rent" : { $lte: 400 } })
 			} else if (rentfilter === '400-600') {
 				selector.$and.push({ "profile.place.rent" : { $gt: 400, $lte: 600 } })
