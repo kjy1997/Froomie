@@ -34,11 +34,11 @@ export default class EditProfileModalNoPlace extends Component {
     let obj = {
       name: fNameField + " " + lNameField,
       about: aboutField,
-      age: ageField,
+      age: parseInt(ageField),
       gender: genderField,
       tags: this.state.tags,
       social: socialField,
-      budget: budgetField,
+      budget: parseInt(budgetField),
       moveindate: moveInField,
       lengthofstay: stayLenField
     }
