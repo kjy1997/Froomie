@@ -177,8 +177,8 @@ class UserProfile extends TrackerReact(Component) {
             <h2>{user.profile.firstName + " " + user.profile.lastName}</h2>
             {
               this.props.isOwn
-                ? <button onClick={this.openModal.bind(this)}>Edit</button>
-                : <button onClick={this.handleLike.bind(this, profileLikes)}>Like <i className="fa fa-thumbs-up"></i>{profileLikes}</button>
+                ? <button onClick={this.openModal.bind(this)}>Edit <i className="fa fa-pencil-square-o"></i></button>
+                : <button onClick={this.handleLike.bind(this, profileLikes)}>Like <i className="fa fa-thumbs-up"></i> {profileLikes}</button>
             }
             <div className="about">
               <h4>About me</h4>
