@@ -95,10 +95,10 @@ export default class UserProfileNoPlace extends Component {
             <UserTags tags={user.profile.tags} />  
 
             <div className="profileSocialGallery">
-              <a href={"http://www.facebook.com"} target="_blank"><img className="profileSocial" src={(this.props.isOwn ? "./" : "../") + "socialmedia/logo_facebook.jpg"} alt="logo_facebook" /></a>
-              <a href={"http://www.twitter.com"} target="_blank"><img className="profileSocial" src={(this.props.isOwn ? "./" : "../")+ "socialmedia/logo_twitter.jpg"} alt="logo_twitter" /></a>
-              <a href={"http://www.github.com"} target="_blank"><img className="profileSocial" src={(this.props.isOwn ? "./" : "../") + "socialmedia/logo_github.jpg"} alt="logo_github" /></a>
-              <a href={"http://www.linkedin.com"} target="_blank"><img className="profileSocial" src={(this.props.isOwn ? "./" : "../") + "socialmedia/logo_linkedin.jpg"} alt="logo_linkedin" /></a>
+              <a href={"http://www.facebook.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./") + "socialmedia/logo_facebook.jpg"} alt="logo_facebook" /></a>
+              <a href={"http://www.twitter.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./")+ "socialmedia/logo_twitter.jpg"} alt="logo_twitter" /></a>
+              <a href={"http://www.github.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./") + "socialmedia/logo_github.jpg"} alt="logo_github" /></a>
+              <a href={"http://www.linkedin.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./") + "socialmedia/logo_linkedin.jpg"} alt="logo_linkedin" /></a>
             </div>
 
             <div className="profileHousingInfo">
