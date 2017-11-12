@@ -58,6 +58,14 @@ class UserProfile extends TrackerReact(Component) {
     this.geocodeAddress(obj.address);
   }
 
+  handleLike(likes) {
+    Users.update({ _id: this.props.user._id }, {
+      $set: {
+        "profile.profileLikes": likes + 1
+      }
+    })
+  }
+
   openModal() {
     this.setState({ isModalOpen: true });
   }

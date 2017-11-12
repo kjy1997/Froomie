@@ -40,6 +40,14 @@ export default class UserProfileNoPlace extends Component {
     });
   }
 
+  handleLike(likes) {
+    Users.update({ _id: this.props.user._id }, {
+      $set: {
+        "profile.profileLikes": likes + 1
+      }
+    })
+  }
+
   openModal() {
     this.setState({ isModalOpen: true });
   }
