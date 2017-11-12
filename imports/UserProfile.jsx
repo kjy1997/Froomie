@@ -126,6 +126,7 @@ class UserProfile extends TrackerReact(Component) {
   render() {
     let user = this.props.user;
     let address = user.profile.place.address;
+    let profileLikes = user.profile.profileLikes;
     let property = {
       propertyType: user.profile.place.property,
       roomCount: user.profile.place.rooms,
@@ -169,7 +170,7 @@ class UserProfile extends TrackerReact(Component) {
             {
               this.props.isOwn
                 ? <button onClick={this.openModal.bind(this)}>Edit</button>
-                : null
+                : <button onClick={this.handleLike.bind(this, profileLikes)}>Like <i className="fa fa-thumbs-up"></i>{profileLikes}</button>
             }
             <div className="about">
               <h4>About me</h4>

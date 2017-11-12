@@ -50,6 +50,7 @@ export default class UserProfileNoPlace extends Component {
 
   render() {
     let user = this.props.user;
+    let profileLikes = user.profile.profileLikes;
 
     let stay = {
       budget: user.profile.budget,
@@ -75,7 +76,7 @@ export default class UserProfileNoPlace extends Component {
           {
             this.props.isOwn
               ? <button onClick={this.openModal.bind(this)}>Edit</button>
-              : null
+              : <button onClick={this.handleLike.bind(this, profileLikes)}>Like <i className="fa fa-thumbs-up"></i>{profileLikes}</button>
           }
           <div className="about">
             <h4>About me</h4>
