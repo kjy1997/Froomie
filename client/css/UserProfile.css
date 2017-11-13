@@ -24,7 +24,6 @@
 
 .user-back {
   position: relative;
-  z-index: -1;
 
   height: 170px;
   margin-bottom: 20px;
