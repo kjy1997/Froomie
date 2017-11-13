@@ -33,12 +33,21 @@ class UserProfileNoPlace extends TrackerReact(Component) {
         "profile.age": obj.age,
         "profile.gender": obj.gender,
         "profile.tags": obj.tags,
+        "profile.social": obj.social,
         // stay
         "profile.budget": obj.budget,
         "profile.moveindate": obj.moveindate,
         "profile.lengthofstay": obj.lengthofstay
       }
     });
+  }
+
+  handleLike(likes) {
+    Users.update({ _id: this.props.user._id }, {
+      $set: {
+        "profile.profileLikes": likes + 1
+      }
+    })
   }
 
   openModal() {
@@ -80,6 +89,7 @@ class UserProfileNoPlace extends TrackerReact(Component) {
 
   render() {
     let user = this.props.user;
+    let profileLikes = user.profile.profileLikes;
 
     let stay = {
       budget: user.profile.budget,
@@ -106,8 +116,8 @@ class UserProfileNoPlace extends TrackerReact(Component) {
           <h2>{user.profile.firstName + " " + user.profile.lastName}</h2>
           {
             this.props.isOwn
-              ? <button onClick={this.openModal.bind(this)}>Edit</button>
-              : null
+              ? <button onClick={this.openModal.bind(this)}>Edit <i className="fa fa-pencil-square-o"></i></button>
+              : <button onClick={this.handleLike.bind(this, profileLikes)}>Like <i className="fa fa-thumbs-up"></i> {profileLikes}</button>
           }
           <div className="about">
             <h4>About me</h4>
@@ -116,6 +126,13 @@ class UserProfileNoPlace extends TrackerReact(Component) {
             <h4>Introduction</h4>
             <p>{user.profile.about}</p>
             <UserTags tags={user.profile.tags} />  
+
+            <div className="profileSocialGallery">
+              <a href={"http://www.facebook.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./") + "socialmedia/logo_facebook.jpg"} alt="logo_facebook" /></a>
+              <a href={"http://www.twitter.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./")+ "socialmedia/logo_twitter.jpg"} alt="logo_twitter" /></a>
+              <a href={"http://www.github.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./") + "socialmedia/logo_github.jpg"} alt="logo_github" /></a>
+              <a href={"http://www.linkedin.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./") + "socialmedia/logo_linkedin.jpg"} alt="logo_linkedin" /></a>
+            </div>
 
             <div className="profileHousingInfo">
               <div className="housingColumn housingSingle">

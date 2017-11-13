@@ -14,8 +14,17 @@ class UserProfileMain extends TrackerReact(Component) {
     let user = this.props.user;
     let hasPlace;
 
-    if (user)
+    if (user) {
       hasPlace = user.profile.hasOwnProperty('place');
+
+      // Profile likes - check if profile is new
+      if (!user.profile.hasOwnProperty('profileLikes')) {
+        console.log("new account");
+        user.profile.profileLikes = 0;
+      }
+
+      console.log(user);
+    }
     else {
       console.log("User is null");
       return null;
@@ -25,8 +34,8 @@ class UserProfileMain extends TrackerReact(Component) {
       <div>
         {
           hasPlace 
-            ? <UserProfile user={user} isOwn={this.props.isOwn} />
-            : <UserProfileNoPlace user={user} isOwn={this.props.isOwn} />
+            ? <UserProfile isUserPath={this.props.isUserPath} user={user} isOwn={this.props.isOwn} />
+            : <UserProfileNoPlace isUserPath={this.props.isUserPath} user={user} isOwn={this.props.isOwn} />
         }
       </div>
     );
@@ -36,17 +45,24 @@ class UserProfileMain extends TrackerReact(Component) {
 
 export default createContainer((route) => {
   // check if user is logged in and is accessing own page
-  if (Meteor.user() && (route.match.path === '/profilemain' || route.match.url === '/user/' + Meteor.user().username))
-    return { 
-      user: Meteor.user(),
-      isOwn: true
-    };
-  
+  if (Meteor.user())
+    if (route.match.path === '/profilemain')
+      return {
+        isUserPath: false,
+        user: Meteor.user(),
+        isOwn: true
+      };
+    else if (route.match.url === '/user/' + Meteor.user().username)
+      return {
+        isUserPath: true,
+        user: Meteor.user(),
+        isOwn: true
+      };
   // accessing another user's page
   let name = route.match.params.username;
-  let targetUser = Meteor.users.findOne({username: name});
   return {
-    user: targetUser,
+    isUserPath: true,
+    user: Meteor.users.findOne({username: name}),
     isOwn: false
   };
 }, UserProfileMain);
