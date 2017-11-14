@@ -13,6 +13,7 @@ import Registration from './Registration';
 import UserProfileMain from './UserProfileMain.jsx';
 import UpdateWithPlace from './UpdateWithPlace.jsx';
 import UpdateWithoutPlace from './UpdateWithoutPlace.jsx';
+import Inbox from './Inbox.jsx';
 
 export default class App extends Component {
 
@@ -31,6 +32,7 @@ export default class App extends Component {
         <Route path="/updatewithplace" component={UpdateWithPlace} />
         <Route path="/updatewithoutplace" component={UpdateWithoutPlace} />
         <Route path="/user/:username" component={UserProfileMain} />
+		<Route path="/inbox" component={Inbox} />
         </div>
        </Router>
     );
