@@ -15,3 +15,9 @@ Users.schema = new SimpleSchema({
     profilePicture: {type: String},
     socialMediaLinks: {type: [Object]},
 });
+
+Users.allow({
+    update: function(userId, doc, fieldNames, modifier) {
+        return true;
+    }
+});

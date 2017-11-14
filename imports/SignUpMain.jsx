@@ -3,8 +3,10 @@ import ReactDOM from 'react-dom';
 import { Col, Row, Grid, Button, FormControl, Image, FormGroup } from 'react-bootstrap';
 import '../client/css/signupmain.css';
 import UserTags from './UserTags.jsx';
+
 import UserToolbar from './UserToolbar.jsx';
 import Navbar from './Navbar.jsx';
+
 
 //SignUp Main Class
 export default class SignUpMain extends Component {
@@ -96,7 +98,9 @@ export default class SignUpMain extends Component {
 
 		return (
 			<div>
+
 				<Navbar plain={true} />
+
 				<div className="container">
 					<div className="user-login" >
 						<Row className="about">

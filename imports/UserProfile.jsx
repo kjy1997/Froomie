@@ -58,6 +58,14 @@ class UserProfile extends TrackerReact(Component) {
     this.geocodeAddress(obj.address);
   }
 
+  handleLike(likes) {
+    Users.update({ _id: this.props.user._id }, {
+      $set: {
+        "profile.profileLikes": likes + 1
+      }
+    })
+  }
+
   openModal() {
     this.setState({ isModalOpen: true });
   }
@@ -126,6 +134,7 @@ class UserProfile extends TrackerReact(Component) {
   render() {
     let user = this.props.user;
     let address = user.profile.place.address;
+    let profileLikes = user.profile.profileLikes;
     let property = {
       propertyType: user.profile.place.property,
       roomCount: user.profile.place.rooms,
@@ -168,8 +177,8 @@ class UserProfile extends TrackerReact(Component) {
             <h2>{user.profile.firstName + " " + user.profile.lastName}</h2>
             {
               this.props.isOwn
-                ? <button onClick={this.openModal.bind(this)}>Edit</button>
-                : null
+                ? <button onClick={this.openModal.bind(this)}>Edit <i className="fa fa-pencil-square-o"></i></button>
+                : <button onClick={this.handleLike.bind(this, profileLikes)}>Like <i className="fa fa-thumbs-up"></i> {profileLikes}</button>
             }
             <div className="about">
               <h4>About me</h4>
@@ -180,10 +189,10 @@ class UserProfile extends TrackerReact(Component) {
               <UserTags tags={user.profile.tags} />
 
               <div className="profileSocialGallery">
-                <a href={"http://www.facebook.com"} target="_blank"><img className="profileSocial" src={(this.props.isOwn ? "./" : "../") + "socialmedia/logo_facebook.jpg"} alt="logo_facebook" /></a>
-                <a href={"http://www.twitter.com"} target="_blank"><img className="profileSocial" src={(this.props.isOwn ? "./" : "../")+ "socialmedia/logo_twitter.jpg"} alt="logo_twitter" /></a>
-                <a href={"http://www.github.com"} target="_blank"><img className="profileSocial" src={(this.props.isOwn ? "./" : "../") + "socialmedia/logo_github.jpg"} alt="logo_github" /></a>
-                <a href={"http://www.linkedin.com"} target="_blank"><img className="profileSocial" src={(this.props.isOwn ? "./" : "../") + "socialmedia/logo_linkedin.jpg"} alt="logo_linkedin" /></a>
+                <a href={"http://www.facebook.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./") + "socialmedia/logo_facebook.jpg"} alt="logo_facebook" /></a>
+                <a href={"http://www.twitter.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./")+ "socialmedia/logo_twitter.jpg"} alt="logo_twitter" /></a>
+                <a href={"http://www.github.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./") + "socialmedia/logo_github.jpg"} alt="logo_github" /></a>
+                <a href={"http://www.linkedin.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./") + "socialmedia/logo_linkedin.jpg"} alt="logo_linkedin" /></a>
               </div>
 
               <a href={"http://www." + user.profile.social} target="_blank">My Social Media</a>
