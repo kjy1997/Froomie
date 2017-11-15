@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { createContainer } from 'react-meteor-data';
+import { DropdownButton, MenuItem, Button } from 'react-bootstrap';
 
-const hidden = {
-    display: 'none'
-}
 
-const dropdownStyle = {
-    border: '1px solid black',
-    backgroundColor: 'white',
-    display: 'block'
-}
 
 class UserToolbar extends Component {
     constructor(props) {
@@ -24,30 +17,26 @@ class UserToolbar extends Component {
         window.location.replace("/login");
     }
 
-    toggleDropdown(e) {
-        e.preventDefault();
-        this.setState({ dropdown: !this.state.dropdown});
-    }
-
     render() {
         let user = this.props.user;
 
         if (user) {
             return (
-                <div>
-                <a href="#" onClick={this.toggleDropdown.bind(this)}>Welcome {user.profile.firstName}! &#9660;</a>
-                <div style={this.state.dropdown ? dropdownStyle : hidden}>
-                    <p><a href="/profilemain">Profile</a></p>
-                    <p><a href="#" onClick={this.logout}>Logout</a></p>
+                <div className="welcome">
+
+                    <DropdownButton title="Welcome!" noCaret>
+                        <MenuItem eventKey="1"><a href="/profilemain">Profile</a></MenuItem>
+                        <MenuItem eventKey="2"><a href="#" onClick={this.logout}>Logout</a></MenuItem>
+                    </DropdownButton>
+
                 </div>
-                </div> 
             );
         } else {
             return (
-                <a href="/login">Login</a>
+                <Button className="welcome"><a href="/login">Login</a></Button>
             );
         }
-   }
+    }
 }
 
 UserToolbar.propTypes = {
