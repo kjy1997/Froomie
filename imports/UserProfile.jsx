@@ -7,6 +7,7 @@ import { Users } from './api/users.js';
 import { Image } from 'react-bootstrap';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { createContainer } from 'react-meteor-data';
+import Blaze from 'meteor/gadicc:blaze-react-component';
 
 import Navbar from './Navbar.jsx';
 
@@ -119,6 +120,9 @@ class UserProfile extends TrackerReact(Component) {
           if (err) { return console.error("File creation failed!", err); }
           // Once the file exists on the server, start uploading
           avatar.resumable.upload();
+
+          let avatarUrl = avatar.baseURL + "/" + _id;
+          Meteor.users.update({ _id: Meteor.userId()}, { $set: { 'profile.avatar': avatarUrl } });
         }
       );
     });
@@ -126,9 +130,8 @@ class UserProfile extends TrackerReact(Component) {
   }
 
 
-  renderImagePreview(useravatar) {
-    if (useravatar)
-      return <Image src={avatar.baseURL + "/md5/" + useravatar.md5} circle className="avatar"/>
+  renderImagePreview() {
+    return <Image src={this.props.user.profile.avatar} circle className="avatar"/>
   }
 
   render() {
@@ -169,7 +172,7 @@ class UserProfile extends TrackerReact(Component) {
         <Navbar plain={false} /> 
         <div className="user-back">
           <div className="user-pic fileBrowse">
-            {this.renderImagePreview(Session.get('avatar'))}
+            {this.renderImagePreview()}
           </div>
         </div>
         <div className="info-container">
@@ -235,6 +238,11 @@ class UserProfile extends TrackerReact(Component) {
               <input type="submit" value="Submit" />
             </form>
           </div>
+
+          <div class="comment-section">
+            <Blaze template="commentsBox" id={this.props.user._id} />
+          </div>
+
         </div>
       </div>
     );
@@ -242,11 +250,8 @@ class UserProfile extends TrackerReact(Component) {
 }
 
 export default createContainer(() => {
-  Meteor.subscribe('avatar', setUserAvatar());
-  function setUserAvatar() {
-    let useravatar = avatar.findOne({ "metadata.owner": Meteor.userId() }, { sort: { uploadDate: -1 } });
-    Session.set('avatar', useravatar);
-  }
+  Meteor.subscribe('avatar');
+
 	return {
 
 	};

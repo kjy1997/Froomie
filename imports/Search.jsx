@@ -50,9 +50,9 @@ class Search extends TrackerReact(Component) {
 	}
 
 	renderImagePreview(userid) {
-		let useravatar = avatar.findOne({ "metadata.owner": userid }, { sort: { uploadDate: -1 } });
+		let useravatar = Meteor.users.findOne({ _id: userid }).profile.avatar;
 		if (useravatar) {
-		  return avatar.baseURL + "/md5/" + useravatar.md5;
+		  return useravatar;
 		} else {
 			return "./img/temp.jpg";
 		}

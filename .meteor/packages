@@ -31,3 +31,5 @@ react-meteor-data
 vsivsi:file-collection
 ultimatejs:tracker-react
 benjaminrh:jquery-cookie
+arkham:comments-ui
+gadicc:blaze-react-component
