@@ -101,11 +101,13 @@ export default class EditProfileModalNoPlace extends Component {
 
           <label>About</label>
           <br />
-          <input type="number" ref="ageField" placeholder="age" defaultValue={this.props.profile.age}/>
-          <select ref="genderField" defaultValue={this.props.profile.gender}>
+          <div className="aboutBar">
+          <input className="ageInput" type="number" ref="ageField" placeholder="age" defaultValue={this.props.profile.age}/>
+          <select className="genderInput" ref="genderField" defaultValue={this.props.profile.gender}>
             <option value="male">Male</option>
             <option value="female">Female</option>
           </select>
+          </div>
           <br />
           <textarea ref="aboutField" placeholder="tell us about yourself! *" defaultValue={this.props.profile.about}></textarea>
           <br />

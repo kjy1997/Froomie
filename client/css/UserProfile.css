@@ -388,6 +388,21 @@
   width: 40%;
 }
 
+.aboutBar {
+  display: flex;
+  justify-content: center;
+}
+
+.aboutBar .ageInput {
+  width: 30%;
+  margin-right: 5px;
+}
+
+.aboutBar .genderInput {
+  width: 30%;
+  margin-left: 5px;
+}
+
 .modalTagsContainer {
     display: flex;
     flex-wrap: wrap;
