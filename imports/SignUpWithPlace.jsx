@@ -36,7 +36,7 @@ export default class SignUpWithPlace extends Component {
 			alert("You must fill in all the information!");
 		} else {
 
-			Accounts.createUser({ username: mainInfos.username, password: mainInfos.password }, (error) => {
+			Accounts.createUser({ username: mainInfos.username, password: mainInfos.password, email: mainInfos.email }, (error) => {
 				if (error) {
 					console.log("Error: " + error.reason);
 					alert("Error:" + error.reason);

@@ -480,8 +480,12 @@
   height: 20px;
 }
 
-.comments-box {
+.comments-box .create-comment {
   width: 100%;
+}
+
+.comment-content .text-span {
+  text-align: initial;
 }
 
 
