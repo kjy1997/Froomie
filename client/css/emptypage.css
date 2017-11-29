@@ -1,0 +1,57 @@
+.emptyPage {
+    position: fixed;
+    padding: 0;
+    margin: 0;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: #eee;
+}
+
+.emptyPage h1 {
+    margin: 0;
+}
+
+.emptyPageReturn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    border: 1px solid black;
+    border-radius: 50%;
+
+    width: 250px;
+    height: 250px;
+    text-align: center;
+
+    transform: translate(-50%, -50%);
+}
+
+.emptyPage button {
+    display: block;
+
+    border: 1px solid gray;
+    border-radius: 10px;
+    margin: 0 auto;
+
+    width: 80px;
+    height: 35px;
+
+    color: white;
+    background: black;
+
+    font-size: 14px;
+    outline: none;
+    transition: 0.12s ease-out;
+}
+
+.emptyPage button:hover {
+    transform: scale(1.1);
+}
