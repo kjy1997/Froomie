@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { createContainer } from 'react-meteor-data';
 
-export default class EmptyPage extends Component {
+import TrackerReact from 'meteor/ultimatejs:tracker-react';
+
+export default class EmptyPage extends TrackerReact(Component) {
 
   handleRedirect() {
     window.location.replace("/home");
@@ -13,7 +16,7 @@ export default class EmptyPage extends Component {
             <div className="emptyPageReturn">
             <h1>404</h1>
             <p>Page Not Found!</p>
-            <button onClick={this.handleRedirect}>Home</button>
+            <button onClick={this.handleRedirect.bind(this)}>Home</button>
           </div>
         </div> 
     );

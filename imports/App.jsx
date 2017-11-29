@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom'; 
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'; 
 import { render } from 'react-dom';
 import ReactDOM from 'react-dom';
 
@@ -22,6 +22,7 @@ export default class App extends Component {
     return (
        <Router>
        <div>
+       <Switch>
         <Route path="/home" component={Home}/>
         <Route path="/signupwithplace" component={SignUpWithPlace}/>
         <Route path="/signupwithoutplace" component={SignUpWithoutPlace}/>
@@ -35,8 +36,9 @@ export default class App extends Component {
         <Route path="/user/:username" component={UserProfileMain} />
 		    <Route path="/inbox" component={Inbox} />
         <Route path="*" component={EmptyPage} />
-        </div>
-       </Router>
+      </Switch>
+      </div>
+      </Router>
     );
   }
 }
