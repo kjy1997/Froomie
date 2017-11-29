@@ -9,6 +9,10 @@ import TrackerReact from 'meteor/ultimatejs:tracker-react';
 class UserProfileMain extends TrackerReact(Component) {
 
   render() {
+    // wait until user is defined
+    if (Meteor.loggingIn()) {
+      return null;
+    }
     if (!this.props.isLoggedIn) {
       alert("Not logged in");
       return null;
@@ -53,6 +57,7 @@ export default createContainer((route) => {
   let isLoggedIn = false;
   if (Meteor.user()) {
     isLoggedIn = true;
+    
     if (route.match.path === '/profilemain')
       return {
         isUserPath: false,
