@@ -13,9 +13,10 @@ class UserProfileMain extends TrackerReact(Component) {
     if (Meteor.loggingIn()) {
       return null;
     }
+    // redirect user to login page if not logged in
     if (!this.props.isLoggedIn) {
       alert("Not logged in");
-      return null;
+      window.location.replace("/login");
     }
     
     Meteor.subscribe('allUsers');
@@ -57,7 +58,7 @@ export default createContainer((route) => {
   let isLoggedIn = false;
   if (Meteor.user()) {
     isLoggedIn = true;
-    
+
     if (route.match.path === '/profilemain')
       return {
         isUserPath: false,
