@@ -61,11 +61,10 @@ export default class SignUpWithPlace extends Component {
 							"profile.place.ac": ac,
 							"profile.place.rent": rent,
 							"profile.place.deposit": deposit,
-							"profile.place.roomtype": roomtype,
+							"profile.place.roomType": roomtype,
 							"profile.place.furnishing": furnishing,
 							"profile.place.bathroomType": bathroomtype,
 							"profile.place.preferGender": prefergender
-
 						}
 					})
 					console.log("Registered in user: " + Meteor.user().username);

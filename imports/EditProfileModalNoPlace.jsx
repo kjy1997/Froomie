@@ -32,15 +32,16 @@ export default class EditProfileModalNoPlace extends Component {
     }
 
     let obj = {
-      name: fNameField + " " + lNameField,
+      fname: fNameField,
+      lname: lNameField,
       about: aboutField,
       age: parseInt(ageField),
       gender: genderField,
       tags: this.state.tags,
       social: socialField,
       budget: parseInt(budgetField),
-      moveindate: moveInField,
-      lengthofstay: stayLenField
+      moveInDate: moveInField,
+      stayLength: stayLenField
     }
 
     this.props.handleEdit(obj);

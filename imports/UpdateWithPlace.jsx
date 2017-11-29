@@ -34,8 +34,8 @@ export default class UpdateWithPlace extends Component {
                       "profile.lastname": mainInfos.lastname,
                       "profile.age": mainInfos.age,
                       "profile.gender": mainInfos.gender,
-                      "profile.roomates": mainInfos.roommates,
-                      "profile.introduction": mainInfos.introduction,
+                      "profile.roommates": mainInfos.roommates,
+                      "profile.about": mainInfos.introduction,
                       
                       "profile.address": address,
                       "profile.property": property,
@@ -46,11 +46,10 @@ export default class UpdateWithPlace extends Component {
                       "profile.ac": ac,
                       "profile.rent": rent,
                       "profile.deposit": deposit,
-                      "profile.roomtype": roomtype,
+                      "profile.roomType": roomtype,
                       "profile.furnishing": furnishing,
-                      "profile.bathroomtype": bathroomtype,
-                      "profile.prefergender": prefergender
-                     
+                      "profile.bathroomType": bathroomtype,
+                      "profile.preferGender": prefergender
                     }
                 })
                 console.log("Registered in user: " + Meteor.user().username);

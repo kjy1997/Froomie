@@ -58,8 +58,8 @@ export default class SignUpWithoutPlace extends Component {
 							"profile.social" : mainInfos.social,
 
 							"profile.budget": budget,
-							"profile.moveindate": movein,
-							"profile.lengthofstay": lengthofstay
+							"profile.moveInDate": movein,
+							"profile.stayLength": lengthofstay
 						}
 					})
 					console.log("Registered in user: " + Meteor.user().username);
