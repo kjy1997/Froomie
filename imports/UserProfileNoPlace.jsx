@@ -33,7 +33,7 @@ class UserProfileNoPlace extends TrackerReact(Component) {
       $set: {
         "profile.firstName": obj.fname,
         "profile.lastName": obj.lname,
-		"profile.email": obj.mail,
+        "profile.email": obj.email,
         "profile.about": obj.about,
         "profile.age": obj.age,
         "profile.gender": obj.gender,
@@ -83,14 +83,12 @@ class UserProfileNoPlace extends TrackerReact(Component) {
         }
       );
     });
-
   }
 
   renderImagePreview(useravatar) {
     if (useravatar)
       return <Image src={avatar.baseURL + "/md5/" + useravatar.md5} circle className="avatar"/>
   }
-
 
   render() {
     let user = this.props.user;

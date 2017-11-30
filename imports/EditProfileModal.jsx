@@ -18,7 +18,7 @@ export default class EditProfileModal extends Component {
 
     const fNameField    = ReactDOM.findDOMNode(this.refs.firstNameField).value.trim();
     const lNameField    = ReactDOM.findDOMNode(this.refs.lastNameField).value.trim();
-	const mailField     = ReactDOM.findDOMNode(this.refs.emailField).value.trim();
+    const emailField    = ReactDOM.findDOMNode(this.refs.emailField).value.trim();
     const aboutField    = ReactDOM.findDOMNode(this.refs.aboutField).value.trim();
     const ageField      = ReactDOM.findDOMNode(this.refs.ageField).value.trim();
     const genderField   = ReactDOM.findDOMNode(this.refs.genderField).value.trim();
@@ -38,7 +38,7 @@ export default class EditProfileModal extends Component {
     const furnishingField   = ReactDOM.findDOMNode(this.refs.furnishingField).value.trim();
     const genderPrefField   = ReactDOM.findDOMNode(this.refs.genderPrefField).value.trim();
 
-    if (!fNameField || !lNameField || !aboutField) {
+    if (!fNameField || !lNameField || !aboutField || !emailField) {
       alert("Missing information!");
       return;
     }
@@ -51,7 +51,7 @@ export default class EditProfileModal extends Component {
       gender: genderField,
       tags: this.state.tags,
       social: socialField,
-	  mail: emailField,
+      email: emailField,
       address: addressField,
       property: propertyField,
       roomCount: roomField,
@@ -111,7 +111,7 @@ export default class EditProfileModal extends Component {
   getEditTools() {
     let firstName = this.props.profile.firstName;
     let lastName = this.props.profile.lastName;
-	let email = this.props.profile.email;
+	  let email = this.props.profile.email;
     let address = this.props.address;
     let property = this.props.property;
     let amenities = this.props.amenities;
@@ -137,8 +137,10 @@ export default class EditProfileModal extends Component {
           </select>
           </div>
           <br />
-		  <input className="emailInput" type="text" ref="emailField" placeholder="email *" defaultValue={email} />
-		  <br />
+
+		      <input className="nameInput" type="text" ref="emailField" placeholder="email *" defaultValue={email} />
+		      <br />
+
           <textarea ref="aboutField" placeholder="tell us about yourself! *" defaultValue={this.props.profile.about}></textarea>
           <br />
 
