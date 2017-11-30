@@ -54,7 +54,9 @@ class UserProfile extends TrackerReact(Component) {
         "profile.place.roomtype": obj.roomType,
         "profile.place.bathroomType": obj.bathroomType,
         "profile.place.furnishing": obj.furnishing,
-        "profile.place.preferGender": obj.preferGender
+        "profile.place.preferGender": obj.preferGender,
+        // hidden
+        "profile.hidden": obj.hidden
       }
     });
     this.geocodeAddress(obj.address);
@@ -133,6 +135,23 @@ class UserProfile extends TrackerReact(Component) {
     return <Image src={this.props.user.profile.avatar} circle className="avatar"/>
   }
 
+  // handles hidden user info (display only)
+  handleHidden(user) {
+    // deep copy to prevent reference modification
+    let show = JSON.parse(JSON.stringify(user));
+    let hide = show.profile.hidden;
+
+    show.profile.age = hide.hideAge ? "Hidden" : show.profile.age;
+    show.profile.gender = hide.hideGender ? "Hidden" : show.profile.gender;
+    show.profile.social = hide.hideSocial ? "Hidden" : show.profile.social;
+    show.profile.tags = hide.hideTags ? "Hidden" : show.profile.tags;
+    show.profile.place.address = hide.hideAddress ? "Hidden" : show.profile.place.address;
+    show.profile.place.rent = hide.hideRent ? "Hidden" : "$" + show.profile.place.rent;
+    show.profile.place.deposit = hide.hideDeposit ? "Hidden" : "$" + show.profile.place.deposit;
+
+    return show;
+  }
+
   render() {
     let user = this.props.user;
     let address = user.profile.place.address;
@@ -155,6 +174,16 @@ class UserProfile extends TrackerReact(Component) {
       furnishing: user.profile.place.furnishing,
       preferGender: user.profile.place.preferGender
     };
+    let hidden = {
+      hideAge: user.profile.hidden.hideAge,
+      hideGender: user.profile.hidden.hideGender,
+      hideSocial: user.profile.hidden.hideSocial,
+      hideTags: user.profile.hidden.hideTags,
+      hideAddress: user.profile.hidden.hideAddress,
+      hideRent: user.profile.hidden.hideRent,
+      hideDeposit: user.profile.hidden.hideDeposit
+    };
+    let show = this.handleHidden(user);
 
     return (
       <div className="profile-container">
@@ -189,11 +218,11 @@ class UserProfile extends TrackerReact(Component) {
             }
             <div className="about">
               <h4>About me</h4>
-              <p>Age: {user.profile.age}</p>
-              <p>Gender: {user.profile.gender}</p>
+              <p>Age: {show.profile.age}</p>
+              <p>Gender: {show.profile.gender}</p>
               <h4>Introduction</h4>
               <p>{user.profile.about}</p>
-              <UserTags tags={user.profile.tags} />
+              <UserTags tags={show.profile.tags} />
 
               <div className="profileSocialGallery">
                 <a href={"http://www.facebook.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./") + "socialmedia/logo_facebook.jpg"} alt="logo_facebook" /></a>
@@ -205,7 +234,7 @@ class UserProfile extends TrackerReact(Component) {
               <span className="socialSpan"><a href={"http://www." + user.profile.social} target="_blank">My Social Media</a></span>
 
               <h4>About my place</h4>
-              <p>{address}</p>
+              <p>{show.profile.place.address}</p>
 
               <div className="profileHousingInfo">
                 <div className="housingColumn">
@@ -219,8 +248,8 @@ class UserProfile extends TrackerReact(Component) {
                   <strong>A/C <br /><p>{amenities.ac === 'yes' ? "yes" : "no"}</p></strong>
                 </div>
                 <div className="housingColumn">
-                  <strong>Rent <br /><p>${room.rent}</p></strong>
-                  <strong>Deposit <br /><p>${room.deposit}</p></strong>
+                  <strong>Rent <br /><p>{show.profile.place.rent}</p></strong>
+                  <strong>Deposit <br /><p>{show.profile.place.deposit}</p></strong>
                   <strong>Room Type <br /><p>{room.roomType ? room.roomType : "N/A"}</p></strong>
                   <strong>Bathroom Type <br /><p>{room.bathroomType ? room.bathroomType : "N/A"}</p></strong>
                   <strong>Furnishing <br /><p>{room.furnishing ? room.furnishing : "N/A"}</p></strong>
@@ -241,7 +270,7 @@ class UserProfile extends TrackerReact(Component) {
             </form>
           </div>
 
-          <div class="comment-section">
+          <div className="comment-section">
             <Blaze template="commentsBox" id={this.props.user._id} />
           </div>
 

@@ -42,7 +42,9 @@ class UserProfileNoPlace extends TrackerReact(Component) {
         // stay
         "profile.budget": obj.budget,
         "profile.moveInDate": obj.moveInDate,
-        "profile.stayLength": obj.stayLength
+        "profile.stayLength": obj.stayLength,
+        // hidden
+        "profile.hidden": obj.hidden
       }
     });
   }
@@ -90,15 +92,41 @@ class UserProfileNoPlace extends TrackerReact(Component) {
       return <Image src={avatar.baseURL + "/md5/" + useravatar.md5} circle className="avatar"/>
   }
 
+  // handles hidden user info (display only)
+  handleHidden(user) {
+    // deep copy to prevent reference modification
+    let show = JSON.parse(JSON.stringify(user));
+    let hide = show.profile.hidden;
+
+    show.profile.age = hide.hideAge ? "Hidden" : show.profile.age;
+    show.profile.gender = hide.hideGender ? "Hidden" : show.profile.gender;
+    show.profile.social = hide.hideSocial ? "Hidden" : show.profile.social;
+    show.profile.tags = hide.hideTags ? "Hidden" : show.profile.tags;
+    show.profile.budget = hide.hideBudget ? "Hidden" : "$" + show.profile.budget;
+    show.profile.moveInDate = hide.hideMoveInDate ? "Hidden" : show.profile.moveInDate;
+    show.profile.stayLength = hide.hideStayLength ? "Hidden" : show.profile.stayLength;
+
+    return show;
+  }
+
   render() {
     let user = this.props.user;
     let profileLikes = user.profile.profileLikes;
-
     let stay = {
       budget: user.profile.budget,
       moveInDate: user.profile.moveInDate,
       stayLength: user.profile.stayLength
-    }
+    };
+    let hidden = {
+      hideAge: user.profile.hidden.hideAge,
+      hideGender: user.profile.hidden.hideGender,
+      hideSocial: user.profile.hidden.hideSocial,
+      hideTags: user.profile.hidden.hideTags,
+      hideBudget: user.profile.hidden.hideBudget,
+      hideMoveInDate: user.profile.hidden.hideMoveInDate,
+      hideStayLength: user.profile.hidden.hideStayLength
+    };
+    let show = this.handleHidden(user);
 
     return (
       <div className="profile-container">
@@ -130,11 +158,11 @@ class UserProfileNoPlace extends TrackerReact(Component) {
           }
           <div className="about">
             <h4>About me</h4>
-            <p>Age: {user.profile.age}</p>
-            <p>Gender: {user.profile.gender}</p>
+            <p>Age: {show.profile.age}</p>
+            <p>Gender: {show.profile.gender}</p>
             <h4>Introduction</h4>
             <p>{user.profile.about}</p>
-            <UserTags tags={user.profile.tags} />  
+            <UserTags tags={show.profile.tags} />  
 
             <div className="profileSocialGallery">
               <a href={"http://www.facebook.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./") + "socialmedia/logo_facebook.jpg"} alt="logo_facebook" /></a>
@@ -147,9 +175,9 @@ class UserProfileNoPlace extends TrackerReact(Component) {
 
             <div className="profileHousingInfo">
               <div className="housingColumn housingSingle">
-                <strong>Budget<br /><p>${stay.budget}</p></strong>
-                <strong>Move In Date<br /><p>{stay.moveInDate}</p></strong>
-                <strong>Stay Length<br /><p>{stay.stayLength}</p></strong>
+                <strong>Budget<br /><p>{show.profile.budget}</p></strong>
+                <strong>Move In Date<br /><p>{show.profile.moveInDate}</p></strong>
+                <strong>Stay Length<br /><p>{show.profile.stayLength}</p></strong>
               </div>
             </div>  
           </div>

@@ -38,9 +38,30 @@ export default class EditProfileModal extends Component {
     const furnishingField   = ReactDOM.findDOMNode(this.refs.furnishingField).value.trim();
     const genderPrefField   = ReactDOM.findDOMNode(this.refs.genderPrefField).value.trim();
 
+    // Hidden info
+    const hideAgeField      = ReactDOM.findDOMNode(this.refs.hideAge).checked
+    const hideGenderField   = ReactDOM.findDOMNode(this.refs.hideGender).checked
+    const hideSocialField   = ReactDOM.findDOMNode(this.refs.hideSocial).checked
+    const hideTagsField     = ReactDOM.findDOMNode(this.refs.hideTags).checked
+    const hideAddressField  = ReactDOM.findDOMNode(this.refs.hideAddress).checked
+    const hideRentField     = ReactDOM.findDOMNode(this.refs.hideRent).checked
+    const hideDepositField  = ReactDOM.findDOMNode(this.refs.hideDeposit).checked
+
     if (!fNameField || !lNameField || !aboutField || !emailField) {
       alert("Missing information!");
       return;
+    }
+
+    console.log(ReactDOM.findDOMNode(this.refs.hideAge).checked);
+
+    let hidden = {
+      hideAge: hideAgeField,
+      hideGender: hideGenderField,
+      hideSocial: hideSocialField,
+      hideTags: hideTagsField,
+      hideAddress: hideAddressField,
+      hideRent: hideRentField,
+      hideDeposit: hideDepositField
     }
 
     let obj = {
@@ -64,7 +85,9 @@ export default class EditProfileModal extends Component {
       roomType: roomTypeField,
       bathroomType: bathroomTypeField,
       furnishing: furnishingField,
-      preferGender: genderPrefField
+      preferGender: genderPrefField,
+
+      hidden: hidden
     }
 
     this.props.handleEdit(obj);
@@ -192,6 +215,22 @@ export default class EditProfileModal extends Component {
     );
   }
 
+  getHideTools() {
+    let hidden = this.props.profile.hidden;
+    return (
+      <div className="editTools">
+        <label>Hidden Information</label>
+        <label><input type="checkbox" ref="hideAge" defaultChecked={hidden.hideAge}/>Age</label>
+        <label><input type="checkbox" ref="hideGender" defaultChecked={hidden.hideGender}/>Gender</label>
+        <label><input type="checkbox" ref="hideSocial" defaultChecked={hidden.hideSocial}/>Social Media</label>
+        <label><input type="checkbox" ref="hideTags" defaultChecked={hidden.hideTags}/>Tags</label>
+        <label><input type="checkbox" ref="hideAddress" defaultChecked={hidden.hideAddress}/>Address</label>
+        <label><input type="checkbox" ref="hideRent" defaultChecked={hidden.hideRent}/>Rent</label>
+        <label><input type="checkbox" ref="hideDeposit" defaultChecked={hidden.hideDeposit}/>Deposit</label>
+      </div>
+    );
+  }
+
   render() {
     if (!this.props.isOpen)
       return null;
@@ -201,6 +240,7 @@ export default class EditProfileModal extends Component {
         <div className="backdrop" onClick={this.close.bind(this)}>
           <div className="profileModal" onClick={e => e.stopPropagation()}>
           {this.getEditTools()}
+          {this.getHideTools()}
           </div>
         </div>
       </div>

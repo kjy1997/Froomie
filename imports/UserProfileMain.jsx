@@ -19,7 +19,6 @@ class UserProfileMain extends TrackerReact(Component) {
       alert("Not logged in");
       window.location.replace("/login");
     }
-    
 
     let user = this.props.user;
     let hasPlace;
@@ -32,7 +31,15 @@ class UserProfileMain extends TrackerReact(Component) {
         console.log("new account");
         Users.update(Meteor.userId(), {
           $set: {
-          "profile.profileLikes": 0
+            "profile.profileLikes": 0
+          }
+        });
+      }
+      // Profile hidden
+      if (!user.profile.hasOwnProperty('hidden')) {
+        Users.update(Meteor.userId(), {
+          $set: {
+            "profile.hidden": {}
           }
         });
       }
@@ -42,7 +49,7 @@ class UserProfileMain extends TrackerReact(Component) {
     // user doesn't exist
     else {
       console.log("User is null");
-      window.location.replace("/404");
+      return null;
     }
 
     return (

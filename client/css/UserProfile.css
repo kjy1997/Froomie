@@ -297,12 +297,15 @@
   z-index: 9999;
 
   display: flex;
+  flex-direction: row;
   border: 1px solid black;
   border-radius: 25px;
   padding: 10px;
   margin: 110px auto 0 auto;
 
   width: 80%;
+  min-width: 800px;
+  max-width: 900px;
 
   background: lightgray;
   animation: dropDown 0.25s ease-out;
@@ -318,9 +321,12 @@
 }
 
 .editProfile {
+  padding-right: 10px;
   margin: 0 auto;
 
   width: 80%;
+  min-width: 650px;
+  max-width: 750px;
 
   text-align: center;
 }
@@ -411,6 +417,23 @@
   margin-right: 4px;
 
   width: 40%;
+}
+
+.editTools {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+
+  border-left: 1px solid black;
+  padding-left: 10px;
+}
+
+.editTools input[type=checkbox] {
+  margin-right: 5px;
+}
+
+.editTools label {
+  font-size: 15px;
 }
 
 .aboutBar {

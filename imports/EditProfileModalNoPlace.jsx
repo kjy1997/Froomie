@@ -26,10 +26,29 @@ export default class EditProfileModalNoPlace extends Component {
     const budgetField   = ReactDOM.findDOMNode(this.refs.budgetField).value.trim();
     const moveInField   = ReactDOM.findDOMNode(this.refs.moveInField).value.trim();
     const stayLenField  = ReactDOM.findDOMNode(this.refs.stayLengthField).value.trim();
+
+    // Hidden info
+    const hideAgeField      = ReactDOM.findDOMNode(this.refs.hideAge).checked
+    const hideGenderField   = ReactDOM.findDOMNode(this.refs.hideGender).checked
+    const hideSocialField   = ReactDOM.findDOMNode(this.refs.hideSocial).checked
+    const hideTagsField     = ReactDOM.findDOMNode(this.refs.hideTags).checked
+    const hideBudgetField   = ReactDOM.findDOMNode(this.refs.hideBudget).checked
+    const hideMoveInDateField  = ReactDOM.findDOMNode(this.refs.hideMoveInDate).checked
+    const hideStayLengthField  = ReactDOM.findDOMNode(this.refs.hideStayLength).checked
     
     if (!fNameField || !lNameField || !aboutField || !emailField) {
       alert("Missing information!");
       return;
+    }
+
+    let hidden = {
+      hideAge: hideAgeField,
+      hideGender: hideGenderField,
+      hideSocial: hideSocialField,
+      hideTags: hideTagsField,
+      hideBudget: hideBudgetField,
+      hideMoveInDate: hideMoveInDateField,
+      hideStayLength: hideStayLengthField
     }
 
     let obj = {
@@ -43,7 +62,9 @@ export default class EditProfileModalNoPlace extends Component {
       social: socialField,
       budget: parseInt(budgetField),
       moveInDate: moveInField,
-      stayLength: stayLenField
+      stayLength: stayLenField,
+
+      hidden: hidden
     }
 
     this.props.handleEdit(obj);
@@ -151,6 +172,22 @@ export default class EditProfileModalNoPlace extends Component {
     );
   }
 
+  getHideTools() {
+    let hidden = this.props.profile.hidden;
+    return (
+      <div className="editTools">
+        <label>Hidden Information</label>
+        <label><input type="checkbox" ref="hideAge" defaultChecked={hidden.hideAge}/>Age</label>
+        <label><input type="checkbox" ref="hideGender" defaultChecked={hidden.hideGender}/>Gender</label>
+        <label><input type="checkbox" ref="hideSocial" defaultChecked={hidden.hideSocial}/>Social Media</label>
+        <label><input type="checkbox" ref="hideTags" defaultChecked={hidden.hideTags}/>Tags</label>
+        <label><input type="checkbox" ref="hideBudget" defaultChecked={hidden.hideBudget}/>Budget</label>
+        <label><input type="checkbox" ref="hideMoveInDate" defaultChecked={hidden.hideMoveInDate}/>MoveInDate</label>
+        <label><input type="checkbox" ref="hideStayLength" defaultChecked={hidden.hideStayLength}/>StayLength</label>
+      </div>
+    );
+  }
+
   render() {
     if (!this.props.isOpen)
       return null;
@@ -160,6 +197,7 @@ export default class EditProfileModalNoPlace extends Component {
         <div className="backdrop" onClick={this.close.bind(this)}>
           <div className="profileModal" onClick={e => e.stopPropagation()}>
           {this.getEditTools()}
+          {this.getHideTools()}
           </div>
         </div>
       </div>
