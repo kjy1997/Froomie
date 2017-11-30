@@ -18,6 +18,7 @@ export default class EditProfileModalNoPlace extends Component {
 
     const fNameField    = ReactDOM.findDOMNode(this.refs.firstNameField).value.trim();
     const lNameField    = ReactDOM.findDOMNode(this.refs.lastNameField).value.trim();
+	const emField       = ReactDOM.findDOMNode(this.refs.emailField).value.trim();
     const aboutField    = ReactDOM.findDOMNode(this.refs.aboutField).value.trim();
     const ageField      = ReactDOM.findDOMNode(this.refs.ageField).value.trim();
     const genderField   = ReactDOM.findDOMNode(this.refs.genderField).value.trim();
@@ -36,6 +37,7 @@ export default class EditProfileModalNoPlace extends Component {
       about: aboutField,
       age: parseInt(ageField),
       gender: genderField,
+	  em: emField,
       tags: this.state.tags,
       social: socialField,
       budget: parseInt(budgetField),
@@ -107,6 +109,8 @@ export default class EditProfileModalNoPlace extends Component {
             <option value="female">Female</option>
           </select>
           <br />
+		  <input className="emailInput" type="text" ref="emailField" placeholder="email *" />
+		  <br />
           <textarea ref="aboutField" placeholder="tell us about yourself! *" defaultValue={this.props.profile.about}></textarea>
           <br />
 
