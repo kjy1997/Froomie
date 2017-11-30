@@ -88,8 +88,28 @@
   background: #08664b;
 }
 
+.user-info .likeButton {
+  margin-bottom: 5px;
+}
+
+.user-info .likesDisplay {
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 5px;
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+
+  width: 40px;
+}
+
 .about {
-  padding-top: 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin: 0 auto;
+
+  width: 90%;
 }
 
 .about a {
@@ -143,6 +163,11 @@
   transform: scale(1.2);
 }
 
+.about .socialSpan {
+  display: flex;
+  justify-content: center;
+}
+
 .about .profileHousingInfo {
   display: flex;
   flex-direction: row;
@@ -150,8 +175,7 @@
   border: 1px solid black;
   border-radius: 25px;
   padding: 10px;
-  margin: 0 auto;
-  margin-bottom: 10px;
+  margin: 10px auto;
 
   width: 75%;
 
@@ -176,6 +200,7 @@
 .about #map {
   border: 1px solid black;
   margin: 0 auto;
+  margin-bottom: 10px;
 
   width: 60%;
   height: 300px;

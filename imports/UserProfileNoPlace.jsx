@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Image } from 'react-bootstrap';
+
 import UserTags from './UserTags.jsx';
 import EditProfileModalNoPlace from './EditProfileModalNoPlace.jsx';
 import { Users } from './api/users.js';
-import { createContainer } from 'react-meteor-data';
+import { Image } from 'react-bootstrap';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
+import { createContainer } from 'react-meteor-data';
+import Blaze from 'meteor/gadicc:blaze-react-component';
+
+import Navbar from './Navbar.jsx';
 
 class UserProfileNoPlace extends TrackerReact(Component) {
 
@@ -94,8 +98,8 @@ class UserProfileNoPlace extends TrackerReact(Component) {
 
     let stay = {
       budget: user.profile.budget,
-      moveindate: user.profile.moveindate,
-      lengthofstay: user.profile.lengthofstay
+      moveInDate: user.profile.moveInDate,
+      stayLength: user.profile.stayLength
     }
 
     return (
@@ -107,6 +111,7 @@ class UserProfileNoPlace extends TrackerReact(Component) {
           isOpen={this.state.isModalOpen} 
           onClose={this.closeModal.bind(this)}
         />
+        <Navbar plain={false} />
         
         <div className="user-back">
         <div className="user-pic fileBrowse">
@@ -118,7 +123,12 @@ class UserProfileNoPlace extends TrackerReact(Component) {
           {
             this.props.isOwn
               ? <button onClick={this.openModal.bind(this)}>Edit <i className="fa fa-pencil-square-o"></i></button>
-              : <button onClick={this.handleLike.bind(this, profileLikes)}>Like <i className="fa fa-thumbs-up"></i> {profileLikes}</button>
+              : null
+          }
+          {
+            this.props.isOwn
+              ? <div className="likesDisplay"><i className="fa fa-thumbs-up"></i> {profileLikes}</div>
+              : <button className="likeButton" onClick={this.handleLike.bind(this, profileLikes)}>Like <i className="fa fa-thumbs-up"></i> {profileLikes}</button>
           }
           <div className="about">
             <h4>About me</h4>
@@ -135,11 +145,13 @@ class UserProfileNoPlace extends TrackerReact(Component) {
               <a href={"http://www.linkedin.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./") + "socialmedia/logo_linkedin.jpg"} alt="logo_linkedin" /></a>
             </div>
 
+            <span className="socialSpan"><a href={"http://www." + user.profile.social} target="_blank">My Social Media</a></span>
+
             <div className="profileHousingInfo">
               <div className="housingColumn housingSingle">
                 <strong>Budget<br /><p>${stay.budget}</p></strong>
-                <strong>Move In Date<br /><p>{stay.moveindate}</p></strong>
-                <strong>Stay Length<br /><p>{stay.lengthofstay}</p></strong>
+                <strong>Move In Date<br /><p>{stay.moveInDate}</p></strong>
+                <strong>Stay Length<br /><p>{stay.stayLength}</p></strong>
               </div>
             </div>  
           </div>

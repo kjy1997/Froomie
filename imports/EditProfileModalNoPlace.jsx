@@ -130,12 +130,15 @@ export default class EditProfileModalNoPlace extends Component {
           <input className="nameInput" type="text" ref="socialField" placeholder="social media link" defaultValue={this.props.profile.social}/>
           <br />
 
+          <label>Stay Info</label>
+          <br />
+
           <div className="housingInfo">
             <div className="housingColumn stayInfo">
               <label className="housingColumnName">About My Stay</label>
               <input type="number" ref="budgetField" placeholder="budget" defaultValue={stay.budget}/>
-              <input type="text" ref="moveInField" placeholder="move in date" defaultValue={stay.moveindate}/>
-              <input type="text" ref="stayLengthField" placeholder="length of stay" defaultValue={stay.lengthofstay}/>
+              <input type="text" ref="moveInField" placeholder="move in date" defaultValue={stay.moveInDate}/>
+              <input type="text" ref="stayLengthField" placeholder="length of stay" defaultValue={stay.stayLength}/>
             </div>
           </div>
           

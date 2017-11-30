@@ -180,7 +180,12 @@ class UserProfile extends TrackerReact(Component) {
             {
               this.props.isOwn
                 ? <button onClick={this.openModal.bind(this)}>Edit <i className="fa fa-pencil-square-o"></i></button>
-                : <button onClick={this.handleLike.bind(this, profileLikes)}>Like <i className="fa fa-thumbs-up"></i> {profileLikes}</button>
+                : null
+            }
+            {
+              this.props.isOwn
+                ? <div className="likesDisplay"><i className="fa fa-thumbs-up"></i> {profileLikes}</div>
+                : <button className="likeButton" onClick={this.handleLike.bind(this, profileLikes)}>Like <i className="fa fa-thumbs-up"></i> {profileLikes}</button>
             }
             <div className="about">
               <h4>About me</h4>
@@ -197,9 +202,7 @@ class UserProfile extends TrackerReact(Component) {
                 <a href={"http://www.linkedin.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./") + "socialmedia/logo_linkedin.jpg"} alt="logo_linkedin" /></a>
               </div>
 
-              <a href={"http://www." + user.profile.social} target="_blank">My Social Media</a>
-
-              <div className="line-split"></div>
+              <span className="socialSpan"><a href={"http://www." + user.profile.social} target="_blank">My Social Media</a></span>
 
               <h4>About my place</h4>
               <p>{address}</p>
