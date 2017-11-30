@@ -41,6 +41,12 @@ class Login extends Component {
                         />
                         </Col>
                     </Row>
+                    <Row className="reset">
+                        <Col sm={6}></Col>
+                        <Col sm={3}>
+                        <a href="/reset">Forget your password?</a>
+                        </Col>
+                        </Row>
                     <Row className="button-row">
                         <Col sm={3} className="blank">
                         </Col>
