@@ -35,6 +35,7 @@ class UserProfile extends TrackerReact(Component) {
       $set: {
         "profile.firstName": obj.fname,
         "profile.lastName": obj.lname,
+        "profile.email": obj.email,
         "profile.about": obj.about,
         "profile.age": obj.age,
         "profile.gender": obj.gender,
@@ -126,7 +127,6 @@ class UserProfile extends TrackerReact(Component) {
         }
       );
     });
-
   }
 
   renderImagePreview() {
