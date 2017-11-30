@@ -35,9 +35,10 @@ class UserProfileMain extends TrackerReact(Component) {
 
       console.log(user);
     }
+    // user doesn't exist
     else {
       console.log("User is null");
-      return null;
+      window.location.replace("/404");
     }
 
     return (
