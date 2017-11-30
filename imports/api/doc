@@ -56,7 +56,7 @@ API Field Naming & Docs (for consistency purposes)
     Room Type:      roomType        String*
     Bathroom Type:  bathroomType    String*
     Furnishing:     furnishing      Boolean*
-    Pref. Gender:   preferredGender String*
+    Pref. Gender:   preferGender    String*
 
 //*********************  Notes  *************************//
 

@@ -36,8 +36,8 @@ class UserProfileNoPlace extends TrackerReact(Component) {
         "profile.social": obj.social,
         // stay
         "profile.budget": obj.budget,
-        "profile.moveindate": obj.moveindate,
-        "profile.lengthofstay": obj.lengthofstay
+        "profile.moveInDate": obj.moveInDate,
+        "profile.stayLength": obj.stayLength
       }
     });
   }

@@ -33,7 +33,8 @@ export default class EditProfileModalNoPlace extends Component {
     }
 
     let obj = {
-      name: fNameField + " " + lNameField,
+      fname: fNameField,
+      lname: lNameField,
       about: aboutField,
       age: parseInt(ageField),
       gender: genderField,
@@ -41,8 +42,8 @@ export default class EditProfileModalNoPlace extends Component {
       tags: this.state.tags,
       social: socialField,
       budget: parseInt(budgetField),
-      moveindate: moveInField,
-      lengthofstay: stayLenField
+      moveInDate: moveInField,
+      stayLength: stayLenField
     }
 
     this.props.handleEdit(obj);
@@ -103,11 +104,13 @@ export default class EditProfileModalNoPlace extends Component {
 
           <label>About</label>
           <br />
-          <input type="number" ref="ageField" placeholder="age" defaultValue={this.props.profile.age}/>
-          <select ref="genderField" defaultValue={this.props.profile.gender}>
+          <div className="aboutBar">
+          <input className="ageInput" type="number" ref="ageField" placeholder="age" defaultValue={this.props.profile.age}/>
+          <select className="genderInput" ref="genderField" defaultValue={this.props.profile.gender}>
             <option value="male">Male</option>
             <option value="female">Female</option>
           </select>
+          </div>
           <br />
 		  <input className="emailInput" type="text" ref="emailField" placeholder="email *" />
 		  <br />

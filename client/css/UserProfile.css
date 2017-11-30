@@ -388,6 +388,21 @@
   width: 40%;
 }
 
+.aboutBar {
+  display: flex;
+  justify-content: center;
+}
+
+.aboutBar .ageInput {
+  width: 30%;
+  margin-right: 5px;
+}
+
+.aboutBar .genderInput {
+  width: 30%;
+  margin-left: 5px;
+}
+
 .modalTagsContainer {
     display: flex;
     flex-wrap: wrap;
@@ -480,8 +495,12 @@
   height: 20px;
 }
 
-.comments-box {
+.comments-box .create-comment {
   width: 100%;
+}
+
+.comment-content .text-span {
+  text-align: initial;
 }
 
 

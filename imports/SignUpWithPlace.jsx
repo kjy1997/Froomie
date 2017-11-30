@@ -36,7 +36,7 @@ export default class SignUpWithPlace extends Component {
 			alert("You must fill in all the information!");
 		} else {
 
-			Accounts.createUser({ username: mainInfos.username, password: mainInfos.password }, (error) => {
+			Accounts.createUser({ username: mainInfos.username, password: mainInfos.password, email: mainInfos.email }, (error) => {
 				if (error) {
 					console.log("Error: " + error.reason);
 					alert("Error:" + error.reason);
@@ -61,11 +61,10 @@ export default class SignUpWithPlace extends Component {
 							"profile.place.ac": ac,
 							"profile.place.rent": rent,
 							"profile.place.deposit": deposit,
-							"profile.place.roomtype": roomtype,
+							"profile.place.roomType": roomtype,
 							"profile.place.furnishing": furnishing,
 							"profile.place.bathroomType": bathroomtype,
 							"profile.place.preferGender": prefergender
-
 						}
 					})
 					console.log("Registered in user: " + Meteor.user().username);

@@ -129,7 +129,6 @@ class UserProfile extends TrackerReact(Component) {
 
   }
 
-
   renderImagePreview() {
     return <Image src={this.props.user.profile.avatar} circle className="avatar"/>
   }

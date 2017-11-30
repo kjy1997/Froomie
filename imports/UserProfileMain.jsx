@@ -9,6 +9,16 @@ import TrackerReact from 'meteor/ultimatejs:tracker-react';
 class UserProfileMain extends TrackerReact(Component) {
 
   render() {
+    // wait until user is defined
+    if (Meteor.loggingIn()) {
+      return null;
+    }
+    // redirect user to login page if not logged in
+    if (!this.props.isLoggedIn) {
+      alert("Not logged in");
+      window.location.replace("/login");
+    }
+    
     Meteor.subscribe('allUsers');
 
     let user = this.props.user;
@@ -25,9 +35,10 @@ class UserProfileMain extends TrackerReact(Component) {
 
       console.log(user);
     }
+    // user doesn't exist
     else {
       console.log("User is null");
-      return null;
+      window.location.replace("/404");
     }
 
     return (
@@ -45,25 +56,32 @@ class UserProfileMain extends TrackerReact(Component) {
 
 export default createContainer((route) => {
   // check if user is logged in and is accessing own page
-  if (Meteor.user())
+  let isLoggedIn = false;
+  if (Meteor.user()) {
+    isLoggedIn = true;
+
     if (route.match.path === '/profilemain')
       return {
         isUserPath: false,
         user: Meteor.user(),
-        isOwn: true
+        isOwn: true,
+        isLoggedIn: isLoggedIn
       };
     else if (route.match.url === '/user/' + Meteor.user().username)
       return {
         isUserPath: true,
         user: Meteor.user(),
-        isOwn: true
+        isOwn: true,
+        isLoggedIn: isLoggedIn
       };
+  }
   // accessing another user's page
   let name = route.match.params.username;
   return {
     isUserPath: true,
     user: Meteor.users.findOne({username: name}),
-    isOwn: false
+    isOwn: false,
+    isLoggedIn: isLoggedIn
   };
 }, UserProfileMain);
 

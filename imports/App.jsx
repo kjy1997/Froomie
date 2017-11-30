@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom'; 
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'; 
 import { render } from 'react-dom';
 import ReactDOM from 'react-dom';
 
@@ -14,6 +14,8 @@ import UserProfileMain from './UserProfileMain.jsx';
 import UpdateWithPlace from './UpdateWithPlace.jsx';
 import UpdateWithoutPlace from './UpdateWithoutPlace.jsx';
 import Inbox from './Inbox.jsx';
+import Reset from './Reset.jsx';
+import EmptyPage from './EmptyPage.jsx';
 
 export default class App extends Component {
 
@@ -21,6 +23,7 @@ export default class App extends Component {
     return (
        <Router>
        <div>
+       <Switch>
         <Route path="/home" component={Home}/>
         <Route path="/signupwithplace" component={SignUpWithPlace}/>
         <Route path="/signupwithoutplace" component={SignUpWithoutPlace}/>
@@ -32,9 +35,12 @@ export default class App extends Component {
         <Route path="/updatewithplace" component={UpdateWithPlace} />
         <Route path="/updatewithoutplace" component={UpdateWithoutPlace} />
         <Route path="/user/:username" component={UserProfileMain} />
-		<Route path="/inbox" component={Inbox} />
-        </div>
-       </Router>
+		    <Route path="/inbox" component={Inbox} />
+        <Route path="/reset" component={Reset} />
+        <Route path="*" component={EmptyPage} />
+      </Switch>
+      </div>
+      </Router>
     );
   }
 }

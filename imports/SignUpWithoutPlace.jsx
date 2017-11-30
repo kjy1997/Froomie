@@ -41,7 +41,7 @@ export default class SignUpWithoutPlace extends Component {
 			alert("You must fill in all the information!");
 		} else {
 
-			Accounts.createUser({ username: mainInfos.username, password: mainInfos.password }, (error) => {
+			Accounts.createUser({ username: mainInfos.username, password: mainInfos.password, email: mainInfos.email }, (error) => {
 				if (error) {
 					console.log("Error: " + error.reason);
 					alert("Error:" + error.reason);
@@ -58,8 +58,8 @@ export default class SignUpWithoutPlace extends Component {
 							"profile.social" : mainInfos.social,
 
 							"profile.budget": budget,
-							"profile.moveindate": movein,
-							"profile.lengthofstay": lengthofstay
+							"profile.moveInDate": movein,
+							"profile.stayLength": lengthofstay
 						}
 					})
 					console.log("Registered in user: " + Meteor.user().username);
