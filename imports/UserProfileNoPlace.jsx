@@ -106,6 +106,7 @@ class UserProfileNoPlace extends TrackerReact(Component) {
           isOpen={this.state.isModalOpen} 
           onClose={this.closeModal.bind(this)}
         />
+        <Navbar plain={false} />
         
         <div className="user-back">
         <div className="user-pic fileBrowse">
