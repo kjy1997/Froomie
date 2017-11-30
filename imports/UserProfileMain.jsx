@@ -4,6 +4,7 @@ import { createContainer } from 'react-meteor-data';
 
 import UserProfile from './UserProfile.jsx';
 import UserProfileNoPlace from './UserProfileNoPlace.jsx';
+import { Users } from './api/users.js';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
 class UserProfileMain extends TrackerReact(Component) {
@@ -19,8 +20,6 @@ class UserProfileMain extends TrackerReact(Component) {
       window.location.replace("/login");
     }
     
-    Meteor.subscribe('allUsers');
-
     let user = this.props.user;
     let hasPlace;
 
@@ -55,22 +54,24 @@ class UserProfileMain extends TrackerReact(Component) {
 }
 
 export default createContainer((route) => {
+  Meteor.subscribe('allUsers');
   // check if user is logged in and is accessing own page
   let isLoggedIn = false;
-  if (Meteor.user()) {
+  let user = Meteor.user();
+  if (user) {
     isLoggedIn = true;
 
     if (route.match.path === '/profilemain')
       return {
         isUserPath: false,
-        user: Meteor.user(),
+        user: user,
         isOwn: true,
         isLoggedIn: isLoggedIn
       };
-    else if (route.match.url === '/user/' + Meteor.user().username)
+    else if (route.match.url === '/user/' + user.username)
       return {
         isUserPath: true,
-        user: Meteor.user(),
+        user: user,
         isOwn: true,
         isLoggedIn: isLoggedIn
       };

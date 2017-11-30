@@ -93,8 +93,8 @@ class UserProfileNoPlace extends TrackerReact(Component) {
 
     let stay = {
       budget: user.profile.budget,
-      moveindate: user.profile.moveindate,
-      lengthofstay: user.profile.lengthofstay
+      moveInDate: user.profile.moveInDate,
+      stayLength: user.profile.stayLength
     }
 
     return (
@@ -135,11 +135,13 @@ class UserProfileNoPlace extends TrackerReact(Component) {
               <a href={"http://www.linkedin.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./") + "socialmedia/logo_linkedin.jpg"} alt="logo_linkedin" /></a>
             </div>
 
+            <span className="socialSpan"><a href={"http://www." + user.profile.social} target="_blank">My Social Media</a></span>
+
             <div className="profileHousingInfo">
               <div className="housingColumn housingSingle">
                 <strong>Budget<br /><p>${stay.budget}</p></strong>
-                <strong>Move In Date<br /><p>{stay.moveindate}</p></strong>
-                <strong>Stay Length<br /><p>{stay.lengthofstay}</p></strong>
+                <strong>Move In Date<br /><p>{stay.moveInDate}</p></strong>
+                <strong>Stay Length<br /><p>{stay.stayLength}</p></strong>
               </div>
             </div>  
           </div>
