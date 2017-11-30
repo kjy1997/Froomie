@@ -29,7 +29,11 @@ class UserProfileMain extends TrackerReact(Component) {
       // Profile likes - check if profile is new
       if (!user.profile.hasOwnProperty('profileLikes')) {
         console.log("new account");
-        user.profile.profileLikes = 0;
+        Users.update(Meteor.userId(), {
+          $set: {
+          "profile.profileLikes": 0
+          }
+        });
       }
 
       console.log(user);
@@ -37,7 +41,7 @@ class UserProfileMain extends TrackerReact(Component) {
     // user doesn't exist
     else {
       console.log("User is null");
-      window.location.replace("/404");
+      return null;
     }
 
     return (

@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Image } from 'react-bootstrap';
+
 import UserTags from './UserTags.jsx';
 import EditProfileModalNoPlace from './EditProfileModalNoPlace.jsx';
 import { Users } from './api/users.js';
-import { createContainer } from 'react-meteor-data';
+import { Image } from 'react-bootstrap';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
+import { createContainer } from 'react-meteor-data';
+import Blaze from 'meteor/gadicc:blaze-react-component';
+
+import Navbar from './Navbar.jsx';
 
 class UserProfileNoPlace extends TrackerReact(Component) {
 
@@ -118,7 +122,12 @@ class UserProfileNoPlace extends TrackerReact(Component) {
           {
             this.props.isOwn
               ? <button onClick={this.openModal.bind(this)}>Edit <i className="fa fa-pencil-square-o"></i></button>
-              : <button onClick={this.handleLike.bind(this, profileLikes)}>Like <i className="fa fa-thumbs-up"></i> {profileLikes}</button>
+              : null
+          }
+          {
+            this.props.isOwn
+              ? <div className="likesDisplay"><i className="fa fa-thumbs-up"></i> {profileLikes}</div>
+              : <button className="likeButton" onClick={this.handleLike.bind(this, profileLikes)}>Like <i className="fa fa-thumbs-up"></i> {profileLikes}</button>
           }
           <div className="about">
             <h4>About me</h4>
