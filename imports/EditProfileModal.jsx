@@ -18,7 +18,7 @@ export default class EditProfileModal extends Component {
 
     const fNameField    = ReactDOM.findDOMNode(this.refs.firstNameField).value.trim();
     const lNameField    = ReactDOM.findDOMNode(this.refs.lastNameField).value.trim();
-	const emField       = ReactDOM.findDOMNode(this.refs.emailField).value.trim();
+	const mailField     = ReactDOM.findDOMNode(this.refs.emailField).value.trim();
     const aboutField    = ReactDOM.findDOMNode(this.refs.aboutField).value.trim();
     const ageField      = ReactDOM.findDOMNode(this.refs.ageField).value.trim();
     const genderField   = ReactDOM.findDOMNode(this.refs.genderField).value.trim();
@@ -51,7 +51,7 @@ export default class EditProfileModal extends Component {
       gender: genderField,
       tags: this.state.tags,
       social: socialField,
-	  em: emField,
+	  mail: emailField,
       address: addressField,
       property: propertyField,
       roomCount: roomField,
@@ -137,7 +137,7 @@ export default class EditProfileModal extends Component {
           </select>
           </div>
           <br />
-		  <input className="emailInput" type="text" ref="emailField" placeholder="email *" />
+		  <input className="emailInput" type="text" ref="emailField" placeholder="email *" defaultValue={email} />
 		  <br />
           <textarea ref="aboutField" placeholder="tell us about yourself! *" defaultValue={this.props.profile.about}></textarea>
           <br />

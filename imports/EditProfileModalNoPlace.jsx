@@ -18,7 +18,7 @@ export default class EditProfileModalNoPlace extends Component {
 
     const fNameField    = ReactDOM.findDOMNode(this.refs.firstNameField).value.trim();
     const lNameField    = ReactDOM.findDOMNode(this.refs.lastNameField).value.trim();
-	const emField       = ReactDOM.findDOMNode(this.refs.emailField).value.trim();
+	const mailField     = ReactDOM.findDOMNode(this.refs.emailField).value.trim();
     const aboutField    = ReactDOM.findDOMNode(this.refs.aboutField).value.trim();
     const ageField      = ReactDOM.findDOMNode(this.refs.ageField).value.trim();
     const genderField   = ReactDOM.findDOMNode(this.refs.genderField).value.trim();
@@ -27,7 +27,7 @@ export default class EditProfileModalNoPlace extends Component {
     const moveInField   = ReactDOM.findDOMNode(this.refs.moveInField).value.trim();
     const stayLenField  = ReactDOM.findDOMNode(this.refs.stayLengthField).value.trim();
     
-    if (!fNameField || !lNameField || !aboutField) {
+    if (!fNameField || !lNameField || !aboutField || !mailField) {
       alert("Missing information!");
       return;
     }
@@ -38,7 +38,7 @@ export default class EditProfileModalNoPlace extends Component {
       about: aboutField,
       age: parseInt(ageField),
       gender: genderField,
-	  em: emField,
+	  mail: mailField,
       tags: this.state.tags,
       social: socialField,
       budget: parseInt(budgetField),
@@ -90,6 +90,7 @@ export default class EditProfileModalNoPlace extends Component {
   getEditTools() {
     let firstName = this.props.profile.firstName;
     let lastName = this.props.profile.lastName;
+	let email = this.props.profile.email;
     let stay = this.props.stay;
 
     return(
@@ -112,7 +113,7 @@ export default class EditProfileModalNoPlace extends Component {
           </select>
           </div>
           <br />
-		  <input className="emailInput" type="text" ref="emailField" placeholder="email *" />
+		  <input className="nameInput" type="text" ref="emailField" placeholder="email *" defaultValue={email}/>
 		  <br />
           <textarea ref="aboutField" placeholder="tell us about yourself! *" defaultValue={this.props.profile.about}></textarea>
           <br />

@@ -29,6 +29,7 @@ class UserProfileNoPlace extends TrackerReact(Component) {
       $set: {
         "profile.firstName": obj.fname,
         "profile.lastName": obj.lname,
+		"profile.email": obj.mail,
         "profile.about": obj.about,
         "profile.age": obj.age,
         "profile.gender": obj.gender,
