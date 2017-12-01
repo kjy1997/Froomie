@@ -9,10 +9,6 @@ class UserToolbar extends Component {
         this.state = { dropdown: false };
     }
 
-    redirect(e) {
-        e.preventDefault();
-        window.location.replace("/profilemain");
-    }
 
     logout(e) {
         e.preventDefault();
@@ -31,10 +27,13 @@ class UserToolbar extends Component {
             return (
                 <div className="welcome">
 
-                    <DropdownButton id="navDrop" title="Welcome!" noCaret>
-                        <MenuItem eventKey="1"><span onClick={this.redirect}>Profile</span></MenuItem>
-                        <MenuItem eventKey="2"><span onClick={this.interests}>Interests</span></MenuItem>
-                        <MenuItem eventKey="3"><span onClick={this.logout}>Logout</span></MenuItem>
+
+                    <DropdownButton title="Welcome!" noCaret>
+                        <MenuItem eventKey="1" href="/profilemain">Profile</MenuItem>
+                        <MenuItem eventKey="2" href="/search">Search(With place)</MenuItem>
+                        <MenuItem eventKey="3" href="/searchwithoutplace">Search(Without place)</MenuItem>
+                        <MenuItem eventKey="4"><span onClick={this.interests}>Interests</span></MenuItem>
+                        <MenuItem eventKey="5" onClick={this.logout}>Logout</MenuItem>
                     </DropdownButton>
 
                 </div>

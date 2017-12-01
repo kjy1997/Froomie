@@ -4,7 +4,8 @@ import ReactDOM from 'react-dom';
 import UserTags from './UserTags.jsx';
 import EditProfileModal from './EditProfileModal.jsx';
 import { Users } from './api/users.js';
-import { Image } from 'react-bootstrap';
+import { Messages } from './api/messages.js';
+import { Image, Button, Modal } from 'react-bootstrap';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { createContainer } from 'react-meteor-data';
 import Blaze from 'meteor/gadicc:blaze-react-component';
@@ -19,16 +20,33 @@ class UserProfile extends TrackerReact(Component) {
     this.defaultZoom = 3;
     this.defaultCenter = { lat: 37, lng: -95 };
     this.state = {
-      isModalOpen: false
+      isModalOpen: false,
+      showModal: false
     }
   }
 
   handleContactSubmit(e) {
     e.preventDefault();
+    let message = ReactDOM.findDOMNode(this.refs.contactForm).value.trim();
+    const to = this.props.user;
+    const from = Meteor.users.findOne({ _id: Meteor.userId() });
+    if (message) {
+      let send = Meteor.user().username;
+      let recipient = this.props.user.username;
 
-    let message = ReactDOM.findDOMNode(this.refs.contactForm).value;
+      Messages.insert({ sender: send, to: recipient, body: message, unread: true });
 
-    alert(message);
+      Meteor.call('contact', from, to, message, function (error) {
+        if (!error) {
+          alert('Contact message successfully sent!');
+        } else {
+          console.log(error);
+        }
+      });
+    }
+    else {
+      alert("No message written");
+    }
   }
 
   handleEdit(obj) {
@@ -78,7 +96,7 @@ class UserProfile extends TrackerReact(Component) {
     else {
       profilesLiked.push(this.props.user.username);
     }
-    
+
     Users.update(Meteor.userId(), {
       $set: {
         "profile.profilesLiked": profilesLiked
@@ -143,7 +161,7 @@ class UserProfile extends TrackerReact(Component) {
       }
     }.bind(this));
   }
-  
+
   componentDidMount() {
     let self = this;
 
@@ -171,14 +189,14 @@ class UserProfile extends TrackerReact(Component) {
           avatar.resumable.upload();
 
           let avatarUrl = avatar.baseURL + "/" + _id;
-          Meteor.users.update({ _id: Meteor.userId()}, { $set: { 'profile.avatar': avatarUrl } });
+          Meteor.users.update({ _id: Meteor.userId() }, { $set: { 'profile.avatar': avatarUrl } });
         }
       );
     });
   }
 
   renderImagePreview() {
-    return <Image src={this.props.user.profile.avatar} circle className="avatar"/>
+    return <Image src={this.props.user.profile.avatar} circle className="avatar" />
   }
 
   // handles hidden user info (display only)
@@ -208,6 +226,22 @@ class UserProfile extends TrackerReact(Component) {
     }
 
     return show;
+  }
+
+
+  close() {
+    this.setState({ showModal: false });
+  }
+
+  open() {
+    this.setState({ showModal: true });
+  }
+
+
+  deleteAccount() {
+
+    Meteor.users.remove({ _id: Meteor.userId() });
+
   }
 
   render() {
@@ -257,7 +291,7 @@ class UserProfile extends TrackerReact(Component) {
           isOpen={this.state.isModalOpen}
           onClose={this.closeModal.bind(this)}
         />
-        <Navbar plain={false} /> 
+        <Navbar plain={false} />
         <div className="user-back">
           <div className="user-pic fileBrowse">
             {this.renderImagePreview()}
@@ -277,7 +311,7 @@ class UserProfile extends TrackerReact(Component) {
                 : null
             }
             {
-              !this.props.isOwn 
+              !this.props.isOwn
                 ? hasLiked
                   ? <button className="likeButton" onClick={this.handleLike.bind(this, profileLikes, hasLiked)}>Dislike <i className="fa fa-thumbs-up"></i> {profileLikes}</button>
                   : <button className="likeButton" onClick={this.handleLike.bind(this, profileLikes, hasLiked)}>Like <i className="fa fa-thumbs-up"></i> {profileLikes}</button>
@@ -301,12 +335,12 @@ class UserProfile extends TrackerReact(Component) {
 
               <div className="profileSocialGallery">
                 <a href={"http://www.facebook.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./") + "socialmedia/logo_facebook.jpg"} alt="logo_facebook" /></a>
-                <a href={"http://www.twitter.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./")+ "socialmedia/logo_twitter.jpg"} alt="logo_twitter" /></a>
+                <a href={"http://www.twitter.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./") + "socialmedia/logo_twitter.jpg"} alt="logo_twitter" /></a>
                 <a href={"http://www.github.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./") + "socialmedia/logo_github.jpg"} alt="logo_github" /></a>
                 <a href={"http://www.linkedin.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./") + "socialmedia/logo_linkedin.jpg"} alt="logo_linkedin" /></a>
               </div>
 
-              <span className="socialSpan"><a href={"http://www." + user.profile.social} target="_blank">My Social Media</a></span>
+              <span className="socialSpan"><a href={"https://" + user.profile.social} target="_blank">My Social Media</a></span>
 
               <h4>About my place</h4>
               <p>{show.profile.place.address}</p>
@@ -345,6 +379,24 @@ class UserProfile extends TrackerReact(Component) {
             </form>
           </div>
 
+          <div class="delete-class">
+            <Button className="delete" type="submit" bsStyle="danger" onClick={this.open.bind(this)}>Delete Account</Button>
+          </div>
+          <div className="static-modal">
+            <Modal show={this.state.showModal} onHide={this.close.bind(this)}>
+              <Modal.Header>
+                <Modal.Title>Warning</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                Are you sure you want to delete?
+            </Modal.Body>
+              <Modal.Footer>
+                <Button onClick={this.close.bind(this)}>Close</Button>
+                <Button bsStyle="danger" onClick={this.deleteAccount.bind(this)}>Delete</Button>
+              </Modal.Footer>
+            </Modal>
+          </div>
+
           <div className="comment-section">
             <Blaze template="commentsBox" id={this.props.user._id} />
           </div>
@@ -358,7 +410,7 @@ class UserProfile extends TrackerReact(Component) {
 export default createContainer(() => {
   Meteor.subscribe('avatar');
 
-	return {
+  return {
 
-	};
+  };
 }, UserProfile);

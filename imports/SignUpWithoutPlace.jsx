@@ -30,7 +30,7 @@ export default class SignUpWithoutPlace extends Component {
 		// const username = ReactDOM.findDOMNode(this.refs.username).value.trim();
 		// const pass = ReactDOM.findDOMNode(this.refs.password).value.trim();
 		var mainInfos = this.SignUpMain.infos();
-		const budget = ReactDOM.findDOMNode(this.refs.budget).value.trim();
+		const budget = parseInt(ReactDOM.findDOMNode(this.refs.budget).value.trim());
 		const movein = this.state.value;
 		console.log(this.state.value);
 		const lengthofstay = ReactDOM.findDOMNode(this.refs.lengthofstay).value.trim();
@@ -64,6 +64,7 @@ export default class SignUpWithoutPlace extends Component {
 					})
 					console.log("Registered in user: " + Meteor.user().username);
 					alert(Meteor.user().username + " is registered!");
+					window.location.replace("/login");
 				}
 			});
 		}
