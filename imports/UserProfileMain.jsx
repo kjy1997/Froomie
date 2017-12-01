@@ -26,31 +26,35 @@ class UserProfileMain extends TrackerReact(Component) {
     if (user) {
       hasPlace = user.profile.hasOwnProperty('place');
 
-      // Profile likes - check if profile is new
-      if (!user.profile.hasOwnProperty('profileLikes')) {
-        console.log("new account");
-        Users.update(Meteor.userId(), {
-          $set: {
-            "profile.profileLikes": 0
-          }
-        });
+      // If account is new, initialize fields
+      if (this.props.isOwn) {
+        // Profile likes
+        if (!user.profile.hasOwnProperty('profileLikes')) {
+          console.log("new account");
+          Users.update(Meteor.userId(), {
+            $set: {
+              "profile.profileLikes": 0
+            }
+          });
+        }
+        // Profile hidden
+        if (!user.profile.hasOwnProperty('hidden')) {
+          Users.update(Meteor.userId(), {
+            $set: {
+              "profile.hidden": {}
+            }
+          });
+        }
+        // Profile matches
+        if (!user.profile.hasOwnProperty('matches')) {
+          Users.update(Meteor.userId(), {
+            $set: {
+              "profile.matches": []
+            }
+          });
+        }
       }
-      // Profile hidden
-      if (!user.profile.hasOwnProperty('hidden')) {
-        Users.update(Meteor.userId(), {
-          $set: {
-            "profile.hidden": {}
-          }
-        });
-      }
-      // Profile matches
-      if (!user.profile.hasOwnProperty('matches')) {
-        Users.update(Meteor.userId(), {
-          $set: {
-            "profile.matches": []
-          }
-        });
-      }
+
       // Match only
       if (!this.props.isOwn && user.profile.visibility === "matches") {
         // check is user is matched
@@ -86,7 +90,6 @@ export default createContainer((route) => {
 
   let user = Meteor.user();
   if (user) {
-
     isLoggedIn = true;
 
     if (route.match.path === '/profilemain')

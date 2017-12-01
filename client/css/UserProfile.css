@@ -543,11 +543,22 @@
 }
 
 .housingColumn .housingColumnName {
+  border-bottom: 1px solid black;
+  margin: 0 auto 10px auto;
+
+  width: 70%;
+
   text-align: center;
+}
+
+.modalSelect {
+  width: 95%;
+  height: 24px;
 }
 
 .amenitiesInfo label {
   text-align: left;
+  margin-left: 30px;
 }
 
 .housingSingle {

@@ -44,6 +44,8 @@ class UserProfile extends TrackerReact(Component) {
         // property
         "profile.place.address": obj.address,
         "profile.place.property": obj.property,
+        "profile.place.roomCount": obj.roomCount,
+        "profile.place.bathroomCount": obj.bathroomCount,
         // amenities
         "profile.place.internet": obj.internet,
         "profile.place.parking": obj.parking,
@@ -159,8 +161,8 @@ class UserProfile extends TrackerReact(Component) {
     let profileLikes = user.profile.profileLikes;
     let property = {
       propertyType: user.profile.place.property,
-      roomCount: user.profile.place.rooms,
-      bathroomCount: user.profile.place.bathroom,
+      roomCount: user.profile.place.roomCount,
+      bathroomCount: user.profile.place.bathroomCount,
     };
     let amenities = {
       internet: user.profile.place.internet,
@@ -241,7 +243,7 @@ class UserProfile extends TrackerReact(Component) {
                 <div className="housingColumn">
                   <strong>Property Type <br /><p>{property.propertyType ? property.propertyType : "N/A"}</p></strong>
                   <strong>Room Count <br /><p>{property.roomCount ? property.roomCount : 0}</p></strong>
-                  <strong>Bathroom Count <br /><p>{property.roomCount ? property.roomCount : 0}</p></strong>
+                  <strong>Bathroom Count <br /><p>{property.bathroomCount ? property.bathroomCount : 0}</p></strong>
                 </div>
                 <div className="housingColumn">
                   <strong>Internet <br /><p>{amenities.internet === 'yes' ? "yes" : "no"}</p></strong>

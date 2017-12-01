@@ -36,8 +36,14 @@ export default class EditProfileModalNoPlace extends Component {
     const hideMoveInDateField  = ReactDOM.findDOMNode(this.refs.hideMoveInDate).value.trim();
     const hideStayLengthField  = ReactDOM.findDOMNode(this.refs.hideStayLength).value.trim();
     
-    if (!fNameField || !lNameField || !aboutField || !emailField) {
+    if (!fNameField || !lNameField || !ageField || !emailField 
+      || !aboutField || !budgetField || !moveInField || !stayLenField) {
       alert("Missing information!");
+      return;
+    }
+
+    if (budgetField < 0) {
+      alert("Budget cannot be negative!");
       return;
     }
 
@@ -137,6 +143,7 @@ export default class EditProfileModalNoPlace extends Component {
 
     		  <input className="nameInput" type="text" ref="emailField" placeholder="email *" defaultValue={email}/>
     		  <br />
+          <br />
 
           <textarea ref="aboutField" placeholder="tell us about yourself! *" defaultValue={this.props.profile.about}></textarea>
           <br />
@@ -159,8 +166,11 @@ export default class EditProfileModalNoPlace extends Component {
           <div className="housingInfo">
             <div className="housingColumn stayInfo">
               <label className="housingColumnName">About My Stay</label>
+              <label>Budget</label>
               <input type="number" ref="budgetField" placeholder="budget" defaultValue={stay.budget}/>
+              <label>Move In Date</label>
               <input type="text" ref="moveInField" placeholder="move in date" defaultValue={stay.moveInDate}/>
+              <label>Stay Length</label>
               <input type="text" ref="stayLengthField" placeholder="length of stay" defaultValue={stay.stayLength}/>
             </div>
           </div>

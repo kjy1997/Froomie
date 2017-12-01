@@ -24,7 +24,6 @@ export default class EditProfileModal extends Component {
     const genderField   = ReactDOM.findDOMNode(this.refs.genderField).value.trim();
     const socialField   = ReactDOM.findDOMNode(this.refs.socialField).value.trim();
     const addressField  = ReactDOM.findDOMNode(this.refs.addressField).value.trim();
-    const suiteField    = ReactDOM.findDOMNode(this.refs.suiteField).value.trim();
     const propertyField = ReactDOM.findDOMNode(this.refs.propertyField).value.trim();
     const roomField     = ReactDOM.findDOMNode(this.refs.roomCountField).value.trim();
     const bathroomField = ReactDOM.findDOMNode(this.refs.bathroomCountField).value.trim();
@@ -48,8 +47,18 @@ export default class EditProfileModal extends Component {
     const hideRentField     = ReactDOM.findDOMNode(this.refs.hideRent).value.trim();
     const hideDepositField  = ReactDOM.findDOMNode(this.refs.hideDeposit).value.trim();
 
-    if (!fNameField || !lNameField || !aboutField || !emailField) {
+    if (!fNameField || !lNameField || !ageField 
+      || !emailField || !aboutField || !roomField
+      || !bathroomField || !rentField || !depositField) {
       alert("Missing information!");
+      return;
+    }
+    if (roomField < 0 || bathroomField < 0) {
+      alert("Rooms cannot be negative!");
+      return;
+    }
+    if (rentField < 0 || depositField < 0) {
+      alert("Prices cannot be negative!");
       return;
     }
 
@@ -163,6 +172,7 @@ export default class EditProfileModal extends Component {
 
 		      <input className="nameInput" type="text" ref="emailField" placeholder="email *" defaultValue={email} />
 		      <br />
+          <br />
 
           <textarea ref="aboutField" placeholder="tell us about yourself! *" defaultValue={this.props.profile.about}></textarea>
           <br />
@@ -185,10 +195,18 @@ export default class EditProfileModal extends Component {
           <div className="housingInfo">
             <div className="housingColumn propertyInfo">
               <label className="housingColumnName">Property</label>
+              <label>Address</label>
               <input type="text" ref="addressField" placeholder="address" defaultValue={address}/>
-              <input type="text" ref="suiteField" placeholder="suite"/>
-              <input type="text" ref="propertyField" placeholder="property type" defaultValue={property.propertyType}/>
+              <label>Property Type</label>
+              <select className="modalSelect" ref="propertyField" defaultValue={property.propertyType}>
+                <option value="apartment">Apartment</option>
+                <option value="coop">Co-op</option>
+                <option value="house">House</option>
+                <option value="townhouse">Townhouse</option>
+              </select>
+              <label>Room Count</label>
               <input type="number" ref="roomCountField" placeholder="# of rooms" defaultValue={property.roomCount}/>
+              <label>Bathroom Count</label>
               <input type="number" ref="bathroomCountField" placeholder="# of bathrooms" defaultValue={property.bathroomCount}/>
             </div>
             <div className="housingColumn amenitiesInfo">
@@ -199,12 +217,31 @@ export default class EditProfileModal extends Component {
             </div>
             <div className="housingColumn roomInfo">
               <label className="housingColumnName">Room</label>
+              <label>Rent</label>
               <input type="number" ref="rentField" placeholder="monthly rent" defaultValue={room.rent}/>
+              <label>Deposit</label>
               <input type="number" ref="depositField" placeholder="security deposit" defaultValue={room.deposit}/>
-              <input type="text" ref="roomTypeField" placeholder="room type" defaultValue={room.roomType}/>
-              <input type="text" ref="bathroomTypeField" placeholder="bathroom type" defaultValue={room.bathroomType}/>
-              <input type="text" ref="furnishingField" placeholder="furnishing" defaultValue={room.furnishing}/>
-              <input type="text" ref="genderPrefField" placeholder="preferred gender" defaultValue={room.preferGender}/>
+              <label>Room Type</label>
+              <select className="modalSelect" ref="roomTypeField" defaultValue={room.roomType}>
+                <option value="private">Private</option>
+                <option value="shared">Shared</option>
+              </select>
+              <label>Bathroom Type</label>
+              <select className="modalSelect" ref="bathroomTypeField" defaultValue={room.bathroomType}>
+                <option value="private">Private</option>
+                <option value="shared">Shared</option>
+              </select>
+              <label>Furnishing</label>
+              <select className="modalSelect" ref="furnishingField" defaultValue={room.furnishing}>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+              <label>Preferred Gender</label>
+              <select className="modalSelect" ref="genderPrefField" defaultValue={room.preferGender}>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="undecided">No Preference</option>
+              </select>
             </div>
           </div>
 
