@@ -18,8 +18,10 @@ class Interests extends Component {
         }
 
         let user = this.props.user;
-        
-        user.interests = [];
+       
+        if (!user.profile.interests) {
+            user.profile.interests = [];
+        }
 
         if (user) {
             return (
@@ -31,14 +33,13 @@ class Interests extends Component {
                         </Col>
                     </Row>
                     {
-                        user.interests.map((username) => {
-                            return
-                            <Row>
+                        user.profile.interests.map((username, i) => 
+                            <Row key={i}>
                                 <Col sm={9}>	
-                                    <a href={'/user/' + username}>{username}</a>
+                                    <p>{username} is interested! <a href={'/user/' + username}>View their profile</a></p>
                                 </Col>
                             </Row>
-                        })
+                        )
                     }
                 </div>
             );

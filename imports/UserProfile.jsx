@@ -109,12 +109,12 @@ class UserProfile extends TrackerReact(Component) {
   }
 
   handleInterest() {
-    if (!Interests.findOne({username: this.props.user.usernme})) {
-      Interests.insert({'username': this.props.user.username, interests: []});
-    } 
-    var doc = Interests.findOne({ username: this.props.user.username});
-    Interests.update({_id: doc._id}, {$push: {interests: Meteor.user().username}});
-    alert("We notified " + this.props.user.username + " about your interested!");
+    Users.update({ _id: this.props.user._id }, {
+      $addToSet: {
+        "profile.interests": Meteor.user().username
+      }
+    })
+    alert("We notified " + this.props.user.username + " about your interest!");
   }
 
   openModal() {
@@ -282,7 +282,7 @@ class UserProfile extends TrackerReact(Component) {
             }
             {
               !this.props.isOwn
-                ? <div className="likeButton" onClick={this.handleInterest.bind(this)}>I'm Interested!</div>
+                ? <button className="likeButton" onClick={this.handleInterest.bind(this)}>Interested</button>
                 : null
             }
             <div className="about">
