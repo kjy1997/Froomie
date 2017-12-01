@@ -30,10 +30,17 @@ class UserProfileMain extends TrackerReact(Component) {
       if (this.props.isOwn) {
         // Profile likes
         if (!user.profile.hasOwnProperty('profileLikes')) {
-          console.log("new account");
           Users.update(Meteor.userId(), {
             $set: {
               "profile.profileLikes": 0
+            }
+          });
+        }
+        // Profiles liked
+        if (!user.profile.hasOwnProperty('profilesLiked')) {
+          Users.update(Meteor.userId(), {
+            $set: {
+              "profile.profilesLiked": []
             }
           });
         }

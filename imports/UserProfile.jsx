@@ -65,12 +65,32 @@ class UserProfile extends TrackerReact(Component) {
     this.geocodeAddress(obj.address);
   }
 
-  handleLike(likes) {
+  handleLike(likes, hasLiked) {
+    let val = hasLiked ? -1 : 1;
+
+    let profilesLiked = Meteor.user().profile.profilesLiked;
+    // disliking
+    if (hasLiked) {
+      profilesLiked.splice(profilesLiked.indexOf(this.props.user.username), 1);
+    }
+    // liking
+    else {
+      profilesLiked.push(this.props.user.username);
+    }
+    
+    Users.update(Meteor.userId(), {
+      $set: {
+        "profile.profilesLiked": profilesLiked
+      }
+    });
+
+    hasLiked = !hasLiked;
+
     Users.update({ _id: this.props.user._id }, {
       $set: {
-        "profile.profileLikes": likes + 1
+        "profile.profileLikes": likes + val
       }
-    })
+    });
   }
 
   openModal() {
@@ -159,6 +179,7 @@ class UserProfile extends TrackerReact(Component) {
     let user = this.props.user;
     let address = user.profile.place.address;
     let profileLikes = user.profile.profileLikes;
+    let hasLiked = Meteor.user().profile.profilesLiked.indexOf(user.username) != -1;
     let property = {
       propertyType: user.profile.place.property,
       roomCount: user.profile.place.roomCount,
@@ -217,7 +238,14 @@ class UserProfile extends TrackerReact(Component) {
             {
               this.props.isOwn
                 ? <div className="likesDisplay"><i className="fa fa-thumbs-up"></i> {profileLikes}</div>
-                : <button className="likeButton" onClick={this.handleLike.bind(this, profileLikes)}>Like <i className="fa fa-thumbs-up"></i> {profileLikes}</button>
+                : null
+            }
+            {
+              !this.props.isOwn 
+                ? hasLiked
+                  ? <button className="likeButton" onClick={this.handleLike.bind(this, profileLikes, hasLiked)}>Dislike <i className="fa fa-thumbs-up"></i> {profileLikes}</button>
+                  : <button className="likeButton" onClick={this.handleLike.bind(this, profileLikes, hasLiked)}>Like <i className="fa fa-thumbs-up"></i> {profileLikes}</button>
+                : null
             }
             <div className="about">
               <h4>About me</h4>

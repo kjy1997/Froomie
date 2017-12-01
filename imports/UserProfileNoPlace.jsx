@@ -49,12 +49,32 @@ class UserProfileNoPlace extends TrackerReact(Component) {
     });
   }
 
-  handleLike(likes) {
+  handleLike(likes, hasLiked) {
+    let val = hasLiked ? -1 : 1;
+
+    let profilesLiked = Meteor.user().profile.profilesLiked;
+    // disliking
+    if (hasLiked) {
+      profilesLiked.splice(profilesLiked.indexOf(this.props.user.username), 1);
+    }
+    // liking
+    else {
+      profilesLiked.push(this.props.user.username);
+    }
+    
+    Users.update(Meteor.userId(), {
+      $set: {
+        "profile.profilesLiked": profilesLiked
+      }
+    });
+
+    hasLiked = !hasLiked;
+
     Users.update({ _id: this.props.user._id }, {
       $set: {
-        "profile.profileLikes": likes + 1
+        "profile.profileLikes": likes + val
       }
-    })
+    });
   }
 
   openModal() {
@@ -112,6 +132,7 @@ class UserProfileNoPlace extends TrackerReact(Component) {
   render() {
     let user = this.props.user;
     let profileLikes = user.profile.profileLikes;
+    let hasLiked = Meteor.user().profile.profilesLiked.indexOf(user.username) != -1;
     let stay = {
       budget: user.profile.budget,
       moveInDate: user.profile.moveInDate,
@@ -144,42 +165,51 @@ class UserProfileNoPlace extends TrackerReact(Component) {
             {this.renderImagePreview(Session.get('avatar'))}
           </div>
         </div>
-        <div className="user-info">
-          <h2>{user.profile.firstName + " " + user.profile.lastName}</h2>
-          {
-            this.props.isOwn
-              ? <button onClick={this.openModal.bind(this)}>Edit <i className="fa fa-pencil-square-o"></i></button>
-              : null
-          }
-          {
-            this.props.isOwn
-              ? <div className="likesDisplay"><i className="fa fa-thumbs-up"></i> {profileLikes}</div>
-              : <button className="likeButton" onClick={this.handleLike.bind(this, profileLikes)}>Like <i className="fa fa-thumbs-up"></i> {profileLikes}</button>
-          }
-          <div className="about">
-            <h4>About me</h4>
-            <p>Age: {show.profile.age}</p>
-            <p>Gender: {show.profile.gender}</p>
-            <h4>Introduction</h4>
-            <p>{user.profile.about}</p>
-            <UserTags tags={show.profile.tags} />  
+        <div className="info-container">
+          <div className="user-info">
+            <h2>{user.profile.firstName + " " + user.profile.lastName}</h2>
+            {
+              this.props.isOwn
+                ? <button onClick={this.openModal.bind(this)}>Edit <i className="fa fa-pencil-square-o"></i></button>
+                : null
+            }
+            {
+              this.props.isOwn
+                ? <div className="likesDisplay"><i className="fa fa-thumbs-up"></i> {profileLikes}</div>
+                : null
+            }
+            {
+              !this.props.isOwn 
+                ? hasLiked
+                  ? <button className="likeButton" onClick={this.handleLike.bind(this, profileLikes, hasLiked)}>Dislike <i className="fa fa-thumbs-up"></i> {profileLikes}</button>
+                  : <button className="likeButton" onClick={this.handleLike.bind(this, profileLikes, hasLiked)}>Like <i className="fa fa-thumbs-up"></i> {profileLikes}</button>
+                : null
+            }
+            <div className="about">
+              <h4>About me</h4>
+              <p>Age: {show.profile.age}</p>
+              <p>Gender: {show.profile.gender}</p>
+              <h4>Introduction</h4>
+              <p>{user.profile.about}</p>
+              <UserTags tags={show.profile.tags} />  
 
-            <div className="profileSocialGallery">
-              <a href={"http://www.facebook.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./") + "socialmedia/logo_facebook.jpg"} alt="logo_facebook" /></a>
-              <a href={"http://www.twitter.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./")+ "socialmedia/logo_twitter.jpg"} alt="logo_twitter" /></a>
-              <a href={"http://www.github.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./") + "socialmedia/logo_github.jpg"} alt="logo_github" /></a>
-              <a href={"http://www.linkedin.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./") + "socialmedia/logo_linkedin.jpg"} alt="logo_linkedin" /></a>
-            </div>
-
-            <span className="socialSpan"><a href={"http://www." + user.profile.social} target="_blank">My Social Media</a></span>
-
-            <div className="profileHousingInfo">
-              <div className="housingColumn housingSingle">
-                <strong>Budget<br /><p>{show.profile.budget}</p></strong>
-                <strong>Move In Date<br /><p>{show.profile.moveInDate}</p></strong>
-                <strong>Stay Length<br /><p>{show.profile.stayLength}</p></strong>
+              <div className="profileSocialGallery">
+                <a href={"http://www.facebook.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./") + "socialmedia/logo_facebook.jpg"} alt="logo_facebook" /></a>
+                <a href={"http://www.twitter.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./")+ "socialmedia/logo_twitter.jpg"} alt="logo_twitter" /></a>
+                <a href={"http://www.github.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./") + "socialmedia/logo_github.jpg"} alt="logo_github" /></a>
+                <a href={"http://www.linkedin.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./") + "socialmedia/logo_linkedin.jpg"} alt="logo_linkedin" /></a>
               </div>
-            </div>  
+
+              <span className="socialSpan"><a href={"http://www." + user.profile.social} target="_blank">My Social Media</a></span>
+
+              <div className="profileHousingInfo">
+                <div className="housingColumn housingSingle">
+                  <strong>Budget<br /><p>{show.profile.budget}</p></strong>
+                  <strong>Move In Date<br /><p>{show.profile.moveInDate}</p></strong>
+                  <strong>Stay Length<br /><p>{show.profile.stayLength}</p></strong>
+                </div>
+              </div>  
+            </div>
           </div>
         </div>
         <div className="line-split"></div>
