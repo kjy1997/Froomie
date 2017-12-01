@@ -8,6 +8,7 @@ import { Image } from 'react-bootstrap';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { createContainer } from 'react-meteor-data';
 import Blaze from 'meteor/gadicc:blaze-react-component';
+import { Interests } from './api/interests.js';
 
 import Navbar from './Navbar.jsx';
 
@@ -91,6 +92,15 @@ class UserProfile extends TrackerReact(Component) {
         "profile.profileLikes": likes + val
       }
     });
+  }
+
+  handleInterest() {
+    if (!Interests.findOne({username: this.props.user.usernme})) {
+      Interests.insert({'username': this.props.user.username, interests: []});
+    } 
+    var doc = Interests.findOne({ username: this.props.user.username});
+    Interests.update({_id: doc._id}, {$push: {interests: Meteor.user().username}});
+    alert("We notified " + this.props.user.username + " about your interested!");
   }
 
   openModal() {
@@ -245,6 +255,11 @@ class UserProfile extends TrackerReact(Component) {
                 ? hasLiked
                   ? <button className="likeButton" onClick={this.handleLike.bind(this, profileLikes, hasLiked)}>Dislike <i className="fa fa-thumbs-up"></i> {profileLikes}</button>
                   : <button className="likeButton" onClick={this.handleLike.bind(this, profileLikes, hasLiked)}>Like <i className="fa fa-thumbs-up"></i> {profileLikes}</button>
+                : null
+            }
+            {
+              !this.props.isOwn
+                ? <div className="likeButton" onClick={this.handleInterest.bind(this)}>I'm Interested!</div>
                 : null
             }
             <div className="about">
