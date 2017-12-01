@@ -69,10 +69,11 @@ export default class SignUpWithPlace extends Component {
 					})
 					console.log("Registered in user: " + Meteor.user().username);
 					alert(Meteor.user().username + " is registered!");
-
+					window.location.replace("/login");
 				}
 			});
 		}
+
 	}
 
 	//google places autocomplete api
@@ -200,7 +201,7 @@ export default class SignUpWithPlace extends Component {
 							<Col sm={6} className="btn-content">
 								<Button className="submit" type="submit">
 									Submit
-        </Button>
+       							</Button>
 							</Col>
 							<Col sm={3} className="blank">
 							</Col>

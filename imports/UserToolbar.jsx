@@ -25,8 +25,9 @@ class UserToolbar extends Component {
                 <div className="welcome">
 
                     <DropdownButton title="Welcome!" noCaret>
-                        <MenuItem eventKey="1"><a href="/profilemain">Profile</a></MenuItem>
-                        <MenuItem eventKey="2"><a href="#" onClick={this.logout}>Logout</a></MenuItem>
+                        <MenuItem eventKey="1" href="/profilemain">Profile</MenuItem>
+                        <MenuItem eventKey="2" href="/search">Search</MenuItem>
+                        <MenuItem eventKey="3" onClick={this.logout}>Logout</MenuItem>
                     </DropdownButton>
 
                 </div>
