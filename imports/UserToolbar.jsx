@@ -20,6 +20,10 @@ class UserToolbar extends Component {
         window.location.replace("/login");
     }
 
+    interests(e) {
+        e.preventDefault();
+        window.location.replace("/interests");
+    }
     render() {
         let user = this.props.user;
 
@@ -29,7 +33,8 @@ class UserToolbar extends Component {
 
                     <DropdownButton id="navDrop" title="Welcome!" noCaret>
                         <MenuItem eventKey="1"><span onClick={this.redirect}>Profile</span></MenuItem>
-                        <MenuItem eventKey="2"><span onClick={this.logout}>Logout</span></MenuItem>
+                        <MenuItem eventKey="2"><span onClick={this.interests}>Interests</span></MenuItem>
+                        <MenuItem eventKey="3"><span onClick={this.logout}>Logout</span></MenuItem>
                     </DropdownButton>
 
                 </div>
