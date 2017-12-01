@@ -100,7 +100,7 @@ class UserProfile extends TrackerReact(Component) {
         "profile.interests": Meteor.user().username
       }
     })
-    alert("We notified " + this.props.user.username + " about your interested!");
+    alert("We notified " + this.props.user.username + " about your interest!");
   }
 
   openModal() {
@@ -259,7 +259,7 @@ class UserProfile extends TrackerReact(Component) {
             }
             {
               !this.props.isOwn
-                ? <div className="likeButton" onClick={this.handleInterest.bind(this)}>I'm Interested!</div>
+                ? <button className="likeButton" onClick={this.handleInterest.bind(this)}>Interested</button>
                 : null
             }
             <div className="about">
