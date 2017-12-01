@@ -28,13 +28,13 @@ export default class EditProfileModalNoPlace extends Component {
     const stayLenField  = ReactDOM.findDOMNode(this.refs.stayLengthField).value.trim();
 
     // Hidden info
-    const hideAgeField      = ReactDOM.findDOMNode(this.refs.hideAge).checked
-    const hideGenderField   = ReactDOM.findDOMNode(this.refs.hideGender).checked
-    const hideSocialField   = ReactDOM.findDOMNode(this.refs.hideSocial).checked
-    const hideTagsField     = ReactDOM.findDOMNode(this.refs.hideTags).checked
-    const hideBudgetField   = ReactDOM.findDOMNode(this.refs.hideBudget).checked
-    const hideMoveInDateField  = ReactDOM.findDOMNode(this.refs.hideMoveInDate).checked
-    const hideStayLengthField  = ReactDOM.findDOMNode(this.refs.hideStayLength).checked
+    const hideAgeField      = ReactDOM.findDOMNode(this.refs.hideAge).value.trim();
+    const hideGenderField   = ReactDOM.findDOMNode(this.refs.hideGender).value.trim();
+    const hideSocialField   = ReactDOM.findDOMNode(this.refs.hideSocial).value.trim();
+    const hideTagsField     = ReactDOM.findDOMNode(this.refs.hideTags).value.trim();
+    const hideBudgetField   = ReactDOM.findDOMNode(this.refs.hideBudget).value.trim();
+    const hideMoveInDateField  = ReactDOM.findDOMNode(this.refs.hideMoveInDate).value.trim();
+    const hideStayLengthField  = ReactDOM.findDOMNode(this.refs.hideStayLength).value.trim();
     
     if (!fNameField || !lNameField || !aboutField || !emailField) {
       alert("Missing information!");
@@ -175,15 +175,58 @@ export default class EditProfileModalNoPlace extends Component {
   getHideTools() {
     let hidden = this.props.profile.hidden;
     return (
-      <div className="editTools">
-        <label>Hidden Information</label>
-        <label><input type="checkbox" ref="hideAge" defaultChecked={hidden.hideAge}/>Age</label>
-        <label><input type="checkbox" ref="hideGender" defaultChecked={hidden.hideGender}/>Gender</label>
-        <label><input type="checkbox" ref="hideSocial" defaultChecked={hidden.hideSocial}/>Social Media</label>
-        <label><input type="checkbox" ref="hideTags" defaultChecked={hidden.hideTags}/>Tags</label>
-        <label><input type="checkbox" ref="hideBudget" defaultChecked={hidden.hideBudget}/>Budget</label>
-        <label><input type="checkbox" ref="hideMoveInDate" defaultChecked={hidden.hideMoveInDate}/>MoveInDate</label>
-        <label><input type="checkbox" ref="hideStayLength" defaultChecked={hidden.hideStayLength}/>StayLength</label>
+      <div className="hideTools">
+        <div className="hideSection">
+          <label>Profile Visibility</label>
+          <select>
+            <option>public</option>
+            <option>matches only</option>
+          </select>
+        </div>
+        <div className="hideSection">
+          <label>Age</label>
+          <select ref="hideAge" defaultValue={hidden.hideAge}>
+            <option value="nh">not hidden</option>
+            <option value="mh">match hidden</option>
+            <option value="ah">absolutely hidden</option>
+          </select>
+          <label>Gender</label>
+          <select ref="hideGender" defaultValue={hidden.hideGender}>
+            <option value="nh">not hidden</option>
+            <option value="mh">match hidden</option>
+            <option value="ah">absolutely hidden</option>
+          </select>
+          <label>Social Media</label>
+          <select ref="hideSocial" defaultValue={hidden.hideSocial}>
+            <option value="nh">not hidden</option>
+            <option value="mh">match hidden</option>
+            <option value="ah">absolutely hidden</option>
+          </select>
+          <label>Tags</label>
+          <select ref="hideTags" defaultValue={hidden.hideTags}>
+            <option value="nh">not hidden</option>
+            <option value="mh">match hidden</option>
+            <option value="ah">absolutely hidden</option>
+          </select>
+          <label>Budget</label>
+          <select ref="hideBudget" defaultValue={hidden.hideBudget}>
+            <option value="nh">not hidden</option>
+            <option value="mh">match hidden</option>
+            <option value="ah">absolutely hidden</option>
+          </select>
+          <label>Move In Date</label>
+          <select ref="hideMoveInDate" defaultValue={hidden.hideMoveInDate}>
+            <option value="nh">not hidden</option>
+            <option value="mh">match hidden</option>
+            <option value="ah">absolutely hidden</option>
+          </select>
+          <label>Stay Length</label>
+          <select ref="hideStayLength" defaultValue={hidden.hideStayLength}>
+            <option value="nh">not hidden</option>
+            <option value="mh">match hidden</option>
+            <option value="ah">absolutely hidden</option>
+          </select>
+        </div>
       </div>
     );
   }

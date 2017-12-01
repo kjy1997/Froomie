@@ -39,20 +39,19 @@ export default class EditProfileModal extends Component {
     const genderPrefField   = ReactDOM.findDOMNode(this.refs.genderPrefField).value.trim();
 
     // Hidden info
-    const hideAgeField      = ReactDOM.findDOMNode(this.refs.hideAge).checked
-    const hideGenderField   = ReactDOM.findDOMNode(this.refs.hideGender).checked
-    const hideSocialField   = ReactDOM.findDOMNode(this.refs.hideSocial).checked
-    const hideTagsField     = ReactDOM.findDOMNode(this.refs.hideTags).checked
-    const hideAddressField  = ReactDOM.findDOMNode(this.refs.hideAddress).checked
-    const hideRentField     = ReactDOM.findDOMNode(this.refs.hideRent).checked
-    const hideDepositField  = ReactDOM.findDOMNode(this.refs.hideDeposit).checked
+    const visibilityField   = ReactDOM.findDOMNode(this.refs.visibility).value.trim();
+    const hideAgeField      = ReactDOM.findDOMNode(this.refs.hideAge).value.trim();
+    const hideGenderField   = ReactDOM.findDOMNode(this.refs.hideGender).value.trim();
+    const hideSocialField   = ReactDOM.findDOMNode(this.refs.hideSocial).value.trim();
+    const hideTagsField     = ReactDOM.findDOMNode(this.refs.hideTags).value.trim();
+    const hideAddressField  = ReactDOM.findDOMNode(this.refs.hideAddress).value.trim();
+    const hideRentField     = ReactDOM.findDOMNode(this.refs.hideRent).value.trim();
+    const hideDepositField  = ReactDOM.findDOMNode(this.refs.hideDeposit).value.trim();
 
     if (!fNameField || !lNameField || !aboutField || !emailField) {
       alert("Missing information!");
       return;
     }
-
-    console.log(ReactDOM.findDOMNode(this.refs.hideAge).checked);
 
     let hidden = {
       hideAge: hideAgeField,
@@ -86,6 +85,7 @@ export default class EditProfileModal extends Component {
       bathroomType: bathroomTypeField,
       furnishing: furnishingField,
       preferGender: genderPrefField,
+      visibility: visibilityField,
 
       hidden: hidden
     }
@@ -218,15 +218,58 @@ export default class EditProfileModal extends Component {
   getHideTools() {
     let hidden = this.props.profile.hidden;
     return (
-      <div className="editTools">
-        <label>Hidden Information</label>
-        <label><input type="checkbox" ref="hideAge" defaultChecked={hidden.hideAge}/>Age</label>
-        <label><input type="checkbox" ref="hideGender" defaultChecked={hidden.hideGender}/>Gender</label>
-        <label><input type="checkbox" ref="hideSocial" defaultChecked={hidden.hideSocial}/>Social Media</label>
-        <label><input type="checkbox" ref="hideTags" defaultChecked={hidden.hideTags}/>Tags</label>
-        <label><input type="checkbox" ref="hideAddress" defaultChecked={hidden.hideAddress}/>Address</label>
-        <label><input type="checkbox" ref="hideRent" defaultChecked={hidden.hideRent}/>Rent</label>
-        <label><input type="checkbox" ref="hideDeposit" defaultChecked={hidden.hideDeposit}/>Deposit</label>
+      <div className="hideTools">
+        <div className="hideSection">
+          <label>Profile Visibility</label>
+          <select ref="visibility" defaultValue={this.props.profile.visibility}>
+            <option value="public">public</option>
+            <option value="matches">matches only</option>
+          </select>
+        </div>
+        <div className="hideSection">
+          <label>Age</label>
+          <select ref="hideAge" defaultValue={hidden.hideAge}>
+            <option value="nh">not hidden</option>
+            <option value="mh">match hidden</option>
+            <option value="ah">absolutely hidden</option>
+          </select>
+          <label>Gender</label>
+          <select ref="hideGender" defaultValue={hidden.hideGender}>
+            <option value="nh">not hidden</option>
+            <option value="mh">match hidden</option>
+            <option value="ah">absolutely hidden</option>
+          </select>
+          <label>Social Media</label>
+          <select ref="hideSocial" defaultValue={hidden.hideSocial}>
+            <option value="nh">not hidden</option>
+            <option value="mh">match hidden</option>
+            <option value="ah">absolutely hidden</option>
+          </select>
+          <label>Tags</label>
+          <select ref="hideTags" defaultValue={hidden.hideTags}>
+            <option value="nh">not hidden</option>
+            <option value="mh">match hidden</option>
+            <option value="ah">absolutely hidden</option>
+          </select>
+          <label>Address</label>
+          <select ref="hideAddress" defaultValue={hidden.hideAddress}>
+            <option value="nh">not hidden</option>
+            <option value="mh">match hidden</option>
+            <option value="ah">absolutely hidden</option>
+          </select>
+          <label>Rent</label>
+          <select ref="hideRent" defaultValue={hidden.hideRent}>
+            <option value="nh">not hidden</option>
+            <option value="mh">match hidden</option>
+            <option value="ah">absolutely hidden</option>
+          </select>
+          <label>Deposit</label>
+          <select ref="hideDeposit" defaultValue={hidden.hideDeposit}>
+            <option value="nh">not hidden</option>
+            <option value="mh">match hidden</option>
+            <option value="ah">absolutely hidden</option>
+          </select>
+        </div>
       </div>
     );
   }

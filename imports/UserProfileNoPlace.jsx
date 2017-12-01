@@ -98,13 +98,13 @@ class UserProfileNoPlace extends TrackerReact(Component) {
     let show = JSON.parse(JSON.stringify(user));
     let hide = show.profile.hidden;
 
-    show.profile.age = hide.hideAge ? "Hidden" : show.profile.age;
-    show.profile.gender = hide.hideGender ? "Hidden" : show.profile.gender;
-    show.profile.social = hide.hideSocial ? "Hidden" : show.profile.social;
-    show.profile.tags = hide.hideTags ? "Hidden" : show.profile.tags;
-    show.profile.budget = hide.hideBudget ? "Hidden" : "$" + show.profile.budget;
-    show.profile.moveInDate = hide.hideMoveInDate ? "Hidden" : show.profile.moveInDate;
-    show.profile.stayLength = hide.hideStayLength ? "Hidden" : show.profile.stayLength;
+    show.profile.age = hide.hideAge === "ah" ? "Hidden" : show.profile.age;
+    show.profile.gender = hide.hideGender === "ah" ? "Hidden" : show.profile.gender;
+    show.profile.social = hide.hideSocial === "ah" ? "Hidden" : show.profile.social;
+    show.profile.tags = hide.hideTags === "ah" ? "Hidden" : show.profile.tags;
+    show.profile.budget = hide.hideBudget === "ah" ? "Hidden" : "$" + show.profile.budget;
+    show.profile.moveInDate = hide.hideMoveInDate === "ah" ? "Hidden" : show.profile.moveInDate;
+    show.profile.stayLength = hide.hideStayLength === "ah" ? "Hidden" : show.profile.stayLength;
 
     return show;
   }

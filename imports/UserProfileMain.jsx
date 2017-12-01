@@ -43,6 +43,20 @@ class UserProfileMain extends TrackerReact(Component) {
           }
         });
       }
+      // Profile matches
+      if (!user.profile.hasOwnProperty('matches')) {
+        Users.update(Meteor.userId(), {
+          $set: {
+            "profile.matches": []
+          }
+        });
+      }
+      // Match only
+      if (!this.props.isOwn && user.profile.visibility === "matches") {
+        // check is user is matched
+        console.log(user.profile.matches);
+        console.log("matches only");
+      }
 
       console.log(user);
     }

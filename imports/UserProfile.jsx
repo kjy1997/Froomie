@@ -51,11 +51,12 @@ class UserProfile extends TrackerReact(Component) {
         // room
         "profile.place.rent": obj.rent,
         "profile.place.deposit": obj.deposit,
-        "profile.place.roomtype": obj.roomType,
+        "profile.place.roomType": obj.roomType,
         "profile.place.bathroomType": obj.bathroomType,
         "profile.place.furnishing": obj.furnishing,
         "profile.place.preferGender": obj.preferGender,
         // hidden
+        "profile.visibility": obj.visibility,
         "profile.hidden": obj.hidden
       }
     });
@@ -141,13 +142,13 @@ class UserProfile extends TrackerReact(Component) {
     let show = JSON.parse(JSON.stringify(user));
     let hide = show.profile.hidden;
 
-    show.profile.age = (hide && hide.hideAge) ? "Hidden" : show.profile.age;
-    show.profile.gender = (hide && hide.hideGender) ? "Hidden" : show.profile.gender;
-    show.profile.social = (hide && hide.hideSocial) ? "Hidden" : show.profile.social;
-    show.profile.tags = (hide && hide.hideTags) ? "Hidden" : show.profile.tags;
-    show.profile.place.address = (hide && hide.hideAddress) ? "Hidden" : show.profile.place.address;
-    show.profile.place.rent = (hide && hide.hideRent) ? "Hidden" : "$" + show.profile.place.rent;
-    show.profile.place.deposit = (hide && hide.hideDeposit) ? "Hidden" : "$" + show.profile.place.deposit;
+    show.profile.age = (hide && hide.hideAge === "ah") ? "Hidden" : show.profile.age;
+    show.profile.gender = (hide && hide.hideGender === "ah") ? "Hidden" : show.profile.gender;
+    show.profile.social = (hide && hide.hideSocial === "ah") ? "Hidden" : show.profile.social;
+    show.profile.tags = (hide && hide.hideTags === "ah") ? "Hidden" : show.profile.tags;
+    show.profile.place.address = (hide && hide.hideAddress === "ah") ? "Hidden" : show.profile.place.address;
+    show.profile.place.rent = (hide && hide.hideRent === "ah") ? "Hidden" : "$" + show.profile.place.rent;
+    show.profile.place.deposit = (hide && hide.hideDeposit === "ah") ? "Hidden" : "$" + show.profile.place.deposit;
 
     return show;
   }
@@ -169,7 +170,7 @@ class UserProfile extends TrackerReact(Component) {
     let room = {
       rent: user.profile.place.rent,
       deposit: user.profile.place.deposit,
-      roomType: user.profile.place.roomtype,
+      roomType: user.profile.place.roomType,
       bathroomType: user.profile.place.bathroomType,
       furnishing: user.profile.place.furnishing,
       preferGender: user.profile.place.preferGender
