@@ -30,11 +30,9 @@ class UserProfile extends TrackerReact(Component) {
 	if(message) {
 		let send = Meteor.user().username;	
 		let recipient = this.props.user.username;
-		let time = new Date();
 		
-		Messages.insert({date:time, sender:send, to:recipient, body:message, unread:true});
+		Messages.insert({sender:send, to:recipient, body:message, unread:true});
 		alert("Message sent!");
-		console.log(Messages.find().fetch());
 	}
 	else{
 		alert("No message written");

@@ -6,7 +6,8 @@ import '../imports/api/tags.js';
 import '../imports/api/places.js';
 import '../imports/api/rooms.js';
 import '../imports/uploadpic/upload.js';
-import '../imports/api/messages.js';
+import {Messages} from '../imports/api/messages.js';
+
 
 Meteor.startup(() => {
   Comments.config({
