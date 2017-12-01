@@ -10,7 +10,8 @@ export default class Home extends TrackerReact(Component) {
 	isUser() {
 		if (Meteor.user()){
 			return <a href="/profilemain">{Meteor.user().username}</a>
-		}else if (!Meteor.loggingIn()){
+		}
+		else if (!Meteor.loggingIn()){
 			return <a href="/login">Login</a>
 		}
 	}
@@ -18,34 +19,30 @@ export default class Home extends TrackerReact(Component) {
 	render() {
 		return (	
 			<div className="upper-container">
-			<Row className="nav-bar">
-			<Col sm={3} className="left-bar">
-				<a href="#">About</a>
-				<a href="#">Service</a>
-				<a href="#">Contact</a>
-			</Col>
-			<Col sm={8} className="mid-bar">
-				<h3> Froomie! </h3>
-			</Col>
-			<Col sm={1} className="right-bar">	
-				{this.isUser()}
-			</Col>
-			</Row>
+				<div className="nav-bar">
+					<span className="left-bar">
+						<a href="#">About</a>
+						<a href="#">Service</a>
+						<a href="#">Contact</a>
+					</span>
+					<span className="mid-bar">
+						<h3> Froomie! </h3>
+					</span>
+					<span className="right-bar">	
+						{this.isUser()}
+					</span>
+				</div>
 
-			<h3 className="Caption">Find The Perfect Roommate For You</h3>
-			
-			<Row sm={6} className="buttons">
-			<Col sm={3}>
-			<Link to="/signupwithplace" style={{ textDecoration: 'none' }}>
-			<Button bsStyle="primary" bsSize="large" className="WithPlace" block>I have a place</Button>
-			</Link>
-			</Col>
-			<Col sm={3}>
-			<Link to="/signupwithoutplace" style={{ textDecoration: 'none' }}>
-			<Button bsStyle="primary" bsSize="large" className="WithoutPlace" block>I do not have a place</Button>
-			</Link>
-			</Col>
-			</Row>
+				<h3 className="caption">Find The Perfect Roommate For You</h3>
+				
+				<div sm={6} className="buttons">
+					<button className="homeButton withPlace">
+						<a href="/signupwithplace">I have a place</a>
+					</button>
+					<button className="homeButton withoutPlace">
+						<a href="/signupwithoutplace">I do not have a place</a>
+					</button>
+				</div>
 			</div>
 		);
 	}
