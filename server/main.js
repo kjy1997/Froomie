@@ -14,4 +14,9 @@ Meteor.startup(() => {
   Meteor.publish('allUsers', function() {
     return Meteor.users.find();
   });
+  Meteor.users.allow({
+    remove(userid){
+        return userid === Meteor.userId();
+    }
+  })
 });

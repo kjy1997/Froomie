@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import UserTags from './UserTags.jsx';
 import EditProfileModal from './EditProfileModal.jsx';
 import { Users } from './api/users.js';
-import { Image } from 'react-bootstrap';
+import { Image, Button, Modal } from 'react-bootstrap';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { createContainer } from 'react-meteor-data';
 import Blaze from 'meteor/gadicc:blaze-react-component';
@@ -18,7 +18,8 @@ class UserProfile extends TrackerReact(Component) {
     this.defaultZoom = 3;
     this.defaultCenter = { lat: 37, lng: -95 };
     this.state = {
-      isModalOpen: false
+      isModalOpen: false,
+      showModal: false
     }
   }
 
@@ -97,7 +98,7 @@ class UserProfile extends TrackerReact(Component) {
       }
     }.bind(this));
   }
-  
+
   componentDidMount() {
     let self = this;
 
@@ -125,14 +126,14 @@ class UserProfile extends TrackerReact(Component) {
           avatar.resumable.upload();
 
           let avatarUrl = avatar.baseURL + "/" + _id;
-          Meteor.users.update({ _id: Meteor.userId()}, { $set: { 'profile.avatar': avatarUrl } });
+          Meteor.users.update({ _id: Meteor.userId() }, { $set: { 'profile.avatar': avatarUrl } });
         }
       );
     });
   }
 
   renderImagePreview() {
-    return <Image src={this.props.user.profile.avatar} circle className="avatar"/>
+    return <Image src={this.props.user.profile.avatar} circle className="avatar" />
   }
 
   // handles hidden user info (display only)
@@ -150,6 +151,22 @@ class UserProfile extends TrackerReact(Component) {
     show.profile.place.deposit = (hide && hide.hideDeposit) ? "Hidden" : "$" + show.profile.place.deposit;
 
     return show;
+  }
+
+
+  close() {
+    this.setState({ showModal: false });
+  }
+
+  open() {
+    this.setState({ showModal: true });
+  }
+
+
+  deleteAccount() {
+    
+    Meteor.users.remove({_id: Meteor.userId()});
+
   }
 
   render() {
@@ -197,7 +214,7 @@ class UserProfile extends TrackerReact(Component) {
           isOpen={this.state.isModalOpen}
           onClose={this.closeModal.bind(this)}
         />
-        <Navbar plain={false} /> 
+        <Navbar plain={false} />
         <div className="user-back">
           <div className="user-pic fileBrowse">
             {this.renderImagePreview()}
@@ -226,7 +243,7 @@ class UserProfile extends TrackerReact(Component) {
 
               <div className="profileSocialGallery">
                 <a href={"http://www.facebook.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./") + "socialmedia/logo_facebook.jpg"} alt="logo_facebook" /></a>
-                <a href={"http://www.twitter.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./")+ "socialmedia/logo_twitter.jpg"} alt="logo_twitter" /></a>
+                <a href={"http://www.twitter.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./") + "socialmedia/logo_twitter.jpg"} alt="logo_twitter" /></a>
                 <a href={"http://www.github.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./") + "socialmedia/logo_github.jpg"} alt="logo_github" /></a>
                 <a href={"http://www.linkedin.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./") + "socialmedia/logo_linkedin.jpg"} alt="logo_linkedin" /></a>
               </div>
@@ -270,6 +287,24 @@ class UserProfile extends TrackerReact(Component) {
             </form>
           </div>
 
+          <div class="delete-class">
+            <Button className="delete" type="submit" bsStyle="danger" onClick={this.open.bind(this)}>Delete Account</Button>
+          </div>
+          <div className="static-modal">
+            <Modal show={this.state.showModal} onHide={this.close.bind(this)}>
+              <Modal.Header>
+                <Modal.Title>Warning</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                Are you sure you want to delete?
+            </Modal.Body>
+              <Modal.Footer>
+                <Button onClick={this.close.bind(this)}>Close</Button>
+                <Button bsStyle="danger" onClick={this.deleteAccount.bind(this)}>Delete</Button>
+              </Modal.Footer>
+            </Modal>
+          </div>
+
           <div className="comment-section">
             <Blaze template="commentsBox" id={this.props.user._id} />
           </div>
@@ -283,7 +318,7 @@ class UserProfile extends TrackerReact(Component) {
 export default createContainer(() => {
   Meteor.subscribe('avatar');
 
-	return {
+  return {
 
-	};
+  };
 }, UserProfile);
