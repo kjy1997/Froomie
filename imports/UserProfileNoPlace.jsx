@@ -87,18 +87,26 @@ class UserProfileNoPlace extends TrackerReact(Component) {
     });
   }
 
-  handleMatch(hasMatched) {
+  handleInterest(hasMatched) {
     if (hasMatched) {
       alert("You have already sent a match!");
       return;
     }
     let matches = Meteor.user().profile.matches;
     matches.push(this.props.user.username);
+    // allow user to access your profile
     Users.update(Meteor.userId(), {
       $set: {
         "profile.matches": matches
       }
     });
+    // send user your interest
+    Users.update({ _id: this.props.user._id }, {
+      $addToSet: {
+        "profile.interests": Meteor.user().username
+      }
+    })
+    alert("We notified " + this.props.user.username + " about your interest!");
   }
 
   openModal() {
@@ -241,8 +249,8 @@ class UserProfileNoPlace extends TrackerReact(Component) {
             {
               !this.props.isOwn
                 ? hasMatched
-                  ? <button className="matchButton" onClick={this.handleMatch.bind(this, hasMatched)}>Match Sent</button>
-                  : <button className="matchButton" onClick={this.handleMatch.bind(this, hasMatched)}>Send Match</button>
+                  ? <button className="matchButton" onClick={this.handleInterest.bind(this, hasMatched)}>Match Sent</button>
+                  : <button className="matchButton" onClick={this.handleInterest.bind(this, hasMatched)}>Send Match</button>
                 : null
             }
             <div className="about">
