@@ -8,6 +8,7 @@ import { Image, Button, Modal } from 'react-bootstrap';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { createContainer } from 'react-meteor-data';
 import Blaze from 'meteor/gadicc:blaze-react-component';
+import { Interests } from './api/interests.js';
 
 import Navbar from './Navbar.jsx';
 
@@ -100,6 +101,28 @@ class UserProfile extends TrackerReact(Component) {
         "profile.profileLikes": likes + val
       }
     });
+  }
+
+  handleInterest(hasMatched) {
+    if (hasMatched) {
+      alert("You have already sent a match!");
+      return;
+    }
+    let matches = Meteor.user().profile.matches;
+    matches.push(this.props.user.username);
+    // allow user to access your profile
+    Users.update(Meteor.userId(), {
+      $set: {
+        "profile.matches": matches
+      }
+    });
+    // send user your interest
+    Users.update({ _id: this.props.user._id }, {
+      $addToSet: {
+        "profile.interests": Meteor.user().username
+      }
+    })
+    alert("We notified " + this.props.user.username + " about your interest!");
   }
 
   openModal() {
@@ -205,6 +228,7 @@ class UserProfile extends TrackerReact(Component) {
     let address = user.profile.place.address;
     let profileLikes = user.profile.profileLikes;
     let hasLiked = Meteor.user().profile.profilesLiked.indexOf(user.username) != -1;
+    let hasMatched = Meteor.user().profile.matches.indexOf(user.username) != -1;
     let property = {
       propertyType: user.profile.place.property,
       roomCount: user.profile.place.roomCount,
@@ -270,6 +294,14 @@ class UserProfile extends TrackerReact(Component) {
                 ? hasLiked
                   ? <button className="likeButton" onClick={this.handleLike.bind(this, profileLikes, hasLiked)}>Dislike <i className="fa fa-thumbs-up"></i> {profileLikes}</button>
                   : <button className="likeButton" onClick={this.handleLike.bind(this, profileLikes, hasLiked)}>Like <i className="fa fa-thumbs-up"></i> {profileLikes}</button>
+                : null
+            }
+            <br />
+            {
+              !this.props.isOwn
+                ? hasMatched
+                  ? <button className="matchButton" onClick={this.handleInterest.bind(this, hasMatched)}>Match Sent</button>
+                  : <button className="matchButton" onClick={this.handleInterest.bind(this, hasMatched)}>Send Match</button>
                 : null
             }
             <div className="about">

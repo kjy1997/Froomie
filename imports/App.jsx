@@ -16,6 +16,7 @@ import UpdateWithoutPlace from './UpdateWithoutPlace.jsx';
 import Inbox from './Inbox.jsx';
 import Reset from './Reset.jsx';
 import EmptyPage from './EmptyPage.jsx';
+import Interests from './Interests.jsx';
 
 export default class App extends Component {
 
@@ -37,6 +38,7 @@ export default class App extends Component {
         <Route path="/user/:username" component={UserProfileMain} />
 		    <Route path="/inbox" component={Inbox} />
         <Route path="/reset" component={Reset} />
+        <Route path="/interests" component={Interests} />
         <Route path="*" component={EmptyPage} />
       </Switch>
       </div>

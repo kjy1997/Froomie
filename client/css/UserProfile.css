@@ -13,6 +13,7 @@
 
 .header, .header h1 {    
   margin: 0;
+  margin-bottom: 10px;
   
   background: #c5f2ea;
   color: #0b8966;
@@ -20,6 +21,32 @@
   font-family: 'Dancing Script', cursive;
   font-size: 60px;
   text-align: center;
+}
+
+.plainNav {
+  display: inline-block;
+
+  font-family: inherit;
+  font-size: inherit;
+  text-align: center;
+
+  cursor: pointer;
+  transition: 0.15s ease-out;
+}
+
+.plainNav:hover {
+  color: #044432;
+}
+
+.homeRedirect {
+  display: inline-block;
+
+  cursor: pointer;
+  transition: 0.15s ease-out;
+}
+
+.homeRedirect:hover {
+  color: #044432;
 }
 
 .user-back {

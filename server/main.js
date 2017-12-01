@@ -6,6 +6,7 @@ import '../imports/api/users.js';
 import '../imports/api/tags.js';
 import '../imports/api/places.js';
 import '../imports/api/rooms.js';
+import '../imports/api/interests.js';
 import '../imports/uploadpic/upload.js';
 
 Meteor.startup(() => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import Reset from './Reset';
+import Reset from './Reset.jsx';
 
 import { assert } from 'chai';
 
