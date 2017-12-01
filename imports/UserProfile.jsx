@@ -45,6 +45,8 @@ class UserProfile extends TrackerReact(Component) {
         // property
         "profile.place.address": obj.address,
         "profile.place.property": obj.property,
+        "profile.place.roomCount": obj.roomCount,
+        "profile.place.bathroomCount": obj.bathroomCount,
         // amenities
         "profile.place.internet": obj.internet,
         "profile.place.parking": obj.parking,
@@ -52,23 +54,44 @@ class UserProfile extends TrackerReact(Component) {
         // room
         "profile.place.rent": obj.rent,
         "profile.place.deposit": obj.deposit,
-        "profile.place.roomtype": obj.roomType,
+        "profile.place.roomType": obj.roomType,
         "profile.place.bathroomType": obj.bathroomType,
         "profile.place.furnishing": obj.furnishing,
         "profile.place.preferGender": obj.preferGender,
         // hidden
+        "profile.visibility": obj.visibility,
         "profile.hidden": obj.hidden
       }
     });
     this.geocodeAddress(obj.address);
   }
 
-  handleLike(likes) {
+  handleLike(likes, hasLiked) {
+    let val = hasLiked ? -1 : 1;
+
+    let profilesLiked = Meteor.user().profile.profilesLiked;
+    // disliking
+    if (hasLiked) {
+      profilesLiked.splice(profilesLiked.indexOf(this.props.user.username), 1);
+    }
+    // liking
+    else {
+      profilesLiked.push(this.props.user.username);
+    }
+    
+    Users.update(Meteor.userId(), {
+      $set: {
+        "profile.profilesLiked": profilesLiked
+      }
+    });
+
+    hasLiked = !hasLiked;
+
     Users.update({ _id: this.props.user._id }, {
       $set: {
-        "profile.profileLikes": likes + 1
+        "profile.profileLikes": likes + val
       }
-    })
+    });
   }
 
   openModal() {
@@ -142,13 +165,13 @@ class UserProfile extends TrackerReact(Component) {
     let show = JSON.parse(JSON.stringify(user));
     let hide = show.profile.hidden;
 
-    show.profile.age = (hide && hide.hideAge) ? "Hidden" : show.profile.age;
-    show.profile.gender = (hide && hide.hideGender) ? "Hidden" : show.profile.gender;
-    show.profile.social = (hide && hide.hideSocial) ? "Hidden" : show.profile.social;
-    show.profile.tags = (hide && hide.hideTags) ? "Hidden" : show.profile.tags;
-    show.profile.place.address = (hide && hide.hideAddress) ? "Hidden" : show.profile.place.address;
-    show.profile.place.rent = (hide && hide.hideRent) ? "Hidden" : "$" + show.profile.place.rent;
-    show.profile.place.deposit = (hide && hide.hideDeposit) ? "Hidden" : "$" + show.profile.place.deposit;
+    show.profile.age = (hide && hide.hideAge === "ah") ? "Hidden" : show.profile.age;
+    show.profile.gender = (hide && hide.hideGender === "ah") ? "Hidden" : show.profile.gender;
+    show.profile.social = (hide && hide.hideSocial === "ah") ? "Hidden" : show.profile.social;
+    show.profile.tags = (hide && hide.hideTags === "ah") ? "Hidden" : show.profile.tags;
+    show.profile.place.address = (hide && hide.hideAddress === "ah") ? "Hidden" : show.profile.place.address;
+    show.profile.place.rent = (hide && hide.hideRent === "ah") ? "Hidden" : "$" + show.profile.place.rent;
+    show.profile.place.deposit = (hide && hide.hideDeposit === "ah") ? "Hidden" : "$" + show.profile.place.deposit;
 
     return show;
   }
@@ -173,10 +196,11 @@ class UserProfile extends TrackerReact(Component) {
     let user = this.props.user;
     let address = user.profile.place.address;
     let profileLikes = user.profile.profileLikes;
+    let hasLiked = Meteor.user().profile.profilesLiked.indexOf(user.username) != -1;
     let property = {
       propertyType: user.profile.place.property,
-      roomCount: user.profile.place.rooms,
-      bathroomCount: user.profile.place.bathroom,
+      roomCount: user.profile.place.roomCount,
+      bathroomCount: user.profile.place.bathroomCount,
     };
     let amenities = {
       internet: user.profile.place.internet,
@@ -186,7 +210,7 @@ class UserProfile extends TrackerReact(Component) {
     let room = {
       rent: user.profile.place.rent,
       deposit: user.profile.place.deposit,
-      roomType: user.profile.place.roomtype,
+      roomType: user.profile.place.roomType,
       bathroomType: user.profile.place.bathroomType,
       furnishing: user.profile.place.furnishing,
       preferGender: user.profile.place.preferGender
@@ -231,7 +255,14 @@ class UserProfile extends TrackerReact(Component) {
             {
               this.props.isOwn
                 ? <div className="likesDisplay"><i className="fa fa-thumbs-up"></i> {profileLikes}</div>
-                : <button className="likeButton" onClick={this.handleLike.bind(this, profileLikes)}>Like <i className="fa fa-thumbs-up"></i> {profileLikes}</button>
+                : null
+            }
+            {
+              !this.props.isOwn 
+                ? hasLiked
+                  ? <button className="likeButton" onClick={this.handleLike.bind(this, profileLikes, hasLiked)}>Dislike <i className="fa fa-thumbs-up"></i> {profileLikes}</button>
+                  : <button className="likeButton" onClick={this.handleLike.bind(this, profileLikes, hasLiked)}>Like <i className="fa fa-thumbs-up"></i> {profileLikes}</button>
+                : null
             }
             <div className="about">
               <h4>About me</h4>
@@ -257,7 +288,7 @@ class UserProfile extends TrackerReact(Component) {
                 <div className="housingColumn">
                   <strong>Property Type <br /><p>{property.propertyType ? property.propertyType : "N/A"}</p></strong>
                   <strong>Room Count <br /><p>{property.roomCount ? property.roomCount : 0}</p></strong>
-                  <strong>Bathroom Count <br /><p>{property.roomCount ? property.roomCount : 0}</p></strong>
+                  <strong>Bathroom Count <br /><p>{property.bathroomCount ? property.bathroomCount : 0}</p></strong>
                 </div>
                 <div className="housingColumn">
                   <strong>Internet <br /><p>{amenities.internet === 'yes' ? "yes" : "no"}</p></strong>

@@ -54,8 +54,8 @@ export default class SignUpWithPlace extends Component {
 
 							"profile.place.address": address,
 							"profile.place.property": property,
-							"profile.place.rooms": rooms,
-							"profile.place.bathroom": bathroom,
+							"profile.place.roomCount": rooms,
+							"profile.place.bathroomCount": bathroom,
 							"profile.place.internet": internet,
 							"profile.place.parking": parking,
 							"profile.place.ac": ac,

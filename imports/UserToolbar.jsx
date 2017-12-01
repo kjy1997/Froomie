@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import { createContainer } from 'react-meteor-data';
 import { DropdownButton, MenuItem, Button } from 'react-bootstrap';
 
-
-
 class UserToolbar extends Component {
     constructor(props) {
         super(props);
         this.state = { dropdown: false };
     }
+
 
     logout(e) {
         e.preventDefault();
