@@ -4,11 +4,12 @@ import ReactDOM from 'react-dom';
 import UserTags from './UserTags.jsx';
 import EditProfileModal from './EditProfileModal.jsx';
 import { Users } from './api/users.js';
-import { Image } from 'react-bootstrap';
 import { Messages } from './api/messages.js';
+import { Image, Button, Modal } from 'react-bootstrap';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { createContainer } from 'react-meteor-data';
 import Blaze from 'meteor/gadicc:blaze-react-component';
+import { Interests } from './api/interests.js';
 
 import Navbar from './Navbar.jsx';
 
@@ -19,24 +20,33 @@ class UserProfile extends TrackerReact(Component) {
     this.defaultZoom = 3;
     this.defaultCenter = { lat: 37, lng: -95 };
     this.state = {
-      isModalOpen: false
+      isModalOpen: false,
+      showModal: false
     }
   }
 
   handleContactSubmit(e) {
     e.preventDefault();
-	
-    let message = ReactDOM.findDOMNode(this.refs.contactForm).value;
-	if(message) {
-		let send = Meteor.user().username;	
-		let recipient = this.props.user.username;
-		
-		Messages.insert({sender:send, to:recipient, body:message, unread:true});
-		alert("Message sent!");
-	}
-	else{
-		alert("No message written");
-	}
+    let message = ReactDOM.findDOMNode(this.refs.contactForm).value.trim();
+    const to = this.props.user;
+    const from = Meteor.users.findOne({ _id: Meteor.userId() });
+    if (message) {
+      let send = Meteor.user().username;
+      let recipient = this.props.user.username;
+
+      Messages.insert({ sender: send, to: recipient, body: message, unread: true });
+
+      Meteor.call('contact', from, to, message, function (error) {
+        if (!error) {
+          alert('Contact message successfully sent!');
+        } else {
+          console.log(error);
+        }
+      });
+    }
+    else {
+      alert("No message written");
+    }
   }
 
   handleEdit(obj) {
@@ -44,6 +54,7 @@ class UserProfile extends TrackerReact(Component) {
       $set: {
         "profile.firstName": obj.fname,
         "profile.lastName": obj.lname,
+        "profile.email": obj.email,
         "profile.about": obj.about,
         "profile.age": obj.age,
         "profile.gender": obj.gender,
@@ -52,6 +63,8 @@ class UserProfile extends TrackerReact(Component) {
         // property
         "profile.place.address": obj.address,
         "profile.place.property": obj.property,
+        "profile.place.roomCount": obj.roomCount,
+        "profile.place.bathroomCount": obj.bathroomCount,
         // amenities
         "profile.place.internet": obj.internet,
         "profile.place.parking": obj.parking,
@@ -59,21 +72,66 @@ class UserProfile extends TrackerReact(Component) {
         // room
         "profile.place.rent": obj.rent,
         "profile.place.deposit": obj.deposit,
-        "profile.place.roomtype": obj.roomType,
+        "profile.place.roomType": obj.roomType,
         "profile.place.bathroomType": obj.bathroomType,
         "profile.place.furnishing": obj.furnishing,
-        "profile.place.preferGender": obj.preferGender
+        "profile.place.preferGender": obj.preferGender,
+        // hidden
+        "profile.visibility": obj.visibility,
+        "profile.hidden": obj.hidden
       }
     });
     this.geocodeAddress(obj.address);
   }
 
-  handleLike(likes) {
+  handleLike(likes, hasLiked) {
+    let val = hasLiked ? -1 : 1;
+
+    let profilesLiked = Meteor.user().profile.profilesLiked;
+    // disliking
+    if (hasLiked) {
+      profilesLiked.splice(profilesLiked.indexOf(this.props.user.username), 1);
+    }
+    // liking
+    else {
+      profilesLiked.push(this.props.user.username);
+    }
+
+    Users.update(Meteor.userId(), {
+      $set: {
+        "profile.profilesLiked": profilesLiked
+      }
+    });
+
+    hasLiked = !hasLiked;
+
     Users.update({ _id: this.props.user._id }, {
       $set: {
-        "profile.profileLikes": likes + 1
+        "profile.profileLikes": likes + val
+      }
+    });
+  }
+
+  handleInterest(hasMatched) {
+    if (hasMatched) {
+      alert("You have already sent a match!");
+      return;
+    }
+    let matches = Meteor.user().profile.matches;
+    matches.push(this.props.user.username);
+    // allow user to access your profile
+    Users.update(Meteor.userId(), {
+      $set: {
+        "profile.matches": matches
+      }
+    });
+    // send user your interest
+    Users.update({ _id: this.props.user._id }, {
+      $addToSet: {
+        "profile.interests": Meteor.user().username
       }
     })
+    alert("We notified " + this.props.user.username + " about your interest!");
   }
 
   openModal() {
@@ -103,7 +161,7 @@ class UserProfile extends TrackerReact(Component) {
       }
     }.bind(this));
   }
-  
+
   componentDidMount() {
     let self = this;
 
@@ -131,25 +189,59 @@ class UserProfile extends TrackerReact(Component) {
           avatar.resumable.upload();
 
           let avatarUrl = avatar.baseURL + "/" + _id;
-          Meteor.users.update({ _id: Meteor.userId()}, { $set: { 'profile.avatar': avatarUrl } });
+          Meteor.users.update({ _id: Meteor.userId() }, { $set: { 'profile.avatar': avatarUrl } });
         }
       );
     });
-
   }
 
   renderImagePreview() {
-    return <Image src={this.props.user.profile.avatar} circle className="avatar"/>
+    return <Image src={this.props.user.profile.avatar} circle className="avatar" />
+  }
+
+  // handles hidden user info (display only)
+  handleHidden(user) {
+    // deep copy to prevent reference modification
+    let show = JSON.parse(JSON.stringify(user));
+    let hide = show.profile.hidden;
+
+    show.profile.age = (hide && hide.hideAge === "ah") ? "Hidden" : show.profile.age;
+    show.profile.gender = (hide && hide.hideGender === "ah") ? "Hidden" : show.profile.gender;
+    show.profile.social = (hide && hide.hideSocial === "ah") ? "Hidden" : show.profile.social;
+    show.profile.tags = (hide && hide.hideTags === "ah") ? "Hidden" : show.profile.tags;
+    show.profile.place.address = (hide && hide.hideAddress === "ah") ? "Hidden" : show.profile.place.address;
+    show.profile.place.rent = (hide && hide.hideRent === "ah") ? "Hidden" : "$" + show.profile.place.rent;
+    show.profile.place.deposit = (hide && hide.hideDeposit === "ah") ? "Hidden" : "$" + show.profile.place.deposit;
+
+    return show;
+  }
+
+
+  close() {
+    this.setState({ showModal: false });
+  }
+
+  open() {
+    this.setState({ showModal: true });
+  }
+
+
+  deleteAccount() {
+
+    Meteor.users.remove({ _id: Meteor.userId() });
+
   }
 
   render() {
     let user = this.props.user;
     let address = user.profile.place.address;
     let profileLikes = user.profile.profileLikes;
+    let hasLiked = Meteor.user().profile.profilesLiked.indexOf(user.username) != -1;
+    let hasMatched = Meteor.user().profile.matches.indexOf(user.username) != -1;
     let property = {
       propertyType: user.profile.place.property,
-      roomCount: user.profile.place.rooms,
-      bathroomCount: user.profile.place.bathroom,
+      roomCount: user.profile.place.roomCount,
+      bathroomCount: user.profile.place.bathroomCount,
     };
     let amenities = {
       internet: user.profile.place.internet,
@@ -159,11 +251,21 @@ class UserProfile extends TrackerReact(Component) {
     let room = {
       rent: user.profile.place.rent,
       deposit: user.profile.place.deposit,
-      roomType: user.profile.place.roomtype,
+      roomType: user.profile.place.roomType,
       bathroomType: user.profile.place.bathroomType,
       furnishing: user.profile.place.furnishing,
       preferGender: user.profile.place.preferGender
     };
+    let hidden = {
+      hideAge: (user.profile.hidden) ? user.profile.hidden.hideAge : null,
+      hideGender: (user.profile.hidden) ? user.profile.hidden.hideGender : null,
+      hideSocial: (user.profile.hidden) ? user.profile.hidden.hideSocial : null,
+      hideTags: (user.profile.hidden) ? user.profile.hidden.hideTags : null,
+      hideAddress: (user.profile.hidden) ? user.profile.hidden.hideAddress : null,
+      hideRent: (user.profile.hidden) ? user.profile.hidden.hideRent : null,
+      hideDeposit: (user.profile.hidden) ? user.profile.hidden.hideDeposit : null
+    };
+    let show = this.handleHidden(user);
 
     return (
       <div className="profile-container">
@@ -177,7 +279,7 @@ class UserProfile extends TrackerReact(Component) {
           isOpen={this.state.isModalOpen}
           onClose={this.closeModal.bind(this)}
         />
-        <Navbar plain={false} /> 
+        <Navbar plain={false} />
         <div className="user-back">
           <div className="user-pic fileBrowse">
             {this.renderImagePreview()}
@@ -194,33 +296,48 @@ class UserProfile extends TrackerReact(Component) {
             {
               this.props.isOwn
                 ? <div className="likesDisplay"><i className="fa fa-thumbs-up"></i> {profileLikes}</div>
-                : <button className="likeButton" onClick={this.handleLike.bind(this, profileLikes)}>Like <i className="fa fa-thumbs-up"></i> {profileLikes}</button>
+                : null
+            }
+            {
+              !this.props.isOwn
+                ? hasLiked
+                  ? <button className="likeButton" onClick={this.handleLike.bind(this, profileLikes, hasLiked)}>Dislike <i className="fa fa-thumbs-up"></i> {profileLikes}</button>
+                  : <button className="likeButton" onClick={this.handleLike.bind(this, profileLikes, hasLiked)}>Like <i className="fa fa-thumbs-up"></i> {profileLikes}</button>
+                : null
+            }
+            <br />
+            {
+              !this.props.isOwn
+                ? hasMatched
+                  ? <button className="matchButton" onClick={this.handleInterest.bind(this, hasMatched)}>Match Sent</button>
+                  : <button className="matchButton" onClick={this.handleInterest.bind(this, hasMatched)}>Send Match</button>
+                : null
             }
             <div className="about">
               <h4>About me</h4>
-              <p>Age: {user.profile.age}</p>
-              <p>Gender: {user.profile.gender}</p>
+              <p>Age: {show.profile.age}</p>
+              <p>Gender: {show.profile.gender}</p>
               <h4>Introduction</h4>
               <p>{user.profile.about}</p>
-              <UserTags tags={user.profile.tags} />
+              <UserTags tags={show.profile.tags} />
 
               <div className="profileSocialGallery">
                 <a href={"http://www.facebook.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./") + "socialmedia/logo_facebook.jpg"} alt="logo_facebook" /></a>
-                <a href={"http://www.twitter.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./")+ "socialmedia/logo_twitter.jpg"} alt="logo_twitter" /></a>
+                <a href={"http://www.twitter.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./") + "socialmedia/logo_twitter.jpg"} alt="logo_twitter" /></a>
                 <a href={"http://www.github.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./") + "socialmedia/logo_github.jpg"} alt="logo_github" /></a>
                 <a href={"http://www.linkedin.com"} target="_blank"><img className="profileSocial" src={(this.props.isUserPath ? "../" : "./") + "socialmedia/logo_linkedin.jpg"} alt="logo_linkedin" /></a>
               </div>
 
-              <span className="socialSpan"><a href={"http://www." + user.profile.social} target="_blank">My Social Media</a></span>
+              <span className="socialSpan"><a href={"https://" + user.profile.social} target="_blank">My Social Media</a></span>
 
               <h4>About my place</h4>
-              <p>{address}</p>
+              <p>{show.profile.place.address}</p>
 
               <div className="profileHousingInfo">
                 <div className="housingColumn">
                   <strong>Property Type <br /><p>{property.propertyType ? property.propertyType : "N/A"}</p></strong>
                   <strong>Room Count <br /><p>{property.roomCount ? property.roomCount : 0}</p></strong>
-                  <strong>Bathroom Count <br /><p>{property.roomCount ? property.roomCount : 0}</p></strong>
+                  <strong>Bathroom Count <br /><p>{property.bathroomCount ? property.bathroomCount : 0}</p></strong>
                 </div>
                 <div className="housingColumn">
                   <strong>Internet <br /><p>{amenities.internet === 'yes' ? "yes" : "no"}</p></strong>
@@ -228,8 +345,8 @@ class UserProfile extends TrackerReact(Component) {
                   <strong>A/C <br /><p>{amenities.ac === 'yes' ? "yes" : "no"}</p></strong>
                 </div>
                 <div className="housingColumn">
-                  <strong>Rent <br /><p>${room.rent}</p></strong>
-                  <strong>Deposit <br /><p>${room.deposit}</p></strong>
+                  <strong>Rent <br /><p>{show.profile.place.rent}</p></strong>
+                  <strong>Deposit <br /><p>{show.profile.place.deposit}</p></strong>
                   <strong>Room Type <br /><p>{room.roomType ? room.roomType : "N/A"}</p></strong>
                   <strong>Bathroom Type <br /><p>{room.bathroomType ? room.bathroomType : "N/A"}</p></strong>
                   <strong>Furnishing <br /><p>{room.furnishing ? room.furnishing : "N/A"}</p></strong>
@@ -250,7 +367,25 @@ class UserProfile extends TrackerReact(Component) {
             </form>
           </div>
 
-          <div class="comment-section">
+          <div class="delete-class">
+            <Button className="delete" type="submit" bsStyle="danger" onClick={this.open.bind(this)}>Delete Account</Button>
+          </div>
+          <div className="static-modal">
+            <Modal show={this.state.showModal} onHide={this.close.bind(this)}>
+              <Modal.Header>
+                <Modal.Title>Warning</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                Are you sure you want to delete?
+            </Modal.Body>
+              <Modal.Footer>
+                <Button onClick={this.close.bind(this)}>Close</Button>
+                <Button bsStyle="danger" onClick={this.deleteAccount.bind(this)}>Delete</Button>
+              </Modal.Footer>
+            </Modal>
+          </div>
+
+          <div className="comment-section">
             <Blaze template="commentsBox" id={this.props.user._id} />
           </div>
 
@@ -263,7 +398,7 @@ class UserProfile extends TrackerReact(Component) {
 export default createContainer(() => {
   Meteor.subscribe('avatar');
 
-	return {
+  return {
 
-	};
+  };
 }, UserProfile);

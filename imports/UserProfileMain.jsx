@@ -19,8 +19,8 @@ class UserProfileMain extends TrackerReact(Component) {
     if (!this.props.isLoggedIn) {
       alert("Not logged in");
       window.location.replace("/login");
+      return null;
     }
-    
 
     let user = this.props.user;
     let hasPlace;
@@ -28,14 +28,51 @@ class UserProfileMain extends TrackerReact(Component) {
     if (user) {
       hasPlace = user.profile.hasOwnProperty('place');
 
-      // Profile likes - check if profile is new
-      if (!user.profile.hasOwnProperty('profileLikes')) {
-        console.log("new account");
-        Users.update(Meteor.userId(), {
-          $set: {
-          "profile.profileLikes": 0
-          }
-        });
+      // If account is new, initialize fields
+      if (this.props.isOwn) {
+        // Profile likes
+        if (!user.profile.hasOwnProperty('profileLikes')) {
+          Users.update(Meteor.userId(), {
+            $set: {
+              "profile.profileLikes": 0
+            }
+          });
+        }
+        // Profiles liked
+        if (!user.profile.hasOwnProperty('profilesLiked')) {
+          Users.update(Meteor.userId(), {
+            $set: {
+              "profile.profilesLiked": []
+            }
+          });
+        }
+        // Profile hidden
+        if (!user.profile.hasOwnProperty('hidden')) {
+          Users.update(Meteor.userId(), {
+            $set: {
+              "profile.hidden": {}
+            }
+          });
+        }
+        // Profile matches
+        if (!user.profile.hasOwnProperty('matches')) {
+          Users.update(Meteor.userId(), {
+            $set: {
+              "profile.matches": []
+            }
+          });
+        }
+      }
+
+      // Match only
+      if (!this.props.isOwn && user.profile.visibility === "matches") {
+        // check is user is matched
+        console.log(user.profile.matches);
+        if (user.profile.matches.indexOf(Meteor.user().username) == -1) {
+          alert("Profile is set to matches only");
+          window.location.replace("/home");
+          return null;
+        }
       }
 
       console.log(user);
@@ -43,7 +80,7 @@ class UserProfileMain extends TrackerReact(Component) {
     // user doesn't exist
     else {
       console.log("User is null");
-      window.location.replace("/404");
+      return null;
     }
 
     return (
@@ -67,7 +104,6 @@ export default createContainer((route) => {
 
   let user = Meteor.user();
   if (user) {
-
     isLoggedIn = true;
 
     if (route.match.path === '/profilemain')

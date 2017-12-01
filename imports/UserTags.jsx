@@ -8,7 +8,10 @@ export default class UserTags extends Component {
   }
 
   render() {
-    return(
+    if (this.props.tags === "Hidden") {
+      return (<p>Tags Hidden</p>);
+    }
+    return (
       <div className="tagsContainer">
         <p>I would describe myself as:</p>
         <span className="userTags">{this.listTags()}</span>

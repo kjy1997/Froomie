@@ -4,6 +4,9 @@ import '../client/css/search.css';
 import { Mongo } from 'meteor/mongo';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { createContainer } from 'react-meteor-data';
+import ReactDOM from 'react-dom';
+import Navbar from './Navbar.jsx';
+
 
 class SearchWithoutPlace extends TrackerReact(Component) {
 	constructor(props) {
@@ -14,7 +17,7 @@ class SearchWithoutPlace extends TrackerReact(Component) {
 	updateFilters() {
 		const agefilter = ReactDOM.findDOMNode(this.refs.agefilter).value;
 		const genderfilter = ReactDOM.findDOMNode(this.refs.genderfilter).value;
-		const budgettfilter = ReactDOM.findDOMNode(this.refs.budgetfilter).value;
+		const budgetfilter = ReactDOM.findDOMNode(this.refs.budgetfilter).value;
 
 		if (agefilter === 'select' && genderfilter === 'select' && budgetfilter === 'select') {
 			Session.set('filters', {});
@@ -26,11 +29,13 @@ class SearchWithoutPlace extends TrackerReact(Component) {
 				selector.$and.push({ "profile.age": { $gte: 18, $lte: 25 } });
 			} else if (agefilter === "25") {
 				selector.$and.push({ "profile.age": { $gte: 25 } });
-			} else if (genderfilter === "male") {
+			} 
+			if (genderfilter === "male") {
 				selector.$and.push({ "profile.gender" : "male" })
 			} else if (genderfilter === "female") {
 				selector.$and.push({ "profile.gender" : "female" })
-			} else if (budgetfilter === 'lte400') {
+			}
+			if (budgetfilter === 'lte400') {
 				selector.$and.push({ "profile.budget" : { $lte: 400 } })
 			} else if (budgetfilter === '400-600') {
 				selector.$and.push({ "profile.budget" : { $gt: 400, $lte: 600 } })
@@ -54,7 +59,6 @@ class SearchWithoutPlace extends TrackerReact(Component) {
 	  }
 
 	getUsers(filters) {
-		console.log('test');
 		let userarray = [];
 
 		Meteor.users.find(filters).forEach(function (user) {
@@ -83,12 +87,7 @@ class SearchWithoutPlace extends TrackerReact(Component) {
 	render() {
 		return (
 			<div>
-				<Row className="top-bar">
-					<Col sm={3} className="logo">
-						<h3>Froomie!</h3>
-					</Col>
-				</Row>
-
+				<Navbar plain={false} />
 				<Row className="content">
 					<Col sm={3} className="filter">
 						<h3>Filters</h3>

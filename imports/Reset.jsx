@@ -54,7 +54,9 @@ export default class Reset extends Component {
                         <Col sm={6} className="btn-content">
                             <Button className="submit" type="submit" onClick={this.sendRPEmail.bind(this)}>Submit</Button>
                         </Col>
-
+                        <Col>
+                        <a href="/login">Go back to login</a>
+                        </Col>
                     </Row>
                 </div>
             </div>

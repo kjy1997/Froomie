@@ -18,7 +18,7 @@ export default class EditProfileModalNoPlace extends Component {
 
     const fNameField    = ReactDOM.findDOMNode(this.refs.firstNameField).value.trim();
     const lNameField    = ReactDOM.findDOMNode(this.refs.lastNameField).value.trim();
-	const mailField     = ReactDOM.findDOMNode(this.refs.emailField).value.trim();
+    const emailField    = ReactDOM.findDOMNode(this.refs.emailField).value.trim();
     const aboutField    = ReactDOM.findDOMNode(this.refs.aboutField).value.trim();
     const ageField      = ReactDOM.findDOMNode(this.refs.ageField).value.trim();
     const genderField   = ReactDOM.findDOMNode(this.refs.genderField).value.trim();
@@ -26,10 +26,35 @@ export default class EditProfileModalNoPlace extends Component {
     const budgetField   = ReactDOM.findDOMNode(this.refs.budgetField).value.trim();
     const moveInField   = ReactDOM.findDOMNode(this.refs.moveInField).value.trim();
     const stayLenField  = ReactDOM.findDOMNode(this.refs.stayLengthField).value.trim();
+
+    // Hidden info
+    const hideAgeField      = ReactDOM.findDOMNode(this.refs.hideAge).value.trim();
+    const hideGenderField   = ReactDOM.findDOMNode(this.refs.hideGender).value.trim();
+    const hideSocialField   = ReactDOM.findDOMNode(this.refs.hideSocial).value.trim();
+    const hideTagsField     = ReactDOM.findDOMNode(this.refs.hideTags).value.trim();
+    const hideBudgetField   = ReactDOM.findDOMNode(this.refs.hideBudget).value.trim();
+    const hideMoveInDateField  = ReactDOM.findDOMNode(this.refs.hideMoveInDate).value.trim();
+    const hideStayLengthField  = ReactDOM.findDOMNode(this.refs.hideStayLength).value.trim();
     
-    if (!fNameField || !lNameField || !aboutField || !mailField) {
+    if (!fNameField || !lNameField || !ageField || !emailField 
+      || !aboutField || !budgetField || !moveInField || !stayLenField) {
       alert("Missing information!");
       return;
+    }
+
+    if (budgetField < 0) {
+      alert("Budget cannot be negative!");
+      return;
+    }
+
+    let hidden = {
+      hideAge: hideAgeField,
+      hideGender: hideGenderField,
+      hideSocial: hideSocialField,
+      hideTags: hideTagsField,
+      hideBudget: hideBudgetField,
+      hideMoveInDate: hideMoveInDateField,
+      hideStayLength: hideStayLengthField
     }
 
     let obj = {
@@ -38,12 +63,14 @@ export default class EditProfileModalNoPlace extends Component {
       about: aboutField,
       age: parseInt(ageField),
       gender: genderField,
-	  mail: mailField,
+      email: emailField,
       tags: this.state.tags,
       social: socialField,
       budget: parseInt(budgetField),
       moveInDate: moveInField,
-      stayLength: stayLenField
+      stayLength: stayLenField,
+
+      hidden: hidden
     }
 
     this.props.handleEdit(obj);
@@ -90,7 +117,7 @@ export default class EditProfileModalNoPlace extends Component {
   getEditTools() {
     let firstName = this.props.profile.firstName;
     let lastName = this.props.profile.lastName;
-	let email = this.props.profile.email;
+    let email = this.props.profile.email;
     let stay = this.props.stay;
 
     return(
@@ -113,8 +140,11 @@ export default class EditProfileModalNoPlace extends Component {
           </select>
           </div>
           <br />
-		  <input className="nameInput" type="text" ref="emailField" placeholder="email *" defaultValue={email}/>
-		  <br />
+
+    		  <input className="nameInput" type="text" ref="emailField" placeholder="email *" defaultValue={email}/>
+    		  <br />
+          <br />
+
           <textarea ref="aboutField" placeholder="tell us about yourself! *" defaultValue={this.props.profile.about}></textarea>
           <br />
 
@@ -136,39 +166,100 @@ export default class EditProfileModalNoPlace extends Component {
           <div className="housingInfo">
             <div className="housingColumn stayInfo">
               <label className="housingColumnName">About My Stay</label>
+              <label>Budget</label>
               <input type="number" ref="budgetField" placeholder="budget" defaultValue={stay.budget}/>
+              <label>Move In Date</label>
               <input type="text" ref="moveInField" placeholder="move in date" defaultValue={stay.moveInDate}/>
+              <label>Stay Length</label>
               <input type="text" ref="stayLengthField" placeholder="length of stay" defaultValue={stay.stayLength}/>
             </div>
           </div>
           
           <h6>* indicates required fields</h6>
-          <input type="submit"/>
+          <input type="submit" value="Save"/>
         </form>
       </div>
     );
   }
 
+  getHideTools() {
+    let hidden = this.props.profile.hidden;
+    return (
+      <div className="hideTools">
+        <div className="hideSection">
+          <label>Profile Visibility</label>
+          <select>
+            <option>public</option>
+            <option>matches only</option>
+          </select>
+        </div>
+        <div className="hideSection">
+          <label>Age</label>
+          <select ref="hideAge" defaultValue={hidden.hideAge}>
+            <option value="nh">not hidden</option>
+            <option value="mh">match hidden</option>
+            <option value="ah">absolutely hidden</option>
+          </select>
+          <label>Gender</label>
+          <select ref="hideGender" defaultValue={hidden.hideGender}>
+            <option value="nh">not hidden</option>
+            <option value="mh">match hidden</option>
+            <option value="ah">absolutely hidden</option>
+          </select>
+          <label>Social Media</label>
+          <select ref="hideSocial" defaultValue={hidden.hideSocial}>
+            <option value="nh">not hidden</option>
+            <option value="mh">match hidden</option>
+            <option value="ah">absolutely hidden</option>
+          </select>
+          <label>Tags</label>
+          <select ref="hideTags" defaultValue={hidden.hideTags}>
+            <option value="nh">not hidden</option>
+            <option value="mh">match hidden</option>
+            <option value="ah">absolutely hidden</option>
+          </select>
+          <label>Budget</label>
+          <select ref="hideBudget" defaultValue={hidden.hideBudget}>
+            <option value="nh">not hidden</option>
+            <option value="mh">match hidden</option>
+            <option value="ah">absolutely hidden</option>
+          </select>
+          <label>Move In Date</label>
+          <select ref="hideMoveInDate" defaultValue={hidden.hideMoveInDate}>
+            <option value="nh">not hidden</option>
+            <option value="mh">match hidden</option>
+            <option value="ah">absolutely hidden</option>
+          </select>
+          <label>Stay Length</label>
+          <select ref="hideStayLength" defaultValue={hidden.hideStayLength}>
+            <option value="nh">not hidden</option>
+            <option value="mh">match hidden</option>
+            <option value="ah">absolutely hidden</option>
+          </select>
+        </div>
+      </div>
+    );
+  }
+
   render() {
-    if (this.props.isOpen === false)
+    if (!this.props.isOpen)
       return null;
 
     return(
       <div>
-        <div className="backdrop" onClick={e => this.close(e)}>
+        <div className="backdrop" onClick={this.close.bind(this)}>
           <div className="profileModal" onClick={e => e.stopPropagation()}>
           {this.getEditTools()}
+          {this.getHideTools()}
           </div>
         </div>
       </div>
     );
   }
 
-  close(e) {
-    e.preventDefault();
-
-    if (this.props.onClose) {
-      this.props.onClose();
-    }
+  close() {
+    this.props.onClose();
   }
 }
+
+

@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import { createContainer } from 'react-meteor-data';
 import { DropdownButton, MenuItem, Button } from 'react-bootstrap';
 
-
-
 class UserToolbar extends Component {
     constructor(props) {
         super(props);
         this.state = { dropdown: false };
     }
+
 
     logout(e) {
         e.preventDefault();
@@ -17,6 +16,10 @@ class UserToolbar extends Component {
         window.location.replace("/login");
     }
 
+    interests(e) {
+        e.preventDefault();
+        window.location.replace("/interests");
+    }
     render() {
         let user = this.props.user;
 
@@ -24,9 +27,13 @@ class UserToolbar extends Component {
             return (
                 <div className="welcome">
 
+
                     <DropdownButton title="Welcome!" noCaret>
-                        <MenuItem eventKey="1"><a href="/profilemain">Profile</a></MenuItem>
-                        <MenuItem eventKey="2"><a href="#" onClick={this.logout}>Logout</a></MenuItem>
+                        <MenuItem eventKey="1" href="/profilemain">Profile</MenuItem>
+                        <MenuItem eventKey="2" href="/search">Search(With place)</MenuItem>
+                        <MenuItem eventKey="3" href="/searchwithoutplace">Search(Without place)</MenuItem>
+                        <MenuItem eventKey="4"><span onClick={this.interests}>Interests</span></MenuItem>
+                        <MenuItem eventKey="5" onClick={this.logout}>Logout</MenuItem>
                     </DropdownButton>
 
                 </div>
