@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import UserTags from './UserTags.jsx';
 import EditProfileModalNoPlace from './EditProfileModalNoPlace.jsx';
 import { Users } from './api/users.js';
-import { Image } from 'react-bootstrap';
+import { Image, Button, Modal } from 'react-bootstrap';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { createContainer } from 'react-meteor-data';
 import Blaze from 'meteor/gadicc:blaze-react-component';
@@ -16,7 +16,8 @@ class UserProfileNoPlace extends TrackerReact(Component) {
   constructor(props) {
     super(props);
     this.state = {
-      isModalOpen: false
+      isModalOpen: false,
+      showModal: false
     }
   }
 
@@ -109,6 +110,21 @@ class UserProfileNoPlace extends TrackerReact(Component) {
     return show;
   }
 
+  close() {
+    this.setState({ showModal: false });
+  }
+
+  open() {
+    this.setState({ showModal: true });
+  }
+
+
+  deleteAccount() {
+    
+    Meteor.users.remove({_id: Meteor.userId()});
+
+  }
+
   render() {
     let user = this.props.user;
     let profileLikes = user.profile.profileLikes;
@@ -191,6 +207,29 @@ class UserProfileNoPlace extends TrackerReact(Component) {
             <input type="submit" value="Submit" />
           </form>
         </div>
+
+        <div class="delete-class">
+            <Button className="delete" type="submit" bsStyle="danger" onClick={this.open.bind(this)}>Delete Account</Button>
+          </div>
+          <div className="static-modal">
+            <Modal show={this.state.showModal} onHide={this.close.bind(this)}>
+              <Modal.Header>
+                <Modal.Title>Warning</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                Are you sure you want to delete?
+            </Modal.Body>
+              <Modal.Footer>
+                <Button onClick={this.close.bind(this)}>Close</Button>
+                <Button bsStyle="danger" onClick={this.deleteAccount.bind(this)}>Delete</Button>
+              </Modal.Footer>
+            </Modal>
+          </div>
+
+          <div className="comment-section">
+            <Blaze template="commentsBox" id={this.props.user._id} />
+          </div>
+
       </div>
     );
   }
