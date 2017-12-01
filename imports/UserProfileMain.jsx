@@ -18,6 +18,7 @@ class UserProfileMain extends TrackerReact(Component) {
     if (!this.props.isLoggedIn) {
       alert("Not logged in");
       window.location.replace("/login");
+      return null;
     }
 
     let user = this.props.user;
@@ -66,7 +67,11 @@ class UserProfileMain extends TrackerReact(Component) {
       if (!this.props.isOwn && user.profile.visibility === "matches") {
         // check is user is matched
         console.log(user.profile.matches);
-        console.log("matches only");
+        if (user.profile.matches.indexOf(Meteor.user().username) == -1) {
+          alert("Profile is set to matches only");
+          window.location.replace("/home");
+          return null;
+        }
       }
 
       console.log(user);
