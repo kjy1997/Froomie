@@ -34,7 +34,7 @@ export default class Home extends TrackerReact(Component) {
 
 				<h3 className="caption">Find The Perfect Roommate For You</h3>
 				
-				<div sm={6} className="buttons">
+				<div className="buttons">
 					<button className="homeButton withPlace">
 						<a href="/signupwithplace">I have a place</a>
 					</button>
