@@ -5,6 +5,7 @@ import { createContainer } from 'react-meteor-data';
 import UserProfile from './UserProfile.jsx';
 import UserProfileNoPlace from './UserProfileNoPlace.jsx';
 import { Users } from './api/users.js';
+import { Messages } from './api/messages.js';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
 class UserProfileMain extends TrackerReact(Component) {
@@ -60,6 +61,7 @@ class UserProfileMain extends TrackerReact(Component) {
 
 export default createContainer((route) => {
   Meteor.subscribe('allUsers');
+  Meteor.subscribe('allMessages');
   // check if user is logged in and is accessing own page
   let isLoggedIn = false;
 

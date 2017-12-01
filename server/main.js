@@ -6,6 +6,7 @@ import '../imports/api/tags.js';
 import '../imports/api/places.js';
 import '../imports/api/rooms.js';
 import '../imports/uploadpic/upload.js';
+import '../imports/api/messages.js';
 
 Meteor.startup(() => {
   Comments.config({
@@ -13,5 +14,8 @@ Meteor.startup(() => {
   });
   Meteor.publish('allUsers', function() {
     return Meteor.users.find();
+  });
+  Meteor.publish('allMessages', function() {
+	return Messages.find();
   });
 });

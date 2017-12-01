@@ -5,6 +5,7 @@ import UserTags from './UserTags.jsx';
 import EditProfileModal from './EditProfileModal.jsx';
 import { Users } from './api/users.js';
 import { Image } from 'react-bootstrap';
+import { Messages } from './api/messages.js';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { createContainer } from 'react-meteor-data';
 import Blaze from 'meteor/gadicc:blaze-react-component';
@@ -24,10 +25,20 @@ class UserProfile extends TrackerReact(Component) {
 
   handleContactSubmit(e) {
     e.preventDefault();
-
+	
     let message = ReactDOM.findDOMNode(this.refs.contactForm).value;
-
-    alert(message);
+	if(message) {
+		let send = Meteor.user().username;	
+		let recipient = this.props.user.username;
+		let time = new Date();
+		
+		Messages.insert({date:time, sender:send, to:recipient, body:message, unread:true});
+		alert("Message sent!");
+		console.log(Messages.find().fetch());
+	}
+	else{
+		alert("No message written");
+	}
   }
 
   handleEdit(obj) {
