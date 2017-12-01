@@ -185,15 +185,27 @@ class UserProfile extends TrackerReact(Component) {
   handleHidden(user) {
     // deep copy to prevent reference modification
     let show = JSON.parse(JSON.stringify(user));
+    let showTemp = JSON.parse(JSON.stringify(user));
     let hide = show.profile.hidden;
 
-    show.profile.age = (hide && hide.hideAge === "ah") ? "Hidden" : show.profile.age;
-    show.profile.gender = (hide && hide.hideGender === "ah") ? "Hidden" : show.profile.gender;
-    show.profile.social = (hide && hide.hideSocial === "ah") ? "Hidden" : show.profile.social;
-    show.profile.tags = (hide && hide.hideTags === "ah") ? "Hidden" : show.profile.tags;
-    show.profile.place.address = (hide && hide.hideAddress === "ah") ? "Hidden" : show.profile.place.address;
-    show.profile.place.rent = (hide && hide.hideRent === "ah") ? "Hidden" : "$" + show.profile.place.rent;
-    show.profile.place.deposit = (hide && hide.hideDeposit === "ah") ? "Hidden" : "$" + show.profile.place.deposit;
+    show.profile.age    = (hide && hide.hideAge != "nh") ? "Hidden" : showTemp.profile.age;
+    show.profile.gender = (hide && hide.hideGender != "nh") ? "Hidden" : showTemp.profile.gender;
+    show.profile.social = (hide && hide.hideSocial != "nh") ? "Hidden" : showTemp.profile.social;
+    show.profile.tags   = (hide && hide.hideTags != "nh") ? "Hidden" : showTemp.profile.tags;
+    show.profile.place.address  = (hide && hide.hideAddress != "nh") ? "Hidden" : showTemp.profile.place.address;
+    show.profile.place.rent     = (hide && hide.hideRent != "nh") ? "Hidden" : "$" + showTemp.profile.place.rent;
+    show.profile.place.deposit  = (hide && hide.hideDeposit != "nh") ? "Hidden" : "$" + showTemp.profile.place.deposit;
+
+    let isMatch = this.props.user.profile.matches.indexOf(Meteor.user().username) != -1;
+    if (isMatch) {
+      show.profile.age = (hide && (hide.hideAge === "mh" || hide.hideAge === "nh")) ? showTemp.profile.age : "Hidden";
+      show.profile.gender = (hide && (hide.hideGender === "mh" || hide.hideGender === "nh")) ? showTemp.profile.gender : "Hidden";
+      show.profile.social = (hide && (hide.hideSocial === "mh" || hide.hideSocial === "nh")) ? showTemp.profile.social : "Hidden";
+      show.profile.tags = (hide && (hide.hideTags === "mh" || hide.hideTags === "nh")) ? showTemp.profile.tags : "Hidden";
+      show.profile.place.address = (hide && (hide.hideAddress === "mh" || hide.hideAddress === "nh")) ? showTemp.profile.place.address : "Hidden";
+      show.profile.place.rent = (hide && (hide.hideRent === "mh" || hide.hideRent === "nh")) ? "$" + showTemp.profile.place.rent : "Hidden";
+      show.profile.place.deposit = (hide && (hide.hideDeposit === "mh" || hide.hideDeposit === "nh")) ? "$" + showTemp.profile.place.deposit : "Hidden";
+    }
 
     return show;
   }
