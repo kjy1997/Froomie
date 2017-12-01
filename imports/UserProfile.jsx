@@ -95,11 +95,11 @@ class UserProfile extends TrackerReact(Component) {
   }
 
   handleInterest() {
-    if (!Interests.findOne({username: this.props.user.usernme})) {
-      Interests.insert({'username': this.props.user.username, interests: []});
-    } 
-    var doc = Interests.findOne({ username: this.props.user.username});
-    Interests.update({_id: doc._id}, {$push: {interests: Meteor.user().username}});
+    Users.update({ _id: this.props.user._id }, {
+      $addToSet: {
+        "profile.interests": Meteor.user().username
+      }
+    })
     alert("We notified " + this.props.user.username + " about your interested!");
   }
 
