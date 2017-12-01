@@ -141,13 +141,13 @@ class UserProfile extends TrackerReact(Component) {
     let show = JSON.parse(JSON.stringify(user));
     let hide = show.profile.hidden;
 
-    show.profile.age = hide.hideAge ? "Hidden" : show.profile.age;
-    show.profile.gender = hide.hideGender ? "Hidden" : show.profile.gender;
-    show.profile.social = hide.hideSocial ? "Hidden" : show.profile.social;
-    show.profile.tags = hide.hideTags ? "Hidden" : show.profile.tags;
-    show.profile.place.address = hide.hideAddress ? "Hidden" : show.profile.place.address;
-    show.profile.place.rent = hide.hideRent ? "Hidden" : "$" + show.profile.place.rent;
-    show.profile.place.deposit = hide.hideDeposit ? "Hidden" : "$" + show.profile.place.deposit;
+    show.profile.age = (hide && hide.hideAge) ? "Hidden" : show.profile.age;
+    show.profile.gender = (hide && hide.hideGender) ? "Hidden" : show.profile.gender;
+    show.profile.social = (hide && hide.hideSocial) ? "Hidden" : show.profile.social;
+    show.profile.tags = (hide && hide.hideTags) ? "Hidden" : show.profile.tags;
+    show.profile.place.address = (hide && hide.hideAddress) ? "Hidden" : show.profile.place.address;
+    show.profile.place.rent = (hide && hide.hideRent) ? "Hidden" : "$" + show.profile.place.rent;
+    show.profile.place.deposit = (hide && hide.hideDeposit) ? "Hidden" : "$" + show.profile.place.deposit;
 
     return show;
   }
@@ -175,13 +175,13 @@ class UserProfile extends TrackerReact(Component) {
       preferGender: user.profile.place.preferGender
     };
     let hidden = {
-      hideAge: user.profile.hidden.hideAge,
-      hideGender: user.profile.hidden.hideGender,
-      hideSocial: user.profile.hidden.hideSocial,
-      hideTags: user.profile.hidden.hideTags,
-      hideAddress: user.profile.hidden.hideAddress,
-      hideRent: user.profile.hidden.hideRent,
-      hideDeposit: user.profile.hidden.hideDeposit
+      hideAge: (user.profile.hidden) ? user.profile.hidden.hideAge : null,
+      hideGender: (user.profile.hidden) ? user.profile.hidden.hideGender : null,
+      hideSocial: (user.profile.hidden) ? user.profile.hidden.hideSocial : null,
+      hideTags: (user.profile.hidden) ? user.profile.hidden.hideTags : null,
+      hideAddress: (user.profile.hidden) ? user.profile.hidden.hideAddress : null,
+      hideRent: (user.profile.hidden) ? user.profile.hidden.hideRent : null,
+      hideDeposit: (user.profile.hidden) ? user.profile.hidden.hideDeposit : null
     };
     let show = this.handleHidden(user);
 
