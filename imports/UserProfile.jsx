@@ -26,9 +26,17 @@ class UserProfile extends TrackerReact(Component) {
   handleContactSubmit(e) {
     e.preventDefault();
 
-    let message = ReactDOM.findDOMNode(this.refs.contactForm).value;
+    let content = ReactDOM.findDOMNode(this.refs.contactForm).value.trim();
+    const to = this.props.user;
+    const from = Meteor.users.findOne({ _id: Meteor.userId() });
 
-    alert(message);
+    Meteor.call('contact', from, to, content, function(error) {
+      if (!error) {
+        alert('Contact message successfully sent!');
+      } else {
+        console.log(error);
+      }
+    });
   }
 
   handleEdit(obj) {
@@ -78,7 +86,7 @@ class UserProfile extends TrackerReact(Component) {
     else {
       profilesLiked.push(this.props.user.username);
     }
-    
+
     Users.update(Meteor.userId(), {
       $set: {
         "profile.profilesLiked": profilesLiked
@@ -187,8 +195,8 @@ class UserProfile extends TrackerReact(Component) {
 
 
   deleteAccount() {
-    
-    Meteor.users.remove({_id: Meteor.userId()});
+
+    Meteor.users.remove({ _id: Meteor.userId() });
 
   }
 
@@ -258,7 +266,7 @@ class UserProfile extends TrackerReact(Component) {
                 : null
             }
             {
-              !this.props.isOwn 
+              !this.props.isOwn
                 ? hasLiked
                   ? <button className="likeButton" onClick={this.handleLike.bind(this, profileLikes, hasLiked)}>Dislike <i className="fa fa-thumbs-up"></i> {profileLikes}</button>
                   : <button className="likeButton" onClick={this.handleLike.bind(this, profileLikes, hasLiked)}>Like <i className="fa fa-thumbs-up"></i> {profileLikes}</button>
