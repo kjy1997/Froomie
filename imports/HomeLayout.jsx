@@ -4,7 +4,6 @@ import { Col, Row, Button } from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'; 
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
-
 export default class Home extends TrackerReact(Component) { 
 
 	isUser() {

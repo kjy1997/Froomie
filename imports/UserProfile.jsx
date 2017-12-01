@@ -93,6 +93,20 @@ class UserProfile extends TrackerReact(Component) {
     });
   }
 
+  handleMatch(hasMatched) {
+    if (hasMatched) {
+      alert("You have already sent a match!");
+      return;
+    }
+    let matches = Meteor.user().profile.matches;
+    matches.push(this.props.user.username);
+    Users.update(Meteor.userId(), {
+      $set: {
+        "profile.matches": matches
+      }
+    });
+  }
+
   openModal() {
     this.setState({ isModalOpen: true });
   }
@@ -180,6 +194,7 @@ class UserProfile extends TrackerReact(Component) {
     let address = user.profile.place.address;
     let profileLikes = user.profile.profileLikes;
     let hasLiked = Meteor.user().profile.profilesLiked.indexOf(user.username) != -1;
+    let hasMatched = Meteor.user().profile.matches.indexOf(user.username) != -1;
     let property = {
       propertyType: user.profile.place.property,
       roomCount: user.profile.place.roomCount,
@@ -245,6 +260,14 @@ class UserProfile extends TrackerReact(Component) {
                 ? hasLiked
                   ? <button className="likeButton" onClick={this.handleLike.bind(this, profileLikes, hasLiked)}>Dislike <i className="fa fa-thumbs-up"></i> {profileLikes}</button>
                   : <button className="likeButton" onClick={this.handleLike.bind(this, profileLikes, hasLiked)}>Like <i className="fa fa-thumbs-up"></i> {profileLikes}</button>
+                : null
+            }
+            <br />
+            {
+              !this.props.isOwn
+                ? hasMatched
+                  ? <button className="matchButton" onClick={this.handleMatch.bind(this, hasMatched)}>Match Sent</button>
+                  : <button className="matchButton" onClick={this.handleMatch.bind(this, hasMatched)}>Send Match</button>
                 : null
             }
             <div className="about">
