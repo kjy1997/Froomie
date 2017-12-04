@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Col, Row, Grid, Button, FormControl, Image, FormGroup } from 'react-bootstrap';
-import '../client/css/signupmain.css';
+//import '../client/css/signupmain.css';
 import UserTags from './UserTags.jsx';
 
 import UserToolbar from './UserToolbar.jsx';

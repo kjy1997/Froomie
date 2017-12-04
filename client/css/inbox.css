@@ -5,3 +5,7 @@
 .content{
 	background-color: 	#cccccc
 }
+
+.comment .content {
+	background-color: inherit;
+}

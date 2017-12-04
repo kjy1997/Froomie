@@ -1,3 +1,4 @@
+import 'jsdom-global/register';
 import React from 'react';
 import { mount } from 'enzyme';
 
@@ -7,20 +8,15 @@ import { assert } from 'chai';
 
 describe('Reset', () => {
     it('should have input area', () => {
-        const Reset = mount(<Reset />);
+        const reset = mount(<Reset />);
 
-        assert(Reset.find('input'));
+        assert(reset.find('input'));
     });
     it('should type in the form when requring email', () => {
-        const Reset = mount(<Reset />);
+        const reset = mount(<Reset />);
+        const input = reset.find('input');
 
-        // simulate type in input
-        Reset.find('input').simulate('change', {
-            target: {
-                value: 'kouj@purdue.edu'
-            }
-        });
-
-        assert.equal(Reset.find('input').value, 'kouj@purdue.edu');
+        input.instance.value = 'kouj@purdue.edu';
+        assert.equal(input.instance.value, 'kouj@purdue.edu');
     });
 });
