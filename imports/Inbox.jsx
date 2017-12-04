@@ -26,9 +26,6 @@ class Inbox extends Component {
 					<Col sm={10}>
 						<p> {message.body} </p>
 					</Col>
-					<Button className="replybtn">
-					Reply
-					</Button>
 					</Row>
 				)
 			}
