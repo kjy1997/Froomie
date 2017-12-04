@@ -30,7 +30,8 @@ class UserToolbar extends Component {
                         <MenuItem eventKey="2" href="/search">Search(With place)</MenuItem>
                         <MenuItem eventKey="3" href="/searchwithoutplace">Search(Without place)</MenuItem>
                         <MenuItem eventKey="4"><span onClick={this.interests}>Interests</span></MenuItem>
-                        <MenuItem eventKey="5" onClick={this.logout}>Logout</MenuItem>
+                        <MenuItem eventKey="5" href="/inbox">Inbox</MenuItem>
+                        <MenuItem eventKey="6" onClick={this.logout}>Logout</MenuItem>
                     </DropdownButton>
 
                 </div>
