@@ -56,9 +56,11 @@ class UserProfileMain extends TrackerReact(Component) {
         }
         // Profile matches
         if (!user.profile.hasOwnProperty('matches')) {
+          let matches = [];
+          matches.push(user.username);
           Users.update(Meteor.userId(), {
             $set: {
-              "profile.matches": []
+              "profile.matches": matches
             }
           });
         }

@@ -9,7 +9,6 @@ class UserToolbar extends Component {
         this.state = { dropdown: false };
     }
 
-
     logout(e) {
         e.preventDefault();
         Meteor.logout();
@@ -26,9 +25,7 @@ class UserToolbar extends Component {
         if (user) {
             return (
                 <div className="welcome">
-
-
-                    <DropdownButton title="Welcome!" noCaret>
+                    <DropdownButton id="drop" title="Welcome!" noCaret>
                         <MenuItem eventKey="1" href="/profilemain">Profile</MenuItem>
                         <MenuItem eventKey="2" href="/search">Search(With place)</MenuItem>
                         <MenuItem eventKey="3" href="/searchwithoutplace">Search(Without place)</MenuItem>

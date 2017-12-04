@@ -81,7 +81,7 @@ class UserProfile extends TrackerReact(Component) {
         "profile.hidden": obj.hidden
       }
     });
-    this.geocodeAddress(obj.address);
+    this.geocodeAddress(obj.address, obj.hidden);
   }
 
   handleLike(likes, hasLiked) {
@@ -142,8 +142,16 @@ class UserProfile extends TrackerReact(Component) {
     this.setState({ isModalOpen: false });
   }
 
-  geocodeAddress(address) {
+  geocodeAddress(address, hidden) {
     this.geocoder.geocode({ 'address': address }, function handleResults(results, status) {
+      if (hidden.hideAddress === 'ah') {
+        status = google.maps.GeocoderStatus.ERROR;
+        this.forceUpdate();
+      }
+      if (hidden.hideAddress === 'mh' && this.props.user.profile.matches.indexOf(Meteor.user().username) == -1) {
+        status = google.maps.GeocoderStatus.ERROR;
+        this.forceUpdate();
+      }
       if (status === google.maps.GeocoderStatus.OK) {
         this.map.setZoom(16);
         this.map.setCenter(results[0].geometry.location);
@@ -171,7 +179,7 @@ class UserProfile extends TrackerReact(Component) {
     });
 
     this.geocoder = new google.maps.Geocoder();
-    this.geocodeAddress(this.props.user.profile.place.address);
+    this.geocodeAddress(this.props.user.profile.place.address, this.props.user.profile.hidden);
 
     avatar.resumable.assignBrowse($(".fileBrowse"));
 
@@ -228,7 +236,6 @@ class UserProfile extends TrackerReact(Component) {
     return show;
   }
 
-
   close() {
     this.setState({ showModal: false });
   }
@@ -237,11 +244,8 @@ class UserProfile extends TrackerReact(Component) {
     this.setState({ showModal: true });
   }
 
-
   deleteAccount() {
-
     Meteor.users.remove({ _id: Meteor.userId() });
-
   }
 
   render() {
@@ -379,7 +383,7 @@ class UserProfile extends TrackerReact(Component) {
             </form>
           </div>
 
-          <div class="delete-class">
+          <div className="delete-class">
             <Button className="delete" type="submit" bsStyle="danger" onClick={this.open.bind(this)}>Delete Account</Button>
           </div>
           <div className="static-modal">

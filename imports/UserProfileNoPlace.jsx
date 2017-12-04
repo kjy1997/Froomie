@@ -24,18 +24,18 @@ class UserProfileNoPlace extends TrackerReact(Component) {
 
   handleContactSubmit(e) {
     e.preventDefault();
-	
+
     let message = ReactDOM.findDOMNode(this.refs.contactForm).value;
-	if(message) {
-		let send = Meteor.user().username;	
-		let recipient = this.props.user.username;
-		
-		Messages.insert({sender:send, to:recipient, body:message, unread:true});
-		alert("Message sent!");
-	}
-	else{
-		alert("No message written");
-	}
+    if (message) {
+      let send = Meteor.user().username;	
+      let recipient = this.props.user.username;
+
+      Messages.insert({sender:send, to:recipient, body:message, unread:true});
+      alert("Message sent!");
+    }
+    else {
+      alert("No message written");
+    }
   }
 
   handleEdit(obj) {
@@ -181,11 +181,8 @@ class UserProfileNoPlace extends TrackerReact(Component) {
     this.setState({ showModal: true });
   }
 
-
   deleteAccount() {
-    
     Meteor.users.remove({_id: Meteor.userId()});
-
   }
 
   render() {
