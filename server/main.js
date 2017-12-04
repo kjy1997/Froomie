@@ -19,7 +19,10 @@ Meteor.startup(() => {
     return Meteor.users.find();
   });
   Meteor.publish('allMessages', function() {
-	return Messages.find();
+	  return Messages.find();
+  });
+  Meteor.publish('allAvatars', function () {
+    return Avatars.find();
   });
   Meteor.methods({
     'contact': function (from, to, content) {

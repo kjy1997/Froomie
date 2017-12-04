@@ -76,6 +76,11 @@
   background-color: rgb(230, 230, 230);
 }
 
+.dropzone {
+  border-width: 0px;
+  cursor: pointer;
+}
+
 .avatar {
   width: 150px;
   height: 150px;

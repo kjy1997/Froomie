@@ -10,6 +10,7 @@ import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { createContainer } from 'react-meteor-data';
 import Blaze from 'meteor/gadicc:blaze-react-component';
 import { Interests } from './api/interests.js';
+import Dropzone from 'react-dropzone';
 
 import Navbar from './Navbar.jsx';
 
@@ -23,6 +24,24 @@ class UserProfile extends TrackerReact(Component) {
       isModalOpen: false,
       showModal: false
     }
+  }
+
+  handleUpload(files) { //this function is called whenever a file was dropped in your dropzone
+    files.forEach((file) => {
+        file.owner = Meteor.userId(); //before upload also save the owner of that file
+        Avatars.insert(file, function(err, fileObj) {
+            if (err) {
+                console.log(err); //in case there is an error, log it to the console
+            } else {
+                //the image upload is done successfully.
+                //you can use this callback to add the id of your file into another collection
+                //for this you can use fileObj._id to get the id of the file
+                setTimeout(function() {
+                  Meteor.users.update({ _id: Meteor.userId() }, { $set: { 'profile.avatar': `/cfs/files/avatars/${fileObj._id}` } });
+                }, 1000);
+            }
+        });
+    });
   }
 
   handleContactSubmit(e) {
@@ -172,31 +191,14 @@ class UserProfile extends TrackerReact(Component) {
 
     this.geocoder = new google.maps.Geocoder();
     this.geocodeAddress(this.props.user.profile.place.address);
-
-    avatar.resumable.assignBrowse($(".fileBrowse"));
-
-    avatar.resumable.on('fileAdded', function (file) {
-
-      // Create a new file in the file collection to upload
-      avatar.insert({
-        _id: file.uniqueIdentifier,  // This is the ID resumable will use
-        filename: file.fileName,
-        contentType: file.file.type
-      },
-        function (err, _id) {  // Callback to .insert
-          if (err) { return console.error("File creation failed!", err); }
-          // Once the file exists on the server, start uploading
-          avatar.resumable.upload();
-
-          let avatarUrl = avatar.baseURL + "/" + _id;
-          Meteor.users.update({ _id: Meteor.userId() }, { $set: { 'profile.avatar': avatarUrl } });
-        }
-      );
-    });
   }
 
   renderImagePreview() {
-    return <Image src={this.props.user.profile.avatar} circle className="avatar" />
+    return (
+      <Dropzone onDrop={this.handleUpload.bind(this)} className="dropzone">
+        <Image src={this.props.user.profile.avatar} circle className="avatar" />
+      </Dropzone>
+    )
   }
 
   // handles hidden user info (display only)
@@ -408,8 +410,7 @@ class UserProfile extends TrackerReact(Component) {
 }
 
 export default createContainer(() => {
-  Meteor.subscribe('avatar');
-
+  Meteor.subscribe('allAvatars');
   return {
 
   };
